@@ -1,41 +1,107 @@
 @import './config';
 
+body {
+    background-color: rgb(82, 86, 95);
+}
+
 .top-icon {
     text-align: end;
 }
 
 .check-icon {
+    background-color: white;
+    color: $success-color;
     border: 1px solid black;
     border-radius: 50%;
     padding: 1px;
-    color: $success-color;
     font-size: 20px;
+
+    :hover {
+        background-color: green;
+        color: white;
+    }
 }
 
-.table-1 {
+.ticket {
     border: 1px solid black;
     border-radius: 5%;
-
-    .item-table {
-        display: flex;
-        justify-content: center;
-
-        th,
-        td {
-            border: 1px solid black;
-            border-radius: 5%;
-            padding: 5px;
-        }
-
-        table {
-            border: 1px solid black;
-            width: 100%;
+    margin: 10px;
+    .item-order-type {
+        height: 65px;
+        background-color: rgb(170, 0, 255);
+        color: white;
+        p {
+            text-align: center;
+            font-family: 'Source Serif Pro';
+            font-weight: 600;
+            font-size: 26px;
         }
     }
-
-    .delete-icon {
-        color: $danger-color;
-        font-size: 24px;
-        cursor: pointer;
+    .item-course-detail {
+        .item-detail {
+            text-align: center;
+            background-color: rgb(199, 199, 199);
+            height: 120px;
+            color: white;
+        }
+        .course-item {
+            background-color: rgb(216, 216, 216);
+            color: white;
+            .course-type {
+                height: 10px;
+                font-size: 18px;
+                font-family: 'Open Sans';
+                font-weight: 500;
+                text-align: center;
+            }
+            .item-list {
+                background-color: white;
+                color: black;
+                height: 130px;
+                .item-name {
+                    display: flex;
+                    justify-content: space-between;
+                    p {
+                        padding: 0px 10px;
+                    }
+                    .delete-icon {
+                        color: $danger-color;
+                        font-size: 24px;
+                        cursor: pointer;
+                        padding: 0px 10px;
+                    }
+                }
+                .description{
+                    color: rgb(94, 147, 252);
+                    font-family: "Poppins";
+                    font-size: 14px;
+                    font-weight: 400;
+                    padding: 0px 5px;
+                }
+                .allergies {
+                    padding: 05px 10px;
+                    span {
+                        font-weight: 500;
+                        font-family: 'Poppins';
+                        padding: 0px 5px;
+                        color: $danger-color;
+                    }
+                }
+                .add-ons{
+                    padding: 0px 5px;
+                    color: rgb(247, 181, 82);
+                    font-family: "Poppins";
+                    font-size: 14px;
+                    font-weight: 400;
+                }
+            }
+        }
+        .seen-btn {
+            background-color: rgb(237, 40, 144);
+            color: white;
+            width: 100%;
+            border: 0;
+            height: 35px;
+        }
     }
 }

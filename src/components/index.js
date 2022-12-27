@@ -1,156 +1,59 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
 import "../scss/home.scss";
+import Sidebar from './sidebar';
 
 const Home = () => {
+    const handleSuccess = () => {
+        console.log('handle-success')
+    }
+
+    const handleDelete = () => {
+        console.log('handle-delete')
+    }
     return (
-        <div className="container text-center ">
+        <div className="container">
+        <Sidebar FontAwesomeIcon={FontAwesomeIcon} Bar={faBars}/>
             <div className="row">
-                <div className="col">
-                    <div className='top-icon'>
-                        <FontAwesomeIcon icon={faCheck} className="check-icon " />
-                    </div>
-                    <div className='table-1'>
-                        <div className='item-detail'>
-                            <p>Order Time: <span>10pm</span></p>
-                            <p>Table Number: <span>10</span></p>
-                            <p>Employee: <span>Ram</span></p>
-                            <p>Order Type: <span>Dine-In</span></p>
+                <div className="col-md-3">
+                    <div className='ticket'>
+                        <div className='item-order-type'>
+                            <div className='top-icon'>
+                                <FontAwesomeIcon icon={faCheck} className="check-icon" onClick={handleSuccess} />
+                            </div>
+                            <p className='item-type'>Dine-In</p>
                         </div>
-                        <div className='item-table'>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>S.No</th>
-                                        <th>Item</th>
-                                        <th>Order</th>
-                                        <th>Modification</th>
-                                        <th>Delete</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Chicken Momo</td>
-                                        <td>2</td>
-                                        <td></td>
-                                        <td> <FontAwesomeIcon icon={faTimes} className="delete-icon" /></td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Chicken Momo</td>
-                                        <td>2</td>
-                                        <td>2</td>
-                                        <td> <FontAwesomeIcon icon={faTimes} className="delete-icon" /></td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Chicken Momo</td>
-                                        <td>2</td>
-                                        <td>2</td>
-                                        <td> <FontAwesomeIcon icon={faTimes} className="delete-icon" /></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div className="col">
-                    <div className='top-icon'>
-                        <FontAwesomeIcon icon={faCheck} className="check-icon " />
-                    </div>
-                    <div className='table-1'>
-                        <div className='item-detail'>
-                            <p>Order Time: <span>10pm</span></p>
-                            <p>Table Number: <span>10</span></p>
-                            <p>Employee: <span>Ram</span></p>
-                            <p>Order Type: <span>Dine-In</span></p>
-                        </div>
-                        <div className='item-table'>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>S.No</th>
-                                        <th>Item</th>
-                                        <th>Order</th>
-                                        <th>Modification</th>
-                                        <th>Delete</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Chicken Momo</td>
-                                        <td>2</td>
-                                        <td>2</td>
-                                        <td> <FontAwesomeIcon icon={faTimes} className="delete-icon" /></td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Chicken Momo</td>
-                                        <td>2</td>
-                                        <td>2</td>
-                                        <td> <FontAwesomeIcon icon={faTimes} className="delete-icon" /></td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Chicken Momo</td>
-                                        <td>2</td>
-                                        <td>2</td>
-                                        <td> <FontAwesomeIcon icon={faTimes} className="delete-icon" /></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div className="col">
-                    <div className='top-icon'>
-                        <FontAwesomeIcon icon={faCheck} className="check-icon " />
-                    </div>
-                    <div className='table-1'>
-                        <div className='item-detail'>
-                            <p>Order Time: <span>10pm</span></p>
-                            <p>Table Number: <span>10</span></p>
-                            <p>Employee: <span>Ram</span></p>
-                            <p>Order Type: <span>Dine-In</span></p>
-                        </div>
-                        <div className='item-table'>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>S.No</th>
-                                        <th>Item</th>
-                                        <th>Order</th>
-                                        <th>Modification</th>
-                                        <th>Delete</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Chicken Momo</td>
-                                        <td>2</td>
-                                        <td>2</td>
-                                        <td> <FontAwesomeIcon icon={faTimes} className="delete-icon" /></td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Chicken Momo</td>
-                                        <td>2</td>
-                                        <td>2</td>
-                                        <td> <FontAwesomeIcon icon={faTimes} className="delete-icon" /></td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Chicken Momo</td>
-                                        <td>2</td>
-                                        <td>2</td>
-                                        <td> <FontAwesomeIcon icon={faTimes} className="delete-icon" /></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div className='item-course-detail'>
+                            <div className='item-detail'>
+                                <p>2:53 PM</p>
+                                <h1>10</h1>
+                            </div>
+                            <div className='course-item'>
+                                <p className='course-type'>Entree</p>
+                                <div className='item-list'>
+                                    <div className='item-name'>
+                                        <p><span>Quantity</span><FontAwesomeIcon icon={faTimes} /> ItemName</p>
+                                        <FontAwesomeIcon icon={faTimes} className="delete-icon" onClick={handleDelete} />
+                                    </div>
+                                    <p className='description'>-Medium rare, potato wedge</p>
+                                    <p className='allergies'>-Allergies<span>Peanut</span></p>
+                                </div>
+                            </div>
+                            <div className='course-item'>
+                                <p className='course-type'>Appetizer</p>
+                                <div className='item-list'>
+                                    <div className='item-name'>
+                                        <p><span>Quantity</span><FontAwesomeIcon icon={faTimes} /> ItemName</p>
+                                        <FontAwesomeIcon icon={faTimes} className="delete-icon" onClick={handleDelete} />
+                                    </div>
+                                    <p className='add-ons'>Extra Cheese</p>
+                                    <p className='allergies'>-Allergies<span>Peanut</span></p>
+                                </div>
+                            </div>
+                            <button className='seen-btn' type='submit'>
+                                SEEN
+                            </button>
                         </div>
                     </div>
                 </div>

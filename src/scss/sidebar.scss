@@ -1,0 +1,31 @@
+@import "./config";
+
+.offcanvas-header{
+    background-color: $card-header;
+    color: $secondary-color;
+    text-align: center;
+}
+.offcanvas-body{
+    padding: 0;
+}
+.course-type{
+    h5{
+        height: auto;
+        padding: 05px;
+        background-color: $bg-course;
+        color: $secondary-color;
+    }
+    ul{
+        list-style: none;
+        li{
+            display:flex;
+            justify-content: space-between;
+            border-bottom: 2px solid black;
+        }
+    }
+}
+@media (max-width:400px) {
+    #offcanvasWithBothOptions{
+        width: 220px;
+    }
+}

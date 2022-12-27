@@ -1,0 +1,41 @@
+@import './config';
+
+.top-icon {
+    text-align: end;
+}
+
+.check-icon {
+    border: 1px solid black;
+    border-radius: 50%;
+    padding: 1px;
+    color: $success-color;
+    font-size: 20px;
+}
+
+.table-1 {
+    border: 1px solid black;
+    border-radius: 5%;
+
+    .item-table {
+        display: flex;
+        justify-content: center;
+
+        th,
+        td {
+            border: 1px solid black;
+            border-radius: 5%;
+            padding: 5px;
+        }
+
+        table {
+            border: 1px solid black;
+            width: 100%;
+        }
+    }
+
+    .delete-icon {
+        color: $danger-color;
+        font-size: 24px;
+        cursor: pointer;
+    }
+}

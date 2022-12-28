@@ -14,6 +14,7 @@
         padding: 05px;
         background-color: $bg-course;
         color: $secondary-color;
+        text-align: center;
     }
     ul{
         list-style: none;
@@ -21,6 +22,7 @@
             display:flex;
             justify-content: space-between;
             border-bottom: 2px solid black;
+            padding: 15px 5px;
         }
     }
 }

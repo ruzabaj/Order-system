@@ -97,6 +97,14 @@ body {
                 }
             }
         }
+        .start-cooking{
+            background-color:$cook-process;
+            color:$cook-process-icon;
+            font-size:30px;
+            width: 100%;
+            border: 0;
+            height: 40px;
+        }
         .seen-btn {
             background-color: $btn-seen;
             color: $secondary-color;

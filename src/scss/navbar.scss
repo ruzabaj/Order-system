@@ -1,0 +1,29 @@
+@import "./config";
+
+nav {
+    display: flex;
+    border-bottom: 1px solid white;
+
+    a:link{
+        text-decoration: none;
+    }
+}
+
+.navbar-icons {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: $secondary-color;
+    text-align: center;
+    margin: 10px;
+}
+
+.navbar-icon-cutlery {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: $cook-process;
+    color: $cook-process-icon;
+    text-align: center;
+    margin: 10px;
+}

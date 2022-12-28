@@ -22,7 +22,7 @@ const Card = ({ handleDelete, handleCompleted, handleCookProcess, startCook }) =
                             <p className='course-type'>Entree</p>
                             <div className='item-list'>
                                 <div className='item-name'>
-                                    <p><span>Quantity</span><FontAwesomeIcon icon={faTimes} /> ItemName</p>
+                                    <p><span>Quantity</span> X ItemName</p>
                                     <FontAwesomeIcon icon={faTimes} className="delete-icon" onClick={handleDelete} />
                                 </div>
                                 <p className='description'>-Medium rare, potato wedge</p>
@@ -33,7 +33,7 @@ const Card = ({ handleDelete, handleCompleted, handleCookProcess, startCook }) =
                             <p className='course-type'>Appetizer</p>
                             <div className='item-list'>
                                 <div className='item-name'>
-                                    <p><span>Quantity</span><FontAwesomeIcon icon={faTimes} /> ItemName</p>
+                                    <p><span>Quantity</span> X ItemName</p>
                                     <FontAwesomeIcon icon={faTimes} className="delete-icon" onClick={handleDelete} />
                                 </div>
                                 <p className='add-ons'>Extra Cheese</p>
@@ -41,7 +41,7 @@ const Card = ({ handleDelete, handleCompleted, handleCookProcess, startCook }) =
                             </div>
                             <div className='item-list'>
                                 <div className='item-name'>
-                                    <p><span>Quantity</span><FontAwesomeIcon icon={faTimes} /> ItemName</p>
+                                    <p><span>Quantity</span> X ItemName</p>
                                     <FontAwesomeIcon icon={faTimes} className="delete-icon" onClick={handleDelete} />
                                 </div>
                                 <p className='allergies'>-Allergies<span>Peanut</span></p>
@@ -76,7 +76,7 @@ const Card = ({ handleDelete, handleCompleted, handleCookProcess, startCook }) =
                             <p className='course-type'>Entree</p>
                             <div className='item-list'>
                                 <div className='item-name'>
-                                    <p><span>Quantity</span><FontAwesomeIcon icon={faTimes} /> ItemName</p>
+                                    <p><span>Quantity</span> X ItemName</p>
                                     <FontAwesomeIcon icon={faTimes} className="delete-icon" onClick={handleDelete} />
                                 </div>
                                 <p className='description'>-Medium rare, potato wedge</p>
@@ -87,7 +87,7 @@ const Card = ({ handleDelete, handleCompleted, handleCookProcess, startCook }) =
                             <p className='course-type'>Appetizer</p>
                             <div className='item-list'>
                                 <div className='item-name'>
-                                    <p><span>Quantity</span><FontAwesomeIcon icon={faTimes} /> ItemName</p>
+                                    <p><span>Quantity</span> X ItemName</p>
                                     <FontAwesomeIcon icon={faTimes} className="delete-icon" onClick={handleDelete} />
                                 </div>
                                 <p className='add-ons'>Extra Cheese</p>
@@ -95,7 +95,7 @@ const Card = ({ handleDelete, handleCompleted, handleCookProcess, startCook }) =
                             </div>
                             <div className='item-list'>
                                 <div className='item-name'>
-                                    <p><span>Quantity</span><FontAwesomeIcon icon={faTimes} /> ItemName</p>
+                                    <p><span>Quantity</span> X ItemName</p>
                                     <FontAwesomeIcon icon={faTimes} className="delete-icon" onClick={handleDelete} />
                                 </div>
                                 <p className='allergies'>-Allergies<span>Peanut</span></p>
@@ -130,7 +130,7 @@ const Card = ({ handleDelete, handleCompleted, handleCookProcess, startCook }) =
                             <p className='course-type'>Entree</p>
                             <div className='item-list'>
                                 <div className='item-name'>
-                                    <p><span>Quantity</span><FontAwesomeIcon icon={faTimes} /> ItemName</p>
+                                    <p><span>Quantity</span> X ItemName</p>
                                     <FontAwesomeIcon icon={faTimes} className="delete-icon" onClick={handleDelete} />
                                 </div>
                                 <p className='description'>-Medium rare, potato wedge</p>
@@ -141,7 +141,7 @@ const Card = ({ handleDelete, handleCompleted, handleCookProcess, startCook }) =
                             <p className='course-type'>Appetizer</p>
                             <div className='item-list'>
                                 <div className='item-name'>
-                                    <p><span>Quantity</span><FontAwesomeIcon icon={faTimes} /> ItemName</p>
+                                    <p><span>Quantity</span> X ItemName</p>
                                     <FontAwesomeIcon icon={faTimes} className="delete-icon" onClick={handleDelete} />
                                 </div>
                                 <p className='add-ons'>Extra Cheese</p>
@@ -149,7 +149,7 @@ const Card = ({ handleDelete, handleCompleted, handleCookProcess, startCook }) =
                             </div>
                             <div className='item-list'>
                                 <div className='item-name'>
-                                    <p><span>Quantity</span><FontAwesomeIcon icon={faTimes} /> ItemName</p>
+                                    <p><span>Quantity</span> X ItemName</p>
                                     <FontAwesomeIcon icon={faTimes} className="delete-icon" onClick={handleDelete} />
                                 </div>
                                 <p className='allergies'>-Allergies<span>Peanut</span></p>
@@ -184,7 +184,7 @@ const Card = ({ handleDelete, handleCompleted, handleCookProcess, startCook }) =
                             <p className='course-type'>Entree</p>
                             <div className='item-list'>
                                 <div className='item-name'>
-                                    <p><span>Quantity</span><FontAwesomeIcon icon={faTimes} /> ItemName</p>
+                                    <p><span>Quantity</span> X ItemName</p>
                                     <FontAwesomeIcon icon={faTimes} className="delete-icon" onClick={handleDelete} />
                                 </div>
                                 <p className='description'>-Medium rare, potato wedge</p>
@@ -195,7 +195,7 @@ const Card = ({ handleDelete, handleCompleted, handleCookProcess, startCook }) =
                             <p className='course-type'>Appetizer</p>
                             <div className='item-list'>
                                 <div className='item-name'>
-                                    <p><span>Quantity</span><FontAwesomeIcon icon={faTimes} /> ItemName</p>
+                                    <p><span>Quantity</span> X ItemName</p>
                                     <FontAwesomeIcon icon={faTimes} className="delete-icon" onClick={handleDelete} />
                                 </div>
                                 <p className='add-ons'>Extra Cheese</p>

@@ -3,12 +3,7 @@
 nav {
     display: flex;
     border-bottom: 1px solid white;
-
-    a:link{
-        text-decoration: none;
-    }
 }
-
 .navbar-icons {
     width: 30px;
     height: 30px;
@@ -23,7 +18,7 @@ nav {
     height: 30px;
     border-radius: 50%;
     background-color: $cook-process;
-    color: $cook-process-icon;
+    color: $cook-process-icon !important;
     text-align: center;
     margin: 10px;
 }

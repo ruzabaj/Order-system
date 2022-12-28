@@ -17,6 +17,7 @@ const Card = ({ handleDelete, handleCompleted, handleCookProcess, startCook }) =
                         <div className='item-detail'>
                             <p>2:53 PM</p>
                             <h1>10</h1>
+                            <p>Employee name</p>
                         </div>
                         <div className='course-item'>
                             <p className='course-type'>Entree</p>
@@ -52,7 +53,7 @@ const Card = ({ handleDelete, handleCompleted, handleCookProcess, startCook }) =
                                 SEEN
                             </button>
                             :
-                            <button className='start-cooking' type='submit'>
+                            <button className='start-cooking' type='submit' onClick={handleCookProcess}>
                                 <FontAwesomeIcon icon={faCutlery} />
                             </button>
                         }
@@ -71,6 +72,7 @@ const Card = ({ handleDelete, handleCompleted, handleCookProcess, startCook }) =
                         <div className='item-detail'>
                             <p>2:53 PM</p>
                             <h1>10</h1>
+                            <p>Employee name</p>
                         </div>
                         <div className='course-item'>
                             <p className='course-type'>Entree</p>
@@ -106,7 +108,7 @@ const Card = ({ handleDelete, handleCompleted, handleCookProcess, startCook }) =
                                 SEEN
                             </button>
                             :
-                            <button className='start-cooking' type='submit'>
+                            <button className='start-cooking' type='submit' onClick={handleCookProcess}>
                                 <FontAwesomeIcon icon={faCutlery} />
                             </button>
                         }
@@ -125,6 +127,7 @@ const Card = ({ handleDelete, handleCompleted, handleCookProcess, startCook }) =
                         <div className='item-detail'>
                             <p>2:53 PM</p>
                             <h1>10</h1>
+                            <p>Employee name</p>
                         </div>
                         <div className='course-item'>
                             <p className='course-type'>Entree</p>

@@ -1,216 +1,93 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faTimes, faCutlery } from '@fortawesome/free-solid-svg-icons'
+import axios from 'axios'
+import data from "../Data/data";
 
 const Card = ({ handleDelete, handleCompleted, handleCookProcess, startCook }) => {
+    const [list, setList] = useState([])
+    const [orderTime, setOrderTime] = useState([])
+    const url = process.env.REACT_APP_BASE_URL;
+
+    useEffect(() => {
+        getOrder();
+    }, [])
+    const getOrder = async () => {
+        try {
+            const result = await axios.get(`${url}/get_live`)
+            setList(result.data.data)
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+    const currentTime = new Date();
+    let time = currentTime.getHours() + ":"
+        + currentTime.getMinutes() + ":"
+        + currentTime.getSeconds();
+    console.log(time, 'time')
+
+    let arrayOrderTime=[]
+    function calculateOrderTime(array) {
+        array.map((item) => {
+            console.log(item.orderTime)
+            arrayOrderTime.push(item.orderTime)
+            console.log(arrayOrderTime)
+        });
+    }
+    let orderedTime = calculateOrderTime(list);
+
     return (
         <div className="row">
-            <div className="col-md-4 col-lg-3">
-                <div className='ticket'>
-                    <div className='item-order-type'>
-                        <div className='top-icon'>
-                            <FontAwesomeIcon icon={faCheck} className="check-icon" onClick={handleCompleted} />
-                        </div>
-                        <p className='item-type'>Dine-In</p>
-                    </div>
-                    <div className='item-course-detail'>
-                        <div className='item-detail'>
-                            <p>2:53 PM</p>
-                            <h1>10</h1>
-                            <p>Employee name</p>
-                        </div>
-                        <div className='course-item'>
-                            <p className='course-type'>Entree</p>
-                            <div className='item-list'>
-                                <div className='item-name'>
-                                    <p><span>Quantity</span> X ItemName</p>
-                                    <FontAwesomeIcon icon={faTimes} className="delete-icon" onClick={handleDelete} />
-                                </div>
-                                <p className='description'>-Medium rare, potato wedge</p>
-                                <p className='allergies'>-Allergies<span>Peanut</span></p>
+            {list.map((element, index) => (
+                <div className="col-md-4 col-lg-3 col-sm-2" key={index}>
+                    <div className='ticket'>
+                        <div className='item-order-type'>
+                            <div className='top-icon'>
+                                <FontAwesomeIcon icon={faCheck} className="check-icon" onClick={handleCompleted} />
                             </div>
+                            <p className='item-type'>{element.orderType}</p>
                         </div>
-                        <div className='course-item'>
-                            <p className='course-type'>Appetizer</p>
-                            <div className='item-list'>
-                                <div className='item-name'>
-                                    <p><span>Quantity</span> X ItemName</p>
-                                    <FontAwesomeIcon icon={faTimes} className="delete-icon" onClick={handleDelete} />
+                        <div className='item-course-detail'>
+                            <div className='item-detail'>
+                                <div className='time-guests'>
+                                    <p>{element.orderTime}</p>
+                                    <p>Guests :<span>2</span></p>
                                 </div>
-                                <p className='add-ons'>Extra Cheese</p>
-                                <p className='allergies'>-Allergies<span>Peanut</span></p>
+                                <h1>{element.tableNum}</h1>
+                                <p>{element.employee}</p>
                             </div>
-                            <div className='item-list'>
-                                <div className='item-name'>
-                                    <p><span>Quantity</span> X ItemName</p>
-                                    <FontAwesomeIcon icon={faTimes} className="delete-icon" onClick={handleDelete} />
+                            {element.OrderItemDetailsList.map((item, index) => (
+                                <div className='course-item' key={index}>
+                                    <p className='course-type'>Item {index + 1}</p>
+                                    <div className='item-list'>
+                                        <div className='item-name'>
+                                            <p><span>{item.Quantity}</span> X {item.ItemName}</p>
+                                            <div className='item-check-process'>
+                                                <FontAwesomeIcon icon={faCheck} className="completed-icon" />
+                                                <FontAwesomeIcon icon={faTimes} className="delete-icon" onClick={handleDelete} />
+                                            </div>
+                                        </div>
+                                        {
+                                            (item.Modifications === '') ? "" :
+                                                <p className='modifications'>-{item.Modifications}</p>
+                                        }
+                                    </div>
                                 </div>
-                                <p className='allergies'>-Allergies<span>Peanut</span></p>
-                            </div>
+                            ))}
+                            {startCook ?
+                                <button className='seen-btn' type='submit' onClick={handleCookProcess}>
+                                    SEEN
+                                </button>
+                                :
+                                <button className='start-cooking' type='submit' onClick={handleCookProcess}>
+                                    <FontAwesomeIcon icon={faCutlery} />
+                                </button>
+                            }
                         </div>
-                        {startCook ?
-                            <button className='seen-btn' type='submit' onClick={handleCookProcess}>
-                                SEEN
-                            </button>
-                            :
-                            <button className='start-cooking' type='submit' onClick={handleCookProcess}>
-                                <FontAwesomeIcon icon={faCutlery} />
-                            </button>
-                        }
                     </div>
                 </div>
-            </div>
-            <div className="col-md-4 col-lg-3">
-                <div className='ticket'>
-                    <div className='item-order-type'>
-                        <div className='top-icon'>
-                            <FontAwesomeIcon icon={faCheck} className="check-icon" onClick={handleCompleted} />
-                        </div>
-                        <p className='item-type'>Dine-In</p>
-                    </div>
-                    <div className='item-course-detail'>
-                        <div className='item-detail'>
-                            <p>2:53 PM</p>
-                            <h1>10</h1>
-                            <p>Employee name</p>
-                        </div>
-                        <div className='course-item'>
-                            <p className='course-type'>Entree</p>
-                            <div className='item-list'>
-                                <div className='item-name'>
-                                    <p><span>Quantity</span> X ItemName</p>
-                                    <FontAwesomeIcon icon={faTimes} className="delete-icon" onClick={handleDelete} />
-                                </div>
-                                <p className='description'>-Medium rare, potato wedge</p>
-                                <p className='allergies'>-Allergies<span>Peanut</span></p>
-                            </div>
-                        </div>
-                        <div className='course-item'>
-                            <p className='course-type'>Appetizer</p>
-                            <div className='item-list'>
-                                <div className='item-name'>
-                                    <p><span>Quantity</span> X ItemName</p>
-                                    <FontAwesomeIcon icon={faTimes} className="delete-icon" onClick={handleDelete} />
-                                </div>
-                                <p className='add-ons'>Extra Cheese</p>
-                                <p className='allergies'>-Allergies<span>Peanut</span></p>
-                            </div>
-                            <div className='item-list'>
-                                <div className='item-name'>
-                                    <p><span>Quantity</span> X ItemName</p>
-                                    <FontAwesomeIcon icon={faTimes} className="delete-icon" onClick={handleDelete} />
-                                </div>
-                                <p className='allergies'>-Allergies<span>Peanut</span></p>
-                            </div>
-                        </div>
-                        {startCook ?
-                            <button className='seen-btn' type='submit' onClick={handleCookProcess}>
-                                SEEN
-                            </button>
-                            :
-                            <button className='start-cooking' type='submit' onClick={handleCookProcess}>
-                                <FontAwesomeIcon icon={faCutlery} />
-                            </button>
-                        }
-                    </div>
-                </div>
-            </div>
-            <div className="col-md-4 col-lg-3">
-                <div className='ticket'>
-                    <div className='item-order-type'>
-                        <div className='top-icon'>
-                            <FontAwesomeIcon icon={faCheck} className="check-icon" onClick={handleCompleted} />
-                        </div>
-                        <p className='item-type'>Dine-In</p>
-                    </div>
-                    <div className='item-course-detail'>
-                        <div className='item-detail'>
-                            <p>2:53 PM</p>
-                            <h1>10</h1>
-                            <p>Employee name</p>
-                        </div>
-                        <div className='course-item'>
-                            <p className='course-type'>Entree</p>
-                            <div className='item-list'>
-                                <div className='item-name'>
-                                    <p><span>Quantity</span> X ItemName</p>
-                                    <FontAwesomeIcon icon={faTimes} className="delete-icon" onClick={handleDelete} />
-                                </div>
-                                <p className='description'>-Medium rare, potato wedge</p>
-                                <p className='allergies'>-Allergies<span>Peanut</span></p>
-                            </div>
-                        </div>
-                        <div className='course-item'>
-                            <p className='course-type'>Appetizer</p>
-                            <div className='item-list'>
-                                <div className='item-name'>
-                                    <p><span>Quantity</span> X ItemName</p>
-                                    <FontAwesomeIcon icon={faTimes} className="delete-icon" onClick={handleDelete} />
-                                </div>
-                                <p className='add-ons'>Extra Cheese</p>
-                                <p className='allergies'>-Allergies<span>Peanut</span></p>
-                            </div>
-                            <div className='item-list'>
-                                <div className='item-name'>
-                                    <p><span>Quantity</span> X ItemName</p>
-                                    <FontAwesomeIcon icon={faTimes} className="delete-icon" onClick={handleDelete} />
-                                </div>
-                                <p className='allergies'>-Allergies<span>Peanut</span></p>
-                            </div>
-                        </div>
-                        {startCook ?
-                            <button className='seen-btn' type='submit' onClick={handleCookProcess}>
-                                SEEN
-                            </button>
-                            :
-                            <button className='start-cooking' type='submit'>
-                                <FontAwesomeIcon icon={faCutlery} />
-                            </button>
-                        }
-                    </div>
-                </div>
-            </div>
-            <div className="col-md-4 col-lg-3">
-                <div className='ticket'>
-                    <div className='item-order-type'>
-                        <div className='top-icon'>
-                            <FontAwesomeIcon icon={faCheck} className="check-icon" onClick={handleCompleted} />
-                        </div>
-                        <p className='item-type'>Dine-In</p>
-                    </div>
-                    <div className='item-course-detail'>
-                        <div className='item-detail'>
-                            <p>2:53 PM</p>
-                            <h1>10</h1>
-                        </div>
-                        <div className='course-item'>
-                            <p className='course-type'>Entree</p>
-                            <div className='item-list'>
-                                <div className='item-name'>
-                                    <p><span>Quantity</span> X ItemName</p>
-                                    <FontAwesomeIcon icon={faTimes} className="delete-icon" onClick={handleDelete} />
-                                </div>
-                                <p className='description'>-Medium rare, potato wedge</p>
-                                <p className='allergies'>-Allergies<span>Peanut</span></p>
-                            </div>
-                        </div>
-                        <div className='course-item'>
-                            <p className='course-type'>Appetizer</p>
-                            <div className='item-list'>
-                                <div className='item-name'>
-                                    <p><span>Quantity</span> X ItemName</p>
-                                    <FontAwesomeIcon icon={faTimes} className="delete-icon" onClick={handleDelete} />
-                                </div>
-                                <p className='add-ons'>Extra Cheese</p>
-                                <p className='allergies'>-Allergies<span>Peanut</span></p>
-                            </div>
-                        </div>
-                        <button className='seen-btn' type='submit'>
-                            SEEN
-                        </button>
-                    </div>
-                </div>
-            </div>
+            ))}
         </div>
     )
 }

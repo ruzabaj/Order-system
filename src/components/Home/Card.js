@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faTimes, faCutlery } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
-import data from "../Data/data";
+
+import Calculation from './Calculation';
 
 const Card = ({ handleDelete, handleCompleted, handleCookProcess, startCook }) => {
-    const [list, setList] = useState([])
-    const [orderTime, setOrderTime] = useState([])
     const url = process.env.REACT_APP_BASE_URL;
-
+    const [list, setList] = useState([])
+       
     useEffect(() => {
         getOrder();
     }, [])
@@ -21,21 +21,26 @@ const Card = ({ handleDelete, handleCompleted, handleCookProcess, startCook }) =
             console.log(error)
         }
     }
-    const currentTime = new Date();
-    let time = currentTime.getHours() + ":"
-        + currentTime.getMinutes() + ":"
-        + currentTime.getSeconds();
-    console.log(time, 'time')
-
-    let arrayOrderTime=[]
-    function calculateOrderTime(array) {
-        array.map((item) => {
-            console.log(item.orderTime)
-            arrayOrderTime.push(item.orderTime)
-            console.log(arrayOrderTime)
-        });
-    }
-    let orderedTime = calculateOrderTime(list);
+    // let arrayOrderTime = []
+    // let orderedTime = list.map((item) => {
+    //     console.log(item.orderTime, "show-order-time")
+        // arrayOrderTime.push(item.orderTime)
+        // console.log(arrayOrderTime)
+        // arrayOrderTime.forEach((item) => {
+        //     console.log(item, "ítem-0")
+        // })
+    //     let time = currentTime.getHours() + ":"
+    //         + currentTime.getMinutes() + ":"
+    //         + currentTime.getSeconds();
+    //     let startTime = moment(item.orderTime, 'HH:mm:ss');
+    //     let endTime = moment(time, 'HH:mm:ss');
+    //     let duration = moment.duration(endTime.diff(startTime));
+    //     console.log('duration', duration)
+    //     return (duration._data.seconds)
+    // });
+    // ;
+    // console.log("orderTime", orderedTime)
+   
 
     return (
         <div className="row">
@@ -56,6 +61,7 @@ const Card = ({ handleDelete, handleCompleted, handleCookProcess, startCook }) =
                                 </div>
                                 <h1>{element.tableNum}</h1>
                                 <p>{element.employee}</p>
+                                <Calculation Ordertime={element.orderTime}/>
                             </div>
                             {element.OrderItemDetailsList.map((item, index) => (
                                 <div className='course-item' key={index}>

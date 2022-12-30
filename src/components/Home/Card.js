@@ -12,6 +12,7 @@ const Card = ({ handleDelete, handleCompleted, handleCookProcess, startCook }) =
     useEffect(() => {
         getOrder();
     }, [])
+
     const getOrder = async () => {
         try {
             const result = await axios.get(`${url}/get_live`)
@@ -21,26 +22,6 @@ const Card = ({ handleDelete, handleCompleted, handleCookProcess, startCook }) =
             console.log(error)
         }
     }
-    // let arrayOrderTime = []
-    // let orderedTime = list.map((item) => {
-    //     console.log(item.orderTime, "show-order-time")
-        // arrayOrderTime.push(item.orderTime)
-        // console.log(arrayOrderTime)
-        // arrayOrderTime.forEach((item) => {
-        //     console.log(item, "ítem-0")
-        // })
-    //     let time = currentTime.getHours() + ":"
-    //         + currentTime.getMinutes() + ":"
-    //         + currentTime.getSeconds();
-    //     let startTime = moment(item.orderTime, 'HH:mm:ss');
-    //     let endTime = moment(time, 'HH:mm:ss');
-    //     let duration = moment.duration(endTime.diff(startTime));
-    //     console.log('duration', duration)
-    //     return (duration._data.seconds)
-    // });
-    // ;
-    // console.log("orderTime", orderedTime)
-   
 
     return (
         <div className="row">
@@ -49,7 +30,7 @@ const Card = ({ handleDelete, handleCompleted, handleCookProcess, startCook }) =
                     <div className='ticket'>
                         <div className='item-order-type'>
                             <div className='top-icon'>
-                                <FontAwesomeIcon icon={faCheck} className="check-icon" onClick={handleCompleted} />
+                                <FontAwesomeIcon icon={faCheck} className="check-icon" onClick={()=>handleCompleted(element.OrderItemsDetailsList)} />
                             </div>
                             <p className='item-type'>{element.orderType}</p>
                         </div>

@@ -1,6 +1,7 @@
 import React from 'react'
 import moment from 'moment';
-import Stopwatch from './Stopwatch';
+// import Stopwatch from './Stopwatch';
+import "../../scss/stopwatch.scss"
 import ReactTimerStopwatch from 'react-stopwatch-timer';
 var timediff = require('timediff');
 var convert_time = require('convert-seconds');
@@ -10,7 +11,6 @@ const Calculation = ({ Ordertime }) => {
     let current_moment = moment().format('HH:mm:ss')
     let current_date = new Date().toLocaleDateString('en-CA');
     let time = `${current_date} ${current_moment}`
-    console.log(time, "123")
     var test_time = `${current_date} ${customer_time}`
     var elapsed_time = timediff(test_time, time, 'S').seconds;
     let format = convert_time(elapsed_time)

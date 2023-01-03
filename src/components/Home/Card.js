@@ -4,6 +4,7 @@ import { faCheck, faTimes, faCutlery } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
 
 import Calculation from './Calculation';
+import ConvertTime from './convertTime';
 
 const Card = ({ handleDelete, handleCompleted, handleCookProcess, startCook }) => {
     const url = process.env.REACT_APP_BASE_URL;
@@ -37,7 +38,7 @@ const Card = ({ handleDelete, handleCompleted, handleCookProcess, startCook }) =
                         <div className='item-course-detail'>
                             <div className='item-detail'>
                                 <div className='time-guests'>
-                                    <p>{element.orderTime}</p>
+                                    <p><ConvertTime timeOrder={element.orderTime}/></p>
                                     <p>Guests :<span>2</span></p>
                                 </div>
                                 <h1>{element.tableNum}</h1>

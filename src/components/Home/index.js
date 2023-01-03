@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import "../../scss/home.scss";
 import Card from './Card';
 import Navbar from '../Navbar';
+import ConvertTime from './convertTime';
 
 const Home = () => {
     const [startCook, setStartCook] = useState(true)

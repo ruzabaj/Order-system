@@ -1,6 +1,5 @@
 import React from 'react'
 import moment from 'moment';
-// import Stopwatch from './Stopwatch';
 import "../../scss/stopwatch.scss"
 import ReactTimerStopwatch from 'react-stopwatch-timer';
 var timediff = require('timediff');
@@ -19,10 +18,8 @@ const Calculation = ({ Ordertime }) => {
     let minute = parseInt(minutes)
     let second = parseInt(seconds)
     const fromTime = new Date(0, 0, 0, hour, minute, second, 0);
-    console.log(fromTime, "from-time")
     return (
         <div className='show-elapsed-time'>
-            {/* <Stopwatch hour={format.hours} min={format.minutes} sec={format.seconds} /> */}
             <ReactTimerStopwatch isOn={true} className="react-stopwatch-timer__table" watchType="stopwatch"
                 displayCricle={true} color="gray" hintColor="red" fromTime={fromTime} />
         </div>

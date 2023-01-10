@@ -36,25 +36,23 @@ const Card = ({ handleDelete, handleCompleted, startCook, handleCookProcess }) =
     //           socket.disconnect();
     //   }
 
-    let socket = io("http://192.168.101.15:5000", {
+    let socket = io("http://192.168.101.15:3000", {
         transports: ['websocket'],
         cors: {
-            origin: "*",
+            origin: "*"
         }
     })
 
     useEffect(() => {
-        socket.on("connect", () => {
-            console.log("connected")
-             socket.emit('join')
-        })
-        
+        socket.on('connect', () => {
+            console.log('connected!');
+        });
+        socket.emit('join');
         socket.on('initial_load', (res) => {
             let { data } = JSON.parse(res)
             console.log('data=>', data)
             setList(data)
-        }) 
-        
+        })
     }, [])
     socket.on("entry_update", (update) => {
         console.log('update=>', update)
@@ -65,7 +63,7 @@ const Card = ({ handleDelete, handleCompleted, startCook, handleCookProcess }) =
         console.log("new Array",newArray)
         setList(newArray)
     })
- 
+
     return (
         <div className="row">
             {list.map((element, index) => (

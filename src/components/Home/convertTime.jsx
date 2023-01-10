@@ -18,9 +18,9 @@ const ConvertTime = ({timeOrder}) => {
         let convertTime=tConvert(timeOrder)
 
     return (
-        <div>
+        <p>
             {convertTime}
-        </div>
+        </p>
     )
 }
 

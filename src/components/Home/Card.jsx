@@ -1,29 +1,71 @@
 import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck, faTimes, faCutlery } from '@fortawesome/free-solid-svg-icons'
-import axios from 'axios'
-
+import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
 import Calculation from './Calculation';
 import ConvertTime from './convertTime';
+import HandleButton from './button';
+import axios from 'axios'
+import io from 'socket.io-client';
 
-const Card = ({ handleDelete, handleCompleted, handleCookProcess, startCook }) => {
+const Card = ({ handleDelete, handleCompleted, startCook, handleCookProcess }) => {
     const url = process.env.REACT_APP_BASE_URL;
     const [list, setList] = useState([])
-       
+    const [updatedList, setUpdatedList] = useState({})
+
+    // useEffect(() => {
+    //     getOrder();
+    // }, [])
+
+    // const getOrder = async () => {
+    //     try {
+    //         const result = await axios.get(`http://192.168.101.15:5000/get_live`)
+    //         setList(result.data.data)
+    //     }
+    //     catch (error) {
+    //         console.log(error)
+    //     }
+    // }
+
+    // useEffect(() => {
+    //     socket.on('connect', (data)=>console.log(data))
+    //     socket.on('newdata', (data) => console.log(data))
+    //     cleanUp() ;
+    //     }, [socket])
+
+    //     const cleanUp=()=>{
+    //           socket.disconnect();
+    //   }
+
+    let socket = io("http://192.168.101.15:5000", {
+        transports: ['websocket'],
+        cors: {
+            origin: "*",
+        }
+    })
+
     useEffect(() => {
-        getOrder();
+        socket.on("connect", () => {
+            console.log("connected")
+             socket.emit('join')
+        })
+        
+        socket.on('initial_load', (res) => {
+            let { data } = JSON.parse(res)
+            console.log('data=>', data)
+            setList(data)
+        }) 
+        
     }, [])
-
-    const getOrder = async () => {
-        try {
-            const result = await axios.get(`${url}/get_live`)
-            setList(result.data.data)
-        }
-        catch (error) {
-            console.log(error)
-        }
-    }
-
+    socket.on("entry_update", (update) => {
+        console.log('update=>', update)
+        console.log("list=>", list)
+        let newList=list.push(update)
+        console.log('list', newList)
+        let newArray = [update, ...list] 
+        console.log("new Array",newArray)
+        setList(newArray)
+    })
+ 
     return (
         <div className="row">
             {list.map((element, index) => (
@@ -31,19 +73,19 @@ const Card = ({ handleDelete, handleCompleted, handleCookProcess, startCook }) =
                     <div className='ticket'>
                         <div className='item-order-type'>
                             <div className='top-icon'>
-                                <FontAwesomeIcon icon={faCheck} className="check-icon" onClick={()=>handleCompleted(element.OrderItemsDetailsList)} />
+                                <FontAwesomeIcon icon={faCheck} className="check-icon" onClick={() => handleCompleted(element.OrderItemsDetailsList)} />
                             </div>
                             <p className='item-type'>{element.orderType}</p>
                         </div>
                         <div className='item-course-detail'>
                             <div className='item-detail'>
                                 <div className='time-guests'>
-                                    <p><ConvertTime timeOrder={element.orderTime}/></p>
+                                    <ConvertTime timeOrder={element.orderTime} />
                                     <p>Guests :<span>2</span></p>
                                 </div>
                                 <h1>{element.tableNum}</h1>
                                 <p>{element.employee}</p>
-                                <Calculation Ordertime={element.orderTime}/>
+                                <Calculation Ordertime={element.orderTime} />
                             </div>
                             {element.OrderItemDetailsList.map((item, index) => (
                                 <div className='course-item' key={index}>
@@ -63,15 +105,7 @@ const Card = ({ handleDelete, handleCompleted, handleCookProcess, startCook }) =
                                     </div>
                                 </div>
                             ))}
-                            {startCook ?
-                                <button className='seen-btn' type='submit' onClick={handleCookProcess}>
-                                    SEEN
-                                </button>
-                                :
-                                <button className='start-cooking' type='submit' onClick={handleCookProcess}>
-                                    <FontAwesomeIcon icon={faCutlery} />
-                                </button>
-                            }
+                            <HandleButton startCook={startCook} handleCookProcess={handleCookProcess} />
                         </div>
                     </div>
                 </div>

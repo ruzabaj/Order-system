@@ -1,34 +1,12 @@
 import React from 'react'
-import data from "../Data/data";
 // import "../../scss/sidebar.scss";
 import "../../scss/home.scss";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck, faTimes,faCutlery } from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faTimes, faCutlery } from '@fortawesome/free-solid-svg-icons'
 
 const Cooking = () => {
     return (
-        <div>
-          
             <div className="row">
-                <div className='cook-itemName' style={{ color: "white" }}>
-                    {data.item_1.map((element) => (
-                        <div >
-                            {console.log("element", element)}
-                            <p>{element.Employee}</p>
-                            <p>{element.Quantity}</p>
-                            <p>{element.itemName}</p>
-                        </div>
-                    ))}
-                </div>
-                <div className='cook-itemName' style={{ color: "white" }}>
-                    {data.item_2.map((element) => (
-                        <div >
-                            <p>{element.Employee}</p>
-                            <p>{element.Quantity}</p>
-                            <p>{element.itemName}</p>
-                        </div>
-                    ))}
-                </div>
                 <div className="col-md-4 col-lg-3 col-sm-2" >
                     <div className='ticket'>
                         <div className='item-order-type'>
@@ -79,7 +57,6 @@ const Cooking = () => {
                     </div>
                 </div>
             </div>
-        </div>
     )
 }
 

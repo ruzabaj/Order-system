@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faTimes, faSearch } from '@fortawesome/free-solid-svg-icons'
 import Calculation from './Calculation';
 import ConvertTime from './convertTime';
 import HandleButton from './button';
@@ -19,7 +19,7 @@ const Card = ({ handleDelete, handleCompleted, startCook, handleCookProcess }) =
     })
 
     useEffect(() => {
-        socket.on('connect', () => {
+        socket.on('connect',  () => {
             console.log('connected!');
         });
     })
@@ -27,21 +27,28 @@ const Card = ({ handleDelete, handleCompleted, startCook, handleCookProcess }) =
         setOutletName(event.target.value)
     }
     const handleEnter=()=>{
-        console.log("hanle enter")
+        console.log("handle enter")
         console.log(outletName, "outletName")
-        socket.emit('join', { data: outletName });
+        socket.emit('join',  {data: outletName}, (err) => {
+            if (err) {
+              alert(err);
+            } 
+        });
+        // socket.to(outletName).emit("connection");
         console.log("after emit")
-    }
-    useEffect(()=>{
         socket.on('initial_load', (res) => {
             let { data } = JSON.parse(res)
             console.log('data=>', data)
             setList(data)
         })
+        console.log('after initial load')
+    }
+    useEffect(()=>{
+       
     },[])
 
     useEffect(() => {
-        console.log("inside useEffect")
+        console.log("inside useEffect to enter update")
         socket.on("entry_update", (update) => {
             console.log('update=>', update)
             console.log("list=>", list)
@@ -56,12 +63,12 @@ const Card = ({ handleDelete, handleCompleted, startCook, handleCookProcess }) =
    
     return (
         <div className="row">
-            <div>
-                <input type="text" placeholder="Outlet Name" onChange={handleChange} />
-                <button type="sumbit" onClick={handleEnter}>Enter</button>
+            <div className='center-input-outlet'>
+                <input type="text" placeholder="Outlet Name" onChange={handleChange} className="input-enter"/>
+                <button type="sumbit" className="btn-enter-icon" onClick={handleEnter}><span><FontAwesomeIcon icon={faSearch}/></span></button>
             </div>
             {list.map((element, index) => (
-                <div className="col-md-4 col-lg-3 col-sm-2" key={index}>
+                <div className="col-lg-3 col-md-4 col-sm-6 col-12" key={index}>
                     <div className='ticket'>
                         <div className='item-order-type'>
                             <div className='top-icon'>

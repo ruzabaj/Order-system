@@ -4,7 +4,21 @@
 .top-icon {
     text-align: end;
 }
-
+.center-input-outlet{
+    text-align: center;
+    margin: 10px 5px;
+    .btn-enter-icon{
+        border: 0;
+        background: transparent;
+        margin-left: -25px;
+    }
+    .input-enter{
+        width: calc(100% - 70px);
+        height: 40px;
+        border-radius: 05px;
+        outline: 0;
+    }
+}
 .check-icon {
     margin: 5px;
     background-color: $secondary-color;

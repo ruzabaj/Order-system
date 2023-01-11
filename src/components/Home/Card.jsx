@@ -4,37 +4,12 @@ import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
 import Calculation from './Calculation';
 import ConvertTime from './convertTime';
 import HandleButton from './button';
-import axios from 'axios'
 import io from 'socket.io-client';
 
 const Card = ({ handleDelete, handleCompleted, startCook, handleCookProcess }) => {
-    const url = process.env.REACT_APP_BASE_URL;
+    // const url = process.env.REACT_APP_BASE_URL;
     const [list, setList] = useState([])
-    const [updatedList, setUpdatedList] = useState({})
-
-    // useEffect(() => {
-    //     getOrder();
-    // }, [])
-
-    // const getOrder = async () => {
-    //     try {
-    //         const result = await axios.get(`http://192.168.101.15:5000/get_live`)
-    //         setList(result.data.data)
-    //     }
-    //     catch (error) {
-    //         console.log(error)
-    //     }
-    // }
-
-    // useEffect(() => {
-    //     socket.on('connect', (data)=>console.log(data))
-    //     socket.on('newdata', (data) => console.log(data))
-    //     cleanUp() ;
-    //     }, [socket])
-
-    //     const cleanUp=()=>{
-    //           socket.disconnect();
-    //   }
+    const [outletName, setOutletName] = useState("")
 
     let socket = io("http://192.168.101.15:3000", {
         transports: ['websocket'],
@@ -47,25 +22,44 @@ const Card = ({ handleDelete, handleCompleted, startCook, handleCookProcess }) =
         socket.on('connect', () => {
             console.log('connected!');
         });
-        socket.emit('join');
+    })
+    const handleChange = (event) => {
+        setOutletName(event.target.value)
+    }
+    const handleEnter=()=>{
+        console.log("hanle enter")
+        console.log(outletName, "outletName")
+        socket.emit('join', { data: outletName });
+        console.log("after emit")
+    }
+    useEffect(()=>{
         socket.on('initial_load', (res) => {
             let { data } = JSON.parse(res)
             console.log('data=>', data)
             setList(data)
         })
-    }, [])
-    socket.on("entry_update", (update) => {
-        console.log('update=>', update)
-        console.log("list=>", list)
-        let newList=list.push(update)
-        console.log('list', newList)
-        let newArray = [update, ...list] 
-        console.log("new Array",newArray)
-        setList(newArray)
-    })
+    },[])
 
+    useEffect(() => {
+        console.log("inside useEffect")
+        socket.on("entry_update", (update) => {
+            console.log('update=>', update)
+            console.log("list=>", list)
+            let newArray = [update, ...list]
+            console.log("new Array", newArray)
+            //to push an update to the last of an array
+            // console.log("new",[...list,update] )
+            setList(newArray)
+        })
+    }, [list])
+   
+   
     return (
         <div className="row">
+            <div>
+                <input type="text" placeholder="Outlet Name" onChange={handleChange} />
+                <button type="sumbit" onClick={handleEnter}>Enter</button>
+            </div>
             {list.map((element, index) => (
                 <div className="col-md-4 col-lg-3 col-sm-2" key={index}>
                     <div className='ticket'>

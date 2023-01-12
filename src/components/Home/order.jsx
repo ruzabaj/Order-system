@@ -1,12 +1,12 @@
-import React, {useState} from 'react'
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faCheck, faTimes, faSearch} from '@fortawesome/free-solid-svg-icons'
+import React, { useState } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheck, faTimes, faSearch } from '@fortawesome/free-solid-svg-icons'
 import Calculation from './Calculation';
 import ConvertTime from './convertTime';
 import HandleButton from './button';
 import io from 'socket.io-client';
 
-const Order = ({handleDelete, handleCompleted, startCook, handleCookProcess}) => {
+const Order = ({ handleDelete, handleCompleted, startCook, handleCookProcess }) => {
     // const url = process.env.REACT_APP_BASE_URL;
     const [list, setList] = useState([])
     const [outletName, setOutletName] = useState("")
@@ -19,30 +19,30 @@ const Order = ({handleDelete, handleCompleted, startCook, handleCookProcess}) =>
             origin: "*"
         }
     })
-const fetch_data =async ()=> {
-    socket.emit('join', {
-        userName: "1233",
-        //username-outlet roomCode random num
-        roomCode: `${outletName}`
-    })
-}
-console.log(Math.floor((Math.random() * 10) + 1));
-console.log("4 digit",Math.floor(Math.random() * 9000 + 1000));
+    const fetch_data = async () => {
+        socket.emit('join', {
+            userName: "1233",
+            //username-outlet; roomCode random num
+            roomCode: `${outletName}`
+        })
+    }
+    console.log(Math.floor((Math.random() * 10) + 1));
+    console.log("4 digit", Math.floor(Math.random() * 9000 + 1000));
 
-socket.on('get_live_error', (msg) => {
-    setShow(false)
-})
+    socket.on('get_live_error', (msg) => {
+        setShow(false)
+    })
     socket.on('message', (msg) => {
         console.log(msg);
-        socket.emit("get_live", { roomId: `${outletName}`, outlet_name: outletName})
+        socket.emit("get_live", { roomId: `${outletName}`, outlet_name: outletName })
     })
     socket.on('initial_load', (res) => {
         setShow(true)
-        if(!res){
+        if (!res) {
             setShow(false)
             return;
         }
-        let {data} = JSON.parse(res)
+        let { data } = JSON.parse(res)
         console.log('data=>', data)
         setList(data)
     })
@@ -50,11 +50,11 @@ socket.on('get_live_error', (msg) => {
         console.log(res);
     })
     socket.on('entry_update', (res) => {
-        if(!res){
+        if (!res) {
             return;
         }
         setShow(true)
-        setList(current => [res,...current]);
+        setList(current => [res, ...current]);
     })
     const handleChange = (event) => {
         setOutletName(event.target.value)
@@ -70,9 +70,9 @@ socket.on('get_live_error', (msg) => {
                     type="text"
                     placeholder="Outlet Name"
                     onChange={handleChange}
-                    className="input-enter"/>
+                    className="input-enter" />
                 <button type="sumbit" className="btn-enter-icon" onClick={handleEnter}>
-                    <span><FontAwesomeIcon icon={faSearch}/></span>
+                    <span><FontAwesomeIcon icon={faSearch} /></span>
                 </button>
             </div>
             {!show && <div>Error! Please check the outlet name.</div>}
@@ -84,20 +84,20 @@ socket.on('get_live_error', (msg) => {
                                 <FontAwesomeIcon
                                     icon={faCheck}
                                     className="check-icon"
-                                    onClick={() => handleCompleted(element.OrderItemsDetailsList)}/>
+                                    onClick={() => handleCompleted(element.OrderItemsDetailsList)} />
                             </div>
                             <p className='item-type'>{element.orderType}</p>
                         </div>
                         <div className='item-course-detail'>
                             <div className='item-detail'>
                                 <div className='time-guests'>
-                                    <ConvertTime timeOrder={element.orderTime}/>
+                                    <ConvertTime timeOrder={element.orderTime} />
                                     <p>Guests :<span>2</span>
                                     </p>
                                 </div>
                                 <h1>{element.tableNum}</h1>
                                 <p>{element.employee}</p>
-                                <Calculation Ordertime={element.orderTime}/>
+                                <Calculation Ordertime={element.orderTime} />
                             </div>
                             {element
                                 .OrderItemDetailsList
@@ -110,18 +110,18 @@ socket.on('get_live_error', (msg) => {
                                                     <span>{item.Quantity}</span>
                                                     X {item.ItemName}</p>
                                                 <div className='item-check-process'>
-                                                    <FontAwesomeIcon icon={faCheck} className="completed-icon"/>
-                                                    <FontAwesomeIcon icon={faTimes} className="delete-icon" onClick={handleDelete}/>
+                                                    <FontAwesomeIcon icon={faCheck} className="completed-icon" />
+                                                    <FontAwesomeIcon icon={faTimes} className="delete-icon" onClick={handleDelete} />
                                                 </div>
                                             </div>
                                             {(item.Modifications === '')
                                                 ? ""
                                                 : <p className='modifications'>-{item.Modifications}</p>
-}
+                                            }
                                         </div>
                                     </div>
                                 ))}
-                            <HandleButton startCook={startCook} handleCookProcess={handleCookProcess}/>
+                            <HandleButton startCook={startCook} handleCookProcess={handleCookProcess} />
                         </div>
                     </div>
                 </div>

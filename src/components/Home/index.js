@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import "../../scss/home.scss";
-import Card from './Card';
+import Order from "./order"
 
 const Home = () => {
     const [startCook, setStartCook] = useState(true)
@@ -19,7 +19,7 @@ const Home = () => {
     }
     return (
         <div className="container">
-            <Card handleCompleted={handleCompleted} handleDelete={handleDelete} handleCookProcess={handleCookProcess} startCook={startCook} />
+            <Order handleCompleted={handleCompleted} handleDelete={handleDelete} handleCookProcess={handleCookProcess} startCook={startCook} />
         </div>
     )
 }

@@ -10,42 +10,44 @@ const Card = ({ handleDelete, handleCompleted, startCook, handleCookProcess }) =
     // const url = process.env.REACT_APP_BASE_URL;
     const [list, setList] = useState([])
     const [outletName, setOutletName] = useState("")
-
-    let socket = io("http://192.168.101.15:3000", {
+    
+    // useEffect(() => {
+    //     socket.on('connect', () => {
+    //         console.log('connected!');
+    //         socket.emit("join", {id: outletName, name: outletName})
+    //     });
+    // }, [outletName])
+    let socket = io("http://192.168.101.15:4000", {
         transports: ['websocket'],
         cors: {
             origin: "*"
         }
     })
 
-    useEffect(() => {
-        socket.on('connect',  () => {
-            console.log('connected!');
-        });
-    })
+
     const handleChange = (event) => {
         setOutletName(event.target.value)
     }
-    const handleEnter=()=>{
-        console.log("handle enter")
-        console.log(outletName, "outletName")
-        socket.emit('join',  {data: outletName}, (err) => {
-            if (err) {
-              alert(err);
-            } 
-        });
-        // socket.to(outletName).emit("connection");
-        console.log("after emit")
-        socket.on('initial_load', (res) => {
-            let { data } = JSON.parse(res)
-            console.log('data=>', data)
-            setList(data)
-        })
-        console.log('after initial load')
+    const handleEnter = () => {
+        // console.log("handle enter")
+        // console.log(outletName, "outletName")
+        // socket.on("user_connected",  ()=> {
+        //     console.log("id")
+        //     socket.emit("join", { id: "2134", name: outletName})
+        //     console.log("id123")
+        // });
+        // socket.emit('join', (msg) => {
+        //     console.log(msg)
+        // });
+        // console.log("after emit")
+        // socket.on('initial_load', (res) => {
+        //     let { data } = JSON.parse(res)
+        //     console.log('data=>', data)
+        //     setList(data)
+        // })
+        // console.log('after initial load')
     }
-    useEffect(()=>{
-       
-    },[])
+
 
     useEffect(() => {
         console.log("inside useEffect to enter update")
@@ -59,13 +61,13 @@ const Card = ({ handleDelete, handleCompleted, startCook, handleCookProcess }) =
             setList(newArray)
         })
     }, [list])
-   
-   
+
+
     return (
         <div className="row">
             <div className='center-input-outlet'>
-                <input type="text" placeholder="Outlet Name" onChange={handleChange} className="input-enter"/>
-                <button type="sumbit" className="btn-enter-icon" onClick={handleEnter}><span><FontAwesomeIcon icon={faSearch}/></span></button>
+                <input type="text" placeholder="Outlet Name" onChange={handleChange} className="input-enter" />
+                <button type="sumbit" className="btn-enter-icon" onClick={handleEnter}><span><FontAwesomeIcon icon={faSearch} /></span></button>
             </div>
             {list.map((element, index) => (
                 <div className="col-lg-3 col-md-4 col-sm-6 col-12" key={index}>

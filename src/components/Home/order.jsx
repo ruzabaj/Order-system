@@ -6,6 +6,7 @@ import ConvertTime from './convertTime';
 import HandleButton from './button';
 import io from 'socket.io-client';
 import uuid from 'uuid-random';
+import { click } from '@testing-library/user-event/dist/click';
 
 const Order = ({ startCook, handleCookProcess }) => {
     const [list, setList] = useState([])
@@ -13,6 +14,8 @@ const Order = ({ startCook, handleCookProcess }) => {
     const [show, setShow] = useState(true)
     const [id, setId] = useState("")
     const [hash, setHash] = useState("");
+    const [quantity, setQuantity] = useState("");
+
     var socket = io("ws://192.168.101.15:4000", {
         transports: ['websocket'],
         upgrade: false,
@@ -38,11 +41,10 @@ const Order = ({ startCook, handleCookProcess }) => {
         setHash(received_hash)
     })
     const updateList = (data) => {
-        console.log(data,"inside update list");
+        console.log(data, "inside update list");
         setList(current => [...data]);
     }
     useEffect(() => {
-        console.log(hash);
         socket.on(hash, (msg) => {
             console.log(msg)
             if (!msg) {
@@ -129,6 +131,7 @@ const Order = ({ startCook, handleCookProcess }) => {
         })
         socket.on(`${hash}item_response`, (res) => {
             console.log(list)
+            console.log(res)
             const listIndex = list.map(e => e.table_id).indexOf(res.primary_key);
             console.log("index of list", listIndex)
             let data = list[listIndex];
@@ -136,7 +139,7 @@ const Order = ({ startCook, handleCookProcess }) => {
             let toFind = res.item_id;
             let index = Object.keys(data["OrderItemDetailsList"]).findIndex(key => data["OrderItemDetailsList"][key].item_id === toFind)
             tempList[listIndex]["OrderItemDetailsList"].splice(index, 1)
-            console.log("temporary list",tempList)
+            console.log("temporary list", tempList)
             updateList(tempList)
         })
     }
@@ -154,12 +157,38 @@ const Order = ({ startCook, handleCookProcess }) => {
         console.log(res)
         console.log(res.item_id)
     })
+
     const handleEnter = () => {
         fetchData()
     }
-    const handleMinus=()=>{
+    const handleMinus = (item) => {
         console.log("inside handle minus")
+        socket.emit("quantity_decrease", {
+            roomId: `${id}`,
+            item_id: `${item}`,
+            hash: `${hash}`
+        })
+        socket.on(`${hash}quantity_response`, (res) => {
+            const listIndex = list.map(i => i.table_id).indexOf(res.table_id)
+            let clickedList = list[listIndex]
+            let index = Object.keys(clickedList["OrderItemDetailsList"]).findIndex(key => clickedList["OrderItemDetailsList"][key].item_id === item)
+            // console.log("item-index", index)
+            // console.log(clickedList["OrderItemDetailsList"], "access list inside the table")
+            // let itemIndex = clickedList["OrderItemDetailsList"][index]
+            // console.log('itemIndex', itemIndex)
+            // let quantity=itemIndex.Quantity
+            // console.log('quantity',quantity)
+            // console.log(clickedList[listIndex]["OrderItemDetailsList"].itemQuantity)
+            let newlist = list;
+            newlist[listIndex].OrderItemDetailsList[index].Quantity = res.quantity
+            console.log( newlist[listIndex].OrderItemDetailsList[index])
+            updateList(newlist)
+               })
     }
+    socket.on(`${hash}quantity_error`, (error) => {
+        console.log(error)
+        console.log(error.item_id)
+    })
     return (
         <div className="row">
             <div className='center-input-outlet'>
@@ -203,14 +232,23 @@ const Order = ({ startCook, handleCookProcess }) => {
                                         <p className='course-type'></p>
                                         <div className='item-list'>
                                             <div className='item-name'>
-                                                <p>{item.Quantity}
-                                                    <span>{item.ItemName}</span>
-                                                    </p>
+                                                <p className='quantity-box'>
+                                                    <span>{item.Quantity}</span></p>
+                                                <p >{item.ItemName}</p>
                                                 <div className='item-check-process'>
                                                     <div onClick={() => handleFinished(item.item_id)}>
                                                         <FontAwesomeIcon icon={faCheck} className="completed-icon" />
                                                     </div>
-                                                    <div onClick={handleMinus}>
+                                                    {/* {(quantity > 1) ?
+                                                        <div onClick={() => handleMinus(item.item_id)}>
+                                                            <FontAwesomeIcon icon={faMinus} className="minus-icon" />
+                                                        </div>
+                                                        :
+                                                        <div onClick={() => handleCancel(item.item_id)}>
+                                                            <FontAwesomeIcon icon={faTimes} className="delete-icon" />
+                                                        </div>
+                                                    } */}
+                                                    <div onClick={() => handleMinus(item.item_id)}>
                                                         <FontAwesomeIcon icon={faMinus} className="minus-icon" />
                                                     </div>
                                                     <div onClick={() => handleCancel(item.item_id)}>

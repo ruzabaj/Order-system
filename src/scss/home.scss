@@ -98,8 +98,19 @@
                 .item-name {
                     display: flex;
                     justify-content: space-between;
-                    p {
+                    .quantity-box{
+                
                         padding: 0px 10px;
+                        margin: 0px 5px;
+                        max-width:100px ;
+                        height:40px;
+                        span{
+                    
+                            padding: 5px;
+                            border: 1px solid black;
+                            max-width: 70%;
+                            max-height: 60%;
+                        }
                     }
 
                     .item-check-process {

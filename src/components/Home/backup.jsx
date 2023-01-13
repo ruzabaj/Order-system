@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck, faTimes, faSearch, faMinus } from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faTimes, faSearch } from '@fortawesome/free-solid-svg-icons'
 import Calculation from './Calculation';
 import ConvertTime from './convertTime';
 import HandleButton from './button';
@@ -38,7 +38,7 @@ const Order = ({ startCook, handleCookProcess }) => {
         setHash(received_hash)
     })
     const updateList = (data) => {
-        console.log(data,"inside update list");
+        console.log(data);
         setList(current => [...data]);
     }
     useEffect(() => {
@@ -53,23 +53,33 @@ const Order = ({ startCook, handleCookProcess }) => {
             console.log(JSON.stringify(temp_arr).includes(JSON.stringify(msg)));
             setList(current => [msg, ...current]);
         })
-
+        socket.on(`${hash}item_response`, (res) => {
+            console.log(res)
+            const list_index = list.map(e => e.table_id).indexOf(res.primary_key);
+            let data = list[list_index];
+            let temp_list = list;
+            let to_find=res.item_id ;
+            let index = Object.keys(data["OrderItemDetailsList"]).findIndex(key => data["OrderItemDetailsList"][key].item_id ===to_find)
+           
+            temp_list[list_index]["OrderItemDetailsList"].splice(index,1)
+            update_list(temp_list)
+        })
         socket.on(`${hash}itemresponse_error`, (error) => {
             console.log(error)
         })
         socket.on(`${hash}itemvoid_error`, (error) => {
             console.log(error)
-        })
+        })    
         socket.on(`${hash}orderseen_error`, (error) => {
             console.log(error)
-        })
+        })    
         socket.on(`${hash}itemvoid_response`, (res) => {
             console.log(res)
             console.log(res.item_id)
         })
         socket.on(`${hash}tablevoid_error`, (error) => {
             console.log(error)
-        })
+        }) 
         socket.on(`${hash}table_response`, (res) => {
             console.log(res)
         })
@@ -107,7 +117,7 @@ const Order = ({ startCook, handleCookProcess }) => {
         socket.emit("table_done", {
             roomId: `${id}`,
             table_id: `${item}`,
-            hash: `${hash}`
+            hash:`${hash}`
         })
         let newList = list.filter(el => el.table_id !== item)
         setList(newList);
@@ -119,35 +129,33 @@ const Order = ({ startCook, handleCookProcess }) => {
     socket.on("error", (error) => {
         console.log(error)
     })
-
+   
     const handleFinished = (item) => {
         console.log("inside handle finished", item);
         socket.emit("item_complete", {
             roomId: `${id}`,
             item_id: `${item}`,
-            hash: `${hash}`
+            hash:`${hash}`
         })
-        socket.on(`${hash}item_response`, (res) => {
-            console.log(list)
+        socket.on('item_response', (res) => {
+            console.log("response of item",res)
             const listIndex = list.map(e => e.table_id).indexOf(res.primary_key);
-            console.log("index of list", listIndex)
+            console.log("index of list",listIndex)
             let data = list[listIndex];
             let tempList = list;
             let toFind = res.item_id;
             let index = Object.keys(data["OrderItemDetailsList"]).findIndex(key => data["OrderItemDetailsList"][key].item_id === toFind)
             tempList[listIndex]["OrderItemDetailsList"].splice(index, 1)
-            console.log("temporary list",tempList)
             updateList(tempList)
         })
     }
-
     const handleCancel = (item) => {
         console.log("inside cancel");
         console.log(item)
         socket.emit("item_void", {
             roomId: `${id}`,
             item_id: `${item}`,
-            hash: `${hash}`
+            hash:`${hash}`
         })
     }
     socket.on('void_response', (res) => {
@@ -156,9 +164,6 @@ const Order = ({ startCook, handleCookProcess }) => {
     })
     const handleEnter = () => {
         fetchData()
-    }
-    const handleMinus=()=>{
-        console.log("inside handle minus")
     }
     return (
         <div className="row">
@@ -203,15 +208,12 @@ const Order = ({ startCook, handleCookProcess }) => {
                                         <p className='course-type'></p>
                                         <div className='item-list'>
                                             <div className='item-name'>
-                                                <p>{item.Quantity}
-                                                    <span>{item.ItemName}</span>
-                                                    </p>
+                                                <p>
+                                                    <span>{item.Quantity}</span>
+                                                    X {item.ItemName}</p>
                                                 <div className='item-check-process'>
                                                     <div onClick={() => handleFinished(item.item_id)}>
                                                         <FontAwesomeIcon icon={faCheck} className="completed-icon" />
-                                                    </div>
-                                                    <div onClick={handleMinus}>
-                                                        <FontAwesomeIcon icon={faMinus} className="minus-icon" />
                                                     </div>
                                                     <div onClick={() => handleCancel(item.item_id)}>
                                                         <FontAwesomeIcon icon={faTimes} className="delete-icon" />

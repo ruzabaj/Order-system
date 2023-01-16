@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck, faTimes, faSearch, faMinus } from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faTimes, faSearch, faMinus, faJoint } from '@fortawesome/free-solid-svg-icons'
 import Calculation from './Calculation';
 import ConvertTime from './convertTime';
 import HandleButton from './button';
 import io from 'socket.io-client';
 import uuid from 'uuid-random';
-import { click } from '@testing-library/user-event/dist/click';
 
 const Order = ({ startCook, handleCookProcess }) => {
     const [list, setList] = useState([])
@@ -14,7 +13,6 @@ const Order = ({ startCook, handleCookProcess }) => {
     const [show, setShow] = useState(true)
     const [id, setId] = useState("")
     const [hash, setHash] = useState("");
-    const [quantity, setQuantity] = useState("");
 
     var socket = io("ws://192.168.101.15:4000", {
         transports: ['websocket'],
@@ -24,14 +22,19 @@ const Order = ({ startCook, handleCookProcess }) => {
         },
         forceNode: true,
     })
-    const fetchData = async () => {
-        let uid = uuid();
-        setId(uid)
+
+     useEffect(()=>{
+         let uid = uuid();
+         setId(uid)
+    },[])
+
+    const handleEnter = () => {
         socket.emit('join', {
             userName: `${outletName}`,
-            roomCode: `${uid}`
+            roomCode: `${id}`
         })
     }
+   
     socket.on('get_live_error', (msg) => {
         setShow(false)
     })
@@ -83,6 +86,7 @@ const Order = ({ startCook, handleCookProcess }) => {
         })
     }, [hash])
 
+    //initial_load
     socket.on('initial_load', (res) => {
         setShow(true)
         if (!res) {
@@ -90,7 +94,7 @@ const Order = ({ startCook, handleCookProcess }) => {
             return;
         }
         let { data } = JSON.parse(res)
-        console.log(data)
+        console.log("=>", data)
         setList(data)
     })
     socket.on('entry_update', (res) => {
@@ -130,7 +134,6 @@ const Order = ({ startCook, handleCookProcess }) => {
             hash: `${hash}`
         })
         socket.on(`${hash}item_response`, (res) => {
-            console.log(list)
             console.log(res)
             const listIndex = list.map(e => e.table_id).indexOf(res.primary_key);
             console.log("index of list", listIndex)
@@ -142,25 +145,31 @@ const Order = ({ startCook, handleCookProcess }) => {
             console.log("temporary list", tempList)
             updateList(tempList)
         })
+        socket.off(`${hash}item_response`)
     }
 
     const handleCancel = (item) => {
-        console.log("inside cancel");
-        console.log(item)
+        console.log('inside handle cancel/void')
         socket.emit("item_void", {
             roomId: `${id}`,
             item_id: `${item}`,
             hash: `${hash}`
         })
+        socket.on(`${hash}itemvoid_response`, (res) => {
+            console.log(res)
+            const listIndex = list.map(e => e.table_id).indexOf(res.table_id);
+            let data = list[listIndex];
+            console.log("data", data)
+            let tempList = list;
+            let index = Object.keys(data["OrderItemDetailsList"]).findIndex(key => data["OrderItemDetailsList"][key].item_id === item)
+            console.log("index", index)
+            tempList[listIndex]["OrderItemDetailsList"].splice(index, 1)
+            console.log("temporary list", tempList)
+            updateList(tempList)
+        })
     }
-    socket.on('void_response', (res) => {
-        console.log(res)
-        console.log(res.item_id)
-    })
 
-    const handleEnter = () => {
-        fetchData()
-    }
+   
     const handleMinus = (item) => {
         console.log("inside handle minus")
         socket.emit("quantity_decrease", {
@@ -169,21 +178,14 @@ const Order = ({ startCook, handleCookProcess }) => {
             hash: `${hash}`
         })
         socket.on(`${hash}quantity_response`, (res) => {
+            console.log(res)
             const listIndex = list.map(i => i.table_id).indexOf(res.table_id)
             let clickedList = list[listIndex]
             let index = Object.keys(clickedList["OrderItemDetailsList"]).findIndex(key => clickedList["OrderItemDetailsList"][key].item_id === item)
-            // console.log("item-index", index)
-            // console.log(clickedList["OrderItemDetailsList"], "access list inside the table")
-            // let itemIndex = clickedList["OrderItemDetailsList"][index]
-            // console.log('itemIndex', itemIndex)
-            // let quantity=itemIndex.Quantity
-            // console.log('quantity',quantity)
-            // console.log(clickedList[listIndex]["OrderItemDetailsList"].itemQuantity)
             let newlist = list;
             newlist[listIndex].OrderItemDetailsList[index].Quantity = res.quantity
-            console.log( newlist[listIndex].OrderItemDetailsList[index])
             updateList(newlist)
-               })
+        })
     }
     socket.on(`${hash}quantity_error`, (error) => {
         console.log(error)
@@ -239,7 +241,7 @@ const Order = ({ startCook, handleCookProcess }) => {
                                                     <div onClick={() => handleFinished(item.item_id)}>
                                                         <FontAwesomeIcon icon={faCheck} className="completed-icon" />
                                                     </div>
-                                                    {/* {(quantity > 1) ?
+                                                    {(item.Quantity > 1) ?
                                                         <div onClick={() => handleMinus(item.item_id)}>
                                                             <FontAwesomeIcon icon={faMinus} className="minus-icon" />
                                                         </div>
@@ -247,13 +249,7 @@ const Order = ({ startCook, handleCookProcess }) => {
                                                         <div onClick={() => handleCancel(item.item_id)}>
                                                             <FontAwesomeIcon icon={faTimes} className="delete-icon" />
                                                         </div>
-                                                    } */}
-                                                    <div onClick={() => handleMinus(item.item_id)}>
-                                                        <FontAwesomeIcon icon={faMinus} className="minus-icon" />
-                                                    </div>
-                                                    <div onClick={() => handleCancel(item.item_id)}>
-                                                        <FontAwesomeIcon icon={faTimes} className="delete-icon" />
-                                                    </div>
+                                                    }
                                                 </div>
                                             </div>
                                             {(item.Modifications === '')

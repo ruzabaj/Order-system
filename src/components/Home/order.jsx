@@ -1,11 +1,12 @@
 import React, { useState, useEffect,useRef } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck, faTimes, faSearch, faMinus, faJoint } from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faTimes, faSearch, faMinus} from '@fortawesome/free-solid-svg-icons'
 import Calculation from './Calculation';
 import ConvertTime from './convertTime';
 import HandleButton from './button';
 import io from 'socket.io-client';
 import uuid from 'uuid-random';
+
 const Order = ({ startCook, handleCookProcess }) => {
     const [list, setList] = useState([])
     const [outletName, setOutletName] = useState("")
@@ -64,22 +65,7 @@ const Order = ({ startCook, handleCookProcess }) => {
                 console.log(error)
             })
         })
-        // socket.on(`${hash}quantity_error`, (error) => {
-        //     console.log(error)
-        //     console.log(error.item_id)
-        // })
-        // socket.on(`${hash}itemresponse_error`, (error) => {
-        //     console.log(error)
-        // })
-        // socket.on(`${hash}itemvoid_error`, (error) => {
-        //     console.log(error)
-        // })
-        // socket.on(`${hash}orderseen_error`, (error) => {
-        //     console.log(error)
-        // })
-        // socket.on(`${hash}tablevoid_error`, (error) => {
-        //     console.log(error)
-        // })
+     
         socket.on(`${hash}itemvoid_response`, (res) => {
             let list_items = list_ref.current;
             const listIndex = list_items.map(e => e.table_id).indexOf(res.table_id);
@@ -102,6 +88,7 @@ const Order = ({ startCook, handleCookProcess }) => {
             console.log(res)
         })
         socket.on(`${hash}item_response`, (res) => {
+            console.log(res)
             let list_items= list_ref.current;
             const listIndex = list_items.map(e => e.table_id).indexOf(res.primary_key);
             let arr_index;
@@ -112,9 +99,15 @@ const Order = ({ startCook, handleCookProcess }) => {
             let index = Object.keys(data["OrderItemDetailsList"]).findIndex(key => data["OrderItemDetailsList"][key].item_id === toFind);
             tempList[arr_index]["OrderItemDetailsList"].splice(index, 1);
             updateList(tempList);
+            let itemCount=res.item_count;
+            console.log(itemCount)
+            if(itemCount === 0){
+                console.log("R4EMOVE THIS TABLE FROM FRONTEND")
+                socket.emit("get_live", { roomId: `${id}`, outlet_name: `${outletName}` })
+            }
+            
         })
         socket.on(`${hash}quantity_response`, (res) => {
-            //list_ref.current
             let list_items = list_ref.current;
             const listIndex = list_items.map(i => i.table_id).indexOf(res.table_id);
             let arr_index;
@@ -126,7 +119,7 @@ const Order = ({ startCook, handleCookProcess }) => {
             updateList(newlist);
         })
     }, [hash])
-    //initial_load
+
     socket.on('initial_load', (res) => {
         setShow(true)
         if (!res) {
@@ -138,13 +131,7 @@ const Order = ({ startCook, handleCookProcess }) => {
         console.log("=>", data)
         setList(data)
     })
-    // socket.on('entry_update', (res) => {
-    //     if (!res) {
-    //         return;
-    //     }
-    //     setShow(true)
-    //     setList(current => [res, ...current]);
-    // })
+  
     const handleChange = (event) => {
         setOutletName(event.target.value)
     }
@@ -156,12 +143,11 @@ const Order = ({ startCook, handleCookProcess }) => {
             table_id: `${item}`,
             hash: `${hash}`
         })
-        // let newList = list.filter(el => el.table_id !== item)
-        // setList(newList);
     }
     socket.on("error", (error) => {
         console.log(error)
     })
+
     const handleFinished = (item) => {
         console.log("inside handle finished", item);
         socket.emit("item_complete", {
@@ -169,8 +155,6 @@ const Order = ({ startCook, handleCookProcess }) => {
             item_id: `${item}`,
             hash: `${hash}`
         })
-      
-       
     }
     const handleCancel = (item) => {
         console.log('inside handle cancel/void')
@@ -179,7 +163,6 @@ const Order = ({ startCook, handleCookProcess }) => {
             item_id: `${item}`,
             hash: `${hash}`
         })
-       
     }
   
     const handleMinus = (item) => {
@@ -189,7 +172,6 @@ const Order = ({ startCook, handleCookProcess }) => {
             item_id: `${item}`,
             hash: `${hash}`
         })
-       
     }
    
     return (

@@ -1,19 +1,18 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect,useRef } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck, faTimes, faSearch, faMinus } from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faTimes, faSearch, faMinus, faJoint } from '@fortawesome/free-solid-svg-icons'
 import Calculation from './Calculation';
 import ConvertTime from './convertTime';
 import HandleButton from './button';
 import io from 'socket.io-client';
 import uuid from 'uuid-random';
-
 const Order = ({ startCook, handleCookProcess }) => {
     const [list, setList] = useState([])
     const [outletName, setOutletName] = useState("")
     const [show, setShow] = useState(true)
     const [id, setId] = useState("")
     const [hash, setHash] = useState("");
-
+    const list_ref = useRef(list)
     var socket = io("ws://192.168.101.15:4000", {
         transports: ['websocket'],
         upgrade: false,
@@ -22,19 +21,20 @@ const Order = ({ startCook, handleCookProcess }) => {
         },
         forceNode: true,
     })
-
-    useEffect(() => {
+     useEffect(()=>{
         let uid = uuid();
         setId(uid)
-    }, [])
-
+    },[])
+    useEffect(() => {
+        list_ref.current = list;
+      }, [list])
     const handleEnter = () => {
         socket.emit('join', {
             userName: `${outletName}`,
             roomCode: `${id}`
         })
     }
-
+  
     socket.on('get_live_error', (msg) => {
         setShow(false)
     })
@@ -49,38 +49,51 @@ const Order = ({ startCook, handleCookProcess }) => {
     }
     useEffect(() => {
         socket.on(hash, (msg) => {
+            let list_items = list_ref.current;
             console.log(msg)
             if (!msg) {
                 return;
             }
             setShow(true)
-            let temp_arr = [...list]
-            console.log(JSON.stringify(temp_arr).includes(JSON.stringify(msg)));
-            setList(current => [msg, ...current]);
+            let new_list = [msg,...list_items]
+            updateList(new_list)
         })
-        socket.on(`${hash}item_response`, (res) => {
-            console.log(res)
-            const listIndex = list.map(e => e.table_id).indexOf(res.primary_key);
-            console.log("index of list", listIndex)
-            let data = list[listIndex];
-            let tempList = list;
-            let toFind = res.item_id;
-            let index = Object.keys(data["OrderItemDetailsList"]).findIndex(key => data["OrderItemDetailsList"][key].item_id === toFind)
+        let errorArray = ["quantity_error","itemresponse_error","itemvoid_error","orderseen_error","tablevoid_error"]
+        errorArray.map(e=>{
+            socket.on(`${hash}${e}`, (error) => {
+                console.log(error)
+            })
+        })
+        // socket.on(`${hash}quantity_error`, (error) => {
+        //     console.log(error)
+        //     console.log(error.item_id)
+        // })
+        // socket.on(`${hash}itemresponse_error`, (error) => {
+        //     console.log(error)
+        // })
+        // socket.on(`${hash}itemvoid_error`, (error) => {
+        //     console.log(error)
+        // })
+        // socket.on(`${hash}orderseen_error`, (error) => {
+        //     console.log(error)
+        // })
+        // socket.on(`${hash}tablevoid_error`, (error) => {
+        //     console.log(error)
+        // })
+        socket.on(`${hash}itemvoid_response`, (res) => {
+            let list_items = list_ref.current;
+            const listIndex = list_items.map(e => e.table_id).indexOf(res.table_id);
+            let data = list_items[listIndex];
+            let tempList = list_items;
+            let index = Object.keys(data["OrderItemDetailsList"]).findIndex(key => data["OrderItemDetailsList"][key].item_id === res.item_id)
             tempList[listIndex]["OrderItemDetailsList"].splice(index, 1)
-            console.log("temporary list", tempList)
             updateList(tempList)
         })
-        socket.on(`${hash}itemresponse_error`, (error) => {
-            console.log(error)
-        })
-        socket.on(`${hash}itemvoid_error`, (error) => {
-            console.log(error)
-        })
-        socket.on(`${hash}orderseen_error`, (error) => {
-            console.log(error)
-        })
-        socket.on(`${hash}tablevoid_error`, (error) => {
-            console.log(error)
+       
+        socket.on(`${hash}table_response`, (res) => {
+            let list_items= list_ref.current;
+            let newList = list_items.filter(el => el.table_id !== res.table_id)
+            updateList(newList);
         })
         socket.on(`${hash}orderseen_response`, (res) => {
             console.log(res)
@@ -88,25 +101,50 @@ const Order = ({ startCook, handleCookProcess }) => {
         socket.on(`${hash}tablevoid_response`, (res) => {
             console.log(res)
         })
+        socket.on(`${hash}item_response`, (res) => {
+            let list_items= list_ref.current;
+            const listIndex = list_items.map(e => e.table_id).indexOf(res.primary_key);
+            let arr_index;
+            listIndex<0?arr_index=list_items.length-listIndex:arr_index=listIndex;
+            let data = list_items[arr_index];
+            let tempList = list_items;
+            let toFind = res.item_id;
+            let index = Object.keys(data["OrderItemDetailsList"]).findIndex(key => data["OrderItemDetailsList"][key].item_id === toFind);
+            tempList[arr_index]["OrderItemDetailsList"].splice(index, 1);
+            updateList(tempList);
+        })
+        socket.on(`${hash}quantity_response`, (res) => {
+            //list_ref.current
+            let list_items = list_ref.current;
+            const listIndex = list_items.map(i => i.table_id).indexOf(res.table_id);
+            let arr_index;
+            listIndex<0?arr_index=list_items.length-listIndex:arr_index=listIndex;
+            let clickedList = list_items[arr_index];
+            let index = Object.keys(clickedList["OrderItemDetailsList"]).findIndex(key => clickedList["OrderItemDetailsList"][key].item_id === res.item_id);
+            let newlist = list_items;
+            newlist[arr_index].OrderItemDetailsList[index].Quantity = res.quantity;
+            updateList(newlist);
+        })
     }, [hash])
-
+    //initial_load
     socket.on('initial_load', (res) => {
         setShow(true)
         if (!res) {
             setShow(false)
+            updateList([])
             return;
         }
         let { data } = JSON.parse(res)
         console.log("=>", data)
         setList(data)
     })
-    socket.on('entry_update', (res) => {
-        if (!res) {
-            return;
-        }
-        setShow(true)
-        setList(current => [res, ...current]);
-    })
+    // socket.on('entry_update', (res) => {
+    //     if (!res) {
+    //         return;
+    //     }
+    //     setShow(true)
+    //     setList(current => [res, ...current]);
+    // })
     const handleChange = (event) => {
         setOutletName(event.target.value)
     }
@@ -118,17 +156,12 @@ const Order = ({ startCook, handleCookProcess }) => {
             table_id: `${item}`,
             hash: `${hash}`
         })
-        let newList = list.filter(el => el.table_id !== item)
-        setList(newList);
-        socket.on(`${hash}table_response`, (res) => {
-            console.log(res)
-        })
+        // let newList = list.filter(el => el.table_id !== item)
+        // setList(newList);
     }
-
     socket.on("error", (error) => {
         console.log(error)
     })
-
     const handleFinished = (item) => {
         console.log("inside handle finished", item);
         socket.emit("item_complete", {
@@ -136,20 +169,9 @@ const Order = ({ startCook, handleCookProcess }) => {
             item_id: `${item}`,
             hash: `${hash}`
         })
-        socket.on(`${hash}item_response`, (res) => {
-            console.log(res)
-            const listIndex = list.map(e => e.table_id).indexOf(res.primary_key);
-            console.log("index of list", listIndex)
-            let data = list[listIndex];
-            let tempList = list;
-            let toFind = res.item_id;
-            let index = Object.keys(data["OrderItemDetailsList"]).findIndex(key => data["OrderItemDetailsList"][key].item_id === toFind)
-            tempList[listIndex]["OrderItemDetailsList"].splice(index, 1)
-            console.log("temporary list", tempList)
-            updateList(tempList)
-        })
+      
+       
     }
-
     const handleCancel = (item) => {
         console.log('inside handle cancel/void')
         socket.emit("item_void", {
@@ -157,21 +179,9 @@ const Order = ({ startCook, handleCookProcess }) => {
             item_id: `${item}`,
             hash: `${hash}`
         })
-        socket.on(`${hash}itemvoid_response`, (res) => {
-            console.log(res)
-            const listIndex = list.map(e => e.table_id).indexOf(res.table_id);
-            let data = list[listIndex];
-            console.log("data", data)
-            let tempList = list;
-            let index = Object.keys(data["OrderItemDetailsList"]).findIndex(key => data["OrderItemDetailsList"][key].item_id === item)
-            console.log("index", index)
-            tempList[listIndex]["OrderItemDetailsList"].splice(index, 1)
-            console.log("temporary list", tempList)
-            updateList(tempList)
-        })
+       
     }
-
-
+  
     const handleMinus = (item) => {
         console.log("inside handle minus")
         socket.emit("quantity_decrease", {
@@ -179,20 +189,9 @@ const Order = ({ startCook, handleCookProcess }) => {
             item_id: `${item}`,
             hash: `${hash}`
         })
-        socket.on(`${hash}quantity_response`, (res) => {
-            console.log(res)
-            const listIndex = list.map(i => i.table_id).indexOf(res.table_id)
-            let clickedList = list[listIndex]
-            let index = Object.keys(clickedList["OrderItemDetailsList"]).findIndex(key => clickedList["OrderItemDetailsList"][key].item_id === item)
-            let newlist = list;
-            newlist[listIndex].OrderItemDetailsList[index].Quantity = res.quantity
-            updateList(newlist)
-        })
+       
     }
-    socket.on(`${hash}quantity_error`, (error) => {
-        console.log(error)
-        console.log(error.item_id)
-    })
+   
     return (
         <div className="row">
             <div className='center-input-outlet'>
@@ -240,7 +239,7 @@ const Order = ({ startCook, handleCookProcess }) => {
                                                     <span>{item.Quantity}</span></p>
                                                 <p >{item.ItemName}</p>
                                                 <div className='item-check-process'>
-                                                    <div id='complete' onClick={() => handleFinished(item.item_id)}>
+                                                    <div onClick={() => handleFinished(item.item_id)}>
                                                         <FontAwesomeIcon icon={faCheck} className="completed-icon" />
                                                     </div>
                                                     {(item.Quantity > 1) ?

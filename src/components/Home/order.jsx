@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck, faTimes, faSearch, faMinus, faJoint } from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faTimes, faSearch, faMinus } from '@fortawesome/free-solid-svg-icons'
 import Calculation from './Calculation';
 import ConvertTime from './convertTime';
 import HandleButton from './button';
@@ -23,10 +23,10 @@ const Order = ({ startCook, handleCookProcess }) => {
         forceNode: true,
     })
 
-     useEffect(()=>{
-         let uid = uuid();
-         setId(uid)
-    },[])
+    useEffect(() => {
+        let uid = uuid();
+        setId(uid)
+    }, [])
 
     const handleEnter = () => {
         socket.emit('join', {
@@ -34,7 +34,7 @@ const Order = ({ startCook, handleCookProcess }) => {
             roomCode: `${id}`
         })
     }
-   
+
     socket.on('get_live_error', (msg) => {
         setShow(false)
     })
@@ -58,7 +58,18 @@ const Order = ({ startCook, handleCookProcess }) => {
             console.log(JSON.stringify(temp_arr).includes(JSON.stringify(msg)));
             setList(current => [msg, ...current]);
         })
-
+        socket.on(`${hash}item_response`, (res) => {
+            console.log(res)
+            const listIndex = list.map(e => e.table_id).indexOf(res.primary_key);
+            console.log("index of list", listIndex)
+            let data = list[listIndex];
+            let tempList = list;
+            let toFind = res.item_id;
+            let index = Object.keys(data["OrderItemDetailsList"]).findIndex(key => data["OrderItemDetailsList"][key].item_id === toFind)
+            tempList[listIndex]["OrderItemDetailsList"].splice(index, 1)
+            console.log("temporary list", tempList)
+            updateList(tempList)
+        })
         socket.on(`${hash}itemresponse_error`, (error) => {
             console.log(error)
         })
@@ -68,15 +79,8 @@ const Order = ({ startCook, handleCookProcess }) => {
         socket.on(`${hash}orderseen_error`, (error) => {
             console.log(error)
         })
-        socket.on(`${hash}itemvoid_response`, (res) => {
-            console.log(res)
-            console.log(res.item_id)
-        })
         socket.on(`${hash}tablevoid_error`, (error) => {
             console.log(error)
-        })
-        socket.on(`${hash}table_response`, (res) => {
-            console.log(res)
         })
         socket.on(`${hash}orderseen_response`, (res) => {
             console.log(res)
@@ -86,7 +90,6 @@ const Order = ({ startCook, handleCookProcess }) => {
         })
     }, [hash])
 
-    //initial_load
     socket.on('initial_load', (res) => {
         setShow(true)
         if (!res) {
@@ -117,11 +120,11 @@ const Order = ({ startCook, handleCookProcess }) => {
         })
         let newList = list.filter(el => el.table_id !== item)
         setList(newList);
-
-        socket.on('table_response', (res) => {
+        socket.on(`${hash}table_response`, (res) => {
             console.log(res)
         })
     }
+
     socket.on("error", (error) => {
         console.log(error)
     })
@@ -145,7 +148,6 @@ const Order = ({ startCook, handleCookProcess }) => {
             console.log("temporary list", tempList)
             updateList(tempList)
         })
-        socket.off(`${hash}item_response`)
     }
 
     const handleCancel = (item) => {
@@ -169,7 +171,7 @@ const Order = ({ startCook, handleCookProcess }) => {
         })
     }
 
-   
+
     const handleMinus = (item) => {
         console.log("inside handle minus")
         socket.emit("quantity_decrease", {
@@ -238,7 +240,7 @@ const Order = ({ startCook, handleCookProcess }) => {
                                                     <span>{item.Quantity}</span></p>
                                                 <p >{item.ItemName}</p>
                                                 <div className='item-check-process'>
-                                                    <div onClick={() => handleFinished(item.item_id)}>
+                                                    <div id='complete' onClick={() => handleFinished(item.item_id)}>
                                                         <FontAwesomeIcon icon={faCheck} className="completed-icon" />
                                                     </div>
                                                     {(item.Quantity > 1) ?

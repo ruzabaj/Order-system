@@ -1,11 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck, faTimes, faSearch, faMinus, faCutlery } from '@fortawesome/free-solid-svg-icons'
-// import Calculation from './Calculation';
-// import ConvertTime from './convertTime';
 import io from 'socket.io-client';
 import uuid from 'uuid-random';
-import Card from './card';
+import Card from './Card';
+import Search from './Search';
 
 const Order = () => {
     const [list, setList] = useState([]);
@@ -110,7 +107,7 @@ const Order = () => {
             console.log(itemCount)
             if (itemCount === 0) {
                 console.log("R4EMOVE THIS TABLE FROM FRONTEND")
-                socket.emit("get_live", { roomId: `${id}`, outlet_name: `${outletName}`})
+                socket.emit("get_live", { roomId: `${id}`, outlet_name: `${outletName}` })
             }
 
         })
@@ -213,16 +210,7 @@ const Order = () => {
     }
     return (
         <div className="row">
-            <div className='center-input-outlet'>
-                <input
-                    type="text"
-                    placeholder="Outlet Name"
-                    onChange={handleChange}
-                    className="input-enter" />
-                <button type="sumbit" className="btn-enter-icon" onClick={handleEnter}>
-                    <span><FontAwesomeIcon icon={faSearch} /></span>
-                </button>
-            </div>
+            <Search handleChange={handleChange} handleEnter={handleEnter}/>
             {!show && <><div>Error! Please check the outlet name.</div></>}
             {show && list.map((element, index) => (
                 <Card element={element} handleFinished={handleFinished} handleCookProcess={handleCookProcess} handleCompleted={handleCompleted} handleMinus={handleMinus} handleCancel={handleCancel} index={index} />

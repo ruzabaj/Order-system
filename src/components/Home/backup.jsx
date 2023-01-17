@@ -5,7 +5,7 @@ import { faCheck, faTimes, faSearch, faMinus, faCutlery } from '@fortawesome/fre
 // import ConvertTime from './convertTime';
 import io from 'socket.io-client';
 import uuid from 'uuid-random';
-import Card from './card';
+import Card from './Card';
 
 const Order = () => {
     const [list, setList] = useState([]);

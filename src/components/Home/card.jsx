@@ -37,7 +37,7 @@ const Card = ({ handleFinished, handleCookProcess, handleCompleted, handleMinus,
                                     <div className='item-name'>
                                         <p className='quantity-box'>
                                             <span>{item.Quantity}</span></p>
-                                        <p >{item.ItemName}</p>
+                                        <p className='food'>{item.ItemName}</p>
                                         <div className='item-check-process'>
                                             <div>
                                                 <FontAwesomeIcon icon={faCheck} className="completed-icon"  onClick={() => handleFinished(item.item_id)}/>

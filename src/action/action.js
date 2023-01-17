@@ -3,22 +3,25 @@ let url=process.env.REACT_APP_BASE_URL;
 
 //define action types
 export const UPDATE_ITEM="UPDATE_ITEM";
+export const CREATE_ROOM_SUCCESS="CREATE_ROOM_SUCCESSS";
+export const CREATE_ROOM_ERROR="CREATE_ROOM_ERROR";
 export const CREATE_SUCCESS="CREATE_SUCCESS";
 export const CREATE_ERROR="CREATE_ERROR";
+export const SEND_MESSAGE_REQUEST="SEND_MESSAGE_REQUEST";
 
 export function updateItem(){
     return{
         type:UPDATE_ITEM,
     }
 }
-export function createWebSuccess(payload){
+export function createRoomSuccess(payload){
     return{
-        type: CREATE_SUCCESS,
+        type: CREATE_ROOM_SUCCESS,
         payload
     }
 }
 
-export function createWebError(error){
+export function createRoomError(error){
     return{
         type:CREATE_ERROR,
         error
@@ -27,7 +30,7 @@ export function createWebError(error){
 
 //all api calls are dispatched on action
 
-export function deleteItem(itemNumber){
+export function createRoom(itemNumber){
     return async function(dispatch){
         dispatch(updateItem())
         try {

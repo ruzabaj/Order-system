@@ -1,6 +1,6 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHome, faCutlery } from '@fortawesome/free-solid-svg-icons'
+import { faHome, faCutlery, faReceipt} from '@fortawesome/free-solid-svg-icons'
 import "../../scss/navbar.scss";
 import Sidebar from './sidebar';
 import { Link } from 'react-router-dom';
@@ -21,6 +21,11 @@ const Navbar = () => {
                     <FontAwesomeIcon icon={faCutlery} />
                 </Link>
             </div>
+            <button className='navbar-icon-cutlery'>
+                <Link to="/report">
+                    <FontAwesomeIcon icon={faReceipt} />
+                </Link>
+            </button>
         </nav>
     )
 }

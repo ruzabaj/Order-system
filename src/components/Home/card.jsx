@@ -1,17 +1,17 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck, faTimes, faMinus, faCutlery } from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faTimes, faMinus, faCutlery, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import Calculation from './Calculation';
 import ConvertTime from './convertTime';
 
-const Card = ({handleFinished, handleCookProcess, handleCompleted, handleMinus, handleCancel, index, element}) => {
+const Card = ({ handleFinished, handleCookProcess, handleCompleted, handleMinus, handleCancel, index, element }) => {
     return (
         <div className="col-lg-3 col-md-4 col-sm-6 col-12" key={index}>
             <div className='ticket'>
                 <div className='item-order-type'>
                     <div className='top-icon'>
                         <FontAwesomeIcon
-                            icon={faCheck}
+                            icon={faCheckCircle}
                             className="check-icon"
                             onClick={() => handleCompleted(element.table_id)} />
                     </div>
@@ -39,17 +39,13 @@ const Card = ({handleFinished, handleCookProcess, handleCompleted, handleMinus, 
                                             <span>{item.Quantity}</span></p>
                                         <p >{item.ItemName}</p>
                                         <div className='item-check-process'>
-                                            <div onClick={() => handleFinished(item.item_id)}>
-                                                <FontAwesomeIcon icon={faCheck} className="completed-icon" />
+                                            <div>
+                                                <FontAwesomeIcon icon={faCheck} className="completed-icon"  onClick={() => handleFinished(item.item_id)}/>
                                             </div>
                                             {(item.Quantity > 1) ?
-                                                <div onClick={() => handleMinus(item.item_id)}>
-                                                    <FontAwesomeIcon icon={faMinus} className="minus-icon" />
-                                                </div>
+                                                <FontAwesomeIcon icon={faMinus} className="minus-icon" onClick={() => handleMinus(item.item_id)} />
                                                 :
-                                                <div onClick={() => handleCancel(item.item_id)}>
-                                                    <FontAwesomeIcon icon={faTimes} className="delete-icon" />
-                                                </div>
+                                                <FontAwesomeIcon icon={faTimes} className="delete-icon" onClick={() => handleCancel(item.item_id)} />
                                             }
                                         </div>
                                     </div>

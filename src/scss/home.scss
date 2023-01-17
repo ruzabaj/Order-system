@@ -4,21 +4,25 @@
 .top-icon {
     text-align: end;
 }
-.center-input-outlet{
+
+.center-input-outlet {
     text-align: center;
     margin: 10px 5px;
-    .btn-enter-icon{
+
+    .btn-enter-icon {
         border: 0;
         background: transparent;
         margin-left: -25px;
     }
-    .input-enter{
+
+    .input-enter {
         width: calc(100% - 70px);
         height: 40px;
         border-radius: 05px;
         outline: 0;
     }
 }
+
 .check-icon {
     margin: 5px;
     background-color: $secondary-color;
@@ -28,6 +32,7 @@
     padding: 1px;
     font-size: 20px;
     cursor: pointer;
+
     &:hover {
         background-color: green;
         color: $secondary-color;
@@ -40,7 +45,7 @@
     border-radius: 10px;
     margin: 10px;
     height: auto;
-    cursor: grab;
+
     .item-order-type {
         height: 70px;
         background-color: $card-header;
@@ -62,18 +67,22 @@
             color: $primary-color;
             font-weight: 600;
             font-family: 'Source Serif Pro';
+
             .time-guests {
                 display: flex;
                 justify-content: space-between;
-                p{
-                    padding:2px 10px;
+
+                p {
+                    padding: 2px 10px;
                 }
             }
-            .show-elapsed-time{
+
+            .show-elapsed-time {
                 display: flex;
                 justify-content: center;
-                span{
-                    padding:0px 2px;
+
+                span {
+                    padding: 0px 2px;
                 }
             }
         }
@@ -92,20 +101,23 @@
             .item-list {
                 background-color: $secondary-color;
                 color: $primary-color;
-                height: auto;
-                font-family: "Poppins";
+                position: relative;
+                // font-family: "Poppins";
+                // width: fit-content;
                 font-weight: 500;
+
                 .item-name {
                     display: flex;
                     justify-content: space-between;
-                    .quantity-box{
-                
+                    // position: relative;
+
+                    .quantity-box {
                         padding: 0px 10px;
                         margin: 0px 5px;
-                        max-width:100px ;
-                        height:40px;
-                        span{
-                    
+                        max-width: 100px;
+                        height: 40px;
+
+                        span {
                             padding: 5px;
                             border: 1px solid black;
                             max-width: 70%;
@@ -115,22 +127,45 @@
 
                     .item-check-process {
                         display: flex;
+                        // position: absolute;
 
                         .completed-icon {
                             color: $success-color;
                             font-size: 24px;
                             padding: 0px 10px;
+                            transition: transform .2s;
+                            cursor: pointer;
+
+                            &:hover {
+                                color: $primary-color;
+                                transform: scale(1.5);
+                            }
                         }
+
                         .minus-icon {
                             color: $btn-seen;
                             font-size: 24px;
                             padding: 0px 10px;
+                            transition: transform .2s;
+                            cursor: pointer;
+
+                            &:hover {
+                                color: $primary-color;
+                                transform: scale(1.5);
+                            }
                         }
 
                         .delete-icon {
                             color: $danger-color;
                             font-size: 24px;
                             padding: 0px 10px;
+                            cursor: pointer;
+                            transition: transform .2s;
+
+                            &:hover {
+                                color: $primary-color;
+                                transform: scale(1.5);
+                            }
                         }
                     }
                 }

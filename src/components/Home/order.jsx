@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faTimes, faSearch, faMinus, faCutlery } from '@fortawesome/free-solid-svg-icons'
-import Calculation from './Calculation';
-import ConvertTime from './convertTime';
+// import Calculation from './Calculation';
+// import ConvertTime from './convertTime';
 import io from 'socket.io-client';
 import uuid from 'uuid-random';
 import Card from './card';
@@ -14,7 +14,8 @@ const Order = () => {
     const [id, setId] = useState("")
     const [hash, setHash] = useState("");
     const list_ref = useRef(list)
-    var socket = io("ws://192.168.101.15:4000", {
+
+    var socket = io("ws://192.168.101.15:5000", {
         transports: ['websocket'],
         upgrade: false,
         cors: {
@@ -109,7 +110,7 @@ const Order = () => {
             console.log(itemCount)
             if (itemCount === 0) {
                 console.log("R4EMOVE THIS TABLE FROM FRONTEND")
-                socket.emit("get_live", { roomId: `${id}`, outlet_name: `${outletName}` })
+                socket.emit("get_live", { roomId: `${id}`, outlet_name: `${outletName}`})
             }
 
         })
@@ -128,11 +129,11 @@ const Order = () => {
             console.log("res of orderseen_response", res.table_id)
             let listItems = list_ref.current;
             console.log(listItems, "list Items")
-            let TableId=res.table_id;
-            const listIndex=listItems.map(i=>i.table_id).indexOf(TableId);
-            let currentList= listItems[listIndex]
-            console.log("selected list",currentList)
-          
+            let TableId = res.table_id;
+            const listIndex = listItems.map(i => i.table_id).indexOf(TableId);
+            let currentList = listItems[listIndex]
+            console.log("selected list", currentList)
+
             // const listIndex = list_items.map(e => e.table_id).indexOf(res.table_id);
             // let data = list_items[listIndex];
             // console.log("data of void ", data )
@@ -224,74 +225,8 @@ const Order = () => {
             </div>
             {!show && <><div>Error! Please check the outlet name.</div></>}
             {show && list.map((element, index) => (
-                <div className="col-lg-3 col-md-4 col-sm-6 col-12" key={index}>
-                    <div className='ticket'>
-                        <div className='item-order-type'>
-                            <div className='top-icon'>
-                                <FontAwesomeIcon
-                                    icon={faCheck}
-                                    className="check-icon"
-                                    onClick={() => handleCompleted(element.table_id)} />
-                            </div>
-                            <p className='item-type'>{element.orderType}</p>
-                        </div>
-                        <div className='item-course-detail'>
-                            <div className='item-detail'>
-                                <div className='time-guests'>
-                                    <ConvertTime timeOrder={element.orderTime} />
-                                    <p>Guests :<span>2</span>
-                                    </p>
-                                </div>
-                                <h1>{element.tableNum}</h1>
-                                <p>{element.employee}</p>
-                                <Calculation Ordertime={element.orderTime} />
-                            </div>
-                            {element
-                                .OrderItemDetailsList
-                                .map((item, index) => (
-                                    <div className='course-item' key={index}>
-                                        <p className='course-type'></p>
-                                        <div className='item-list'>
-                                            <div className='item-name'>
-                                                <p className='quantity-box'>
-                                                    <span>{item.Quantity}</span></p>
-                                                <p >{item.ItemName}</p>
-                                                <div className='item-check-process'>
-                                                    <div onClick={() => handleFinished(item.item_id)}>
-                                                        <FontAwesomeIcon icon={faCheck} className="completed-icon" />
-                                                    </div>
-                                                    {(item.Quantity > 1) ?
-                                                        <div onClick={() => handleMinus(item.item_id)}>
-                                                            <FontAwesomeIcon icon={faMinus} className="minus-icon" />
-                                                        </div>
-                                                        :
-                                                        <div onClick={() => handleCancel(item.item_id)}>
-                                                            <FontAwesomeIcon icon={faTimes} className="delete-icon" />
-                                                        </div>
-                                                    }
-                                                </div>
-                                            </div>
-                                            {(item.Modifications === '')
-                                                ? ""
-                                                : <p className='modifications'>-{item.Modifications}</p>
-                                            }
-                                        </div>
-                                    </div>
-                                ))}
-                            {(element.currentState === "Started") ?
-                                <button className='seen-btn' type='submit' onClick={() => handleCookProcess(element.table_id)}>
-                                    SEEN
-                                </button>
-                                :
-                                <button className='start-cooking' type='submit' onClick={() => handleCookProcess(element.table_id)}>
-                                    <FontAwesomeIcon icon={faCutlery} />
-                                </button>
-                            }
-                        </div>
-                    </div>
-                </div>
-                ))}
-                {/* <Card element={element} handleFinished={handleFinished} handleCookProcess={handleCookProcess} handleCompleted={handleCompleted} handleMinus={handleMinus} handleCancel={handleCancel} index={index}/> */}
+                <Card element={element} handleFinished={handleFinished} handleCookProcess={handleCookProcess} handleCompleted={handleCompleted} handleMinus={handleMinus} handleCancel={handleCancel} index={index} />
+            ))}
         </div>
     )
 }

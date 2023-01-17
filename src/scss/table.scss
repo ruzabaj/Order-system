@@ -1,6 +1,9 @@
 @import "./config";
 .outlet-name{
-
+    font-family: "Open Sans";
+}
+.icon{
+    font-size: 30px;
 }
 .dashboard-items{
     border: 1px solid black;
@@ -8,14 +11,14 @@
     margin: 0px 10px;
 }
 .control-dates {
+    margin: 10px 0px;
     display: flex;
     justify-content: space-between;
     .datepicker-style{
         border-radius: 10px;
         outline: none;
         border: none;
-        box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
-        box-shadow: rgba(0, 0, 255, .2) 0px 48px 100px 0px;
+        box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
     }
 }
 .report-flex{
@@ -28,6 +31,9 @@
     label{
         font-family: "Poppins";
         font-weight: 500;
+    }
+    .report-info-two{
+        float: right;
     }
     .report-info-one, .report-info-two{
         span{

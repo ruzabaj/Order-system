@@ -1,12 +1,21 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import "../../scss/table.scss";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { MdPeopleAlt } from "react-icons/md";
+import { IoFastFoodOutline, IoFastFood } from "react-icons/io5";
+import { TbNumbers } from "react-icons/tb";
+import axios from 'axios';
 
 const Report = () => {
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
+    { console.log(startDate, endDate) }
+    useEffect(() => {
+        // axios.post(`http://192.168.101.15:5000/report`,{
 
+        // })
+    }, [])
     return (
         <div className='container'>
             <div className='show-outlet-name'>
@@ -16,7 +25,7 @@ const Report = () => {
                 <div>
                     <label>Start Date:</label>
                     <DatePicker selected={startDate} onChange={(date) =>
-                        setStartDate(date)} className="datepicker-style" />
+                        setStartDate(date)} className="datepicker-style" dateForma='YYYY-MM-dd' />
                 </div>
                 <div>
                     <label>End Date:</label>
@@ -29,20 +38,29 @@ const Report = () => {
             <div className='dashboard'>
                 <div className="row">
                     <div className="col dashboard-items">
+                        <TbNumbers className='icon' />
                         <label>Total no.of items:</label>
                         <p>Total</p>
                     </div>
                     <div className="col dashboard-items">
+                        <IoFastFoodOutline className='icon' />
                         <label>First Order At:</label>
                         <p>Last</p>
                     </div>
                     <div className="col dashboard-items">
+                        <IoFastFood className='icon' />
                         <label>Last Order At:</label>
                         <p>Last</p>
                     </div>
                     <div className="col dashboard-items">
+                        <MdPeopleAlt className='icon' />
                         <label>Total guest:</label>
                         <p>Total</p>
+                    </div>
+                    <div className="col dashboard-items">
+                        <MdPeopleAlt className='icon' />
+                        <label>Operating Hours:</label>
+                        <p>Hours</p>
                     </div>
                 </div>
             </div>
@@ -70,16 +88,11 @@ const Report = () => {
                         <td>Chief Sandwich Eater</td>
                         <td>Chief Sandwich Eater</td>
                     </tr>
-                    <tr>
-                        <td>The</td>
-                        <td>Tick</td>
-                        <td>Crimefighter Sorta</td>
-                    </tr>
                 </tbody>
             </table>
             <div className='information-report'>
                 <div className='report-flex'>
-                    <div className='report-info-one'>
+                    {/* <div className='report-info-one'>
                         <div className='report-info'>
                             <label>Total no.of items:</label>
                             <span>Total</span>
@@ -96,12 +109,12 @@ const Report = () => {
                             <label>Operating Hours:</label>
                             <span>Hours</span>
                         </div>
-                    </div>
+                    </div> */}
                     <div className='report-info-two'>
-                        <div className='report-info'>
+                        {/* <div className='report-info'>
                             <label>Total guest:</label>
                             <span>Total</span>
-                        </div>
+                        </div> */}
                         <div className='report-info'>
                             <label>Dine In:</label>
                             <span>Last</span>

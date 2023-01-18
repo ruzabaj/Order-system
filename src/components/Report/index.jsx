@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react'
 import "../../scss/table.scss";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { MdPeopleAlt } from "react-icons/md";
-import { IoFastFoodOutline, IoFastFood } from "react-icons/io5";
+import { IoFastFoodOutline, IoFastFood, IoPeopleOutline } from "react-icons/io5";
 import { TbNumbers } from "react-icons/tb";
+import { FcClock } from "react-icons/fc";
 import axios from 'axios';
 import moment from 'moment';
+import { calculateNewValue } from '@testing-library/user-event/dist/utils';
 
 const Report = () => {
     const [startDate, setStartDate] = useState(new Date());
@@ -18,23 +19,20 @@ const Report = () => {
 
     const [information, setInformation] = useState({});
     const [orders, setOrders] = useState([]);
-    const [error, setError] = useState("");
+    const [error, setError] = useState(true);
+    // const [totalCount, setCount] = useState("");
 
     let url = process.env.REACT_APP_BASE_URL;
 
     useEffect(() => {
         let initialDate = startDate
         let date = moment(initialDate).format();
-        console.log(date)
         let firstDate = date.toString().substring(0, 10)
-        console.log("1", firstDate)
         setFirstDate(firstDate)
 
         let lastDate = endDate
         let dates = moment(lastDate).format();
-        console.log(dates)
         let secondDate = dates.toString().substring(0, 10)
-        console.log("2", secondDate);
         setSecondDate(secondDate);
 
     }, [startDate, endDate])
@@ -49,21 +47,21 @@ const Report = () => {
             "outlet_name": outletName
         })
             .then((response) => {
-                console.log(response.data.orders)
                 setInformation(response.data);
                 setOrders(response.data.orders)
+                setError(false)
             })
             .catch((error) => {
-                console.log(error)
-                setError(error)
+                setError(true)
             })
     }
-
+    let count = 0;
+    const calculateCount = () => {
+        count = count + 1;
+        return count
+    }
     return (
         <div className='container'>
-            {/* <div className='show-outlet-name'>
-                <h4 className='outlet-name'>Outlet Name</h4>
-            </div> */}
             <div className='control-dates'>
                 <div>
                     <label>Outlet Name:</label>
@@ -87,40 +85,51 @@ const Report = () => {
                     Generate Report
                 </button>
             </div>
-            {error ?
+            {error ? " Error" :
                 <div>
                     <div className='dashboard'>
                         <div className="row">
                             <div className="col dashboard-items">
                                 <TbNumbers className='icon' />
-                                <label>Total no.of items:</label>
-                                <p>Total</p>
+                                <div>
+                                    <label>Total no.of items:</label>
+                                    {/* <p>{calculateCount()}</p> */}
+                                </div>
                             </div>
                             <div className="col dashboard-items">
                                 <IoFastFoodOutline className='icon' />
-                                <label>First Order At:</label>
-                                <p>time</p>
+                                <div>
+                                    <label>First Order At:</label>
+                                    <p>{information.first_orderAt}</p>
+                                </div>
                             </div>
                             <div className="col dashboard-items">
                                 <IoFastFood className='icon' />
-                                <label>Last Order At:</label>
-                                <p>time</p>
+                                <div>
+                                    <label>Last Order At:</label>
+                                    <p>{information.last_orderAt}</p>
+                                </div>
                             </div>
                             <div className="col dashboard-items">
-                                <MdPeopleAlt className='icon' />
-                                <label>Total guest:</label>
-                                <p>Total</p>
+                                <IoPeopleOutline className='icon' />
+                                <div>
+                                    <label>Total guest:</label>
+                                    <p>{information.Guest_count}</p>
+                                </div>
                             </div>
                             <div className="col dashboard-items">
-                                <MdPeopleAlt className='icon' />
-                                <label>Operating Hours:</label>
-                                <p>Hours</p>
+                                <FcClock className='icon' />
+                                <div>
+                                    <label>Operating Hours:</label>
+                                    <p>{information.Operating_hours}</p>
+                                </div>
                             </div>
                         </div>
+
                         {orders.map((element, index) => (
-                            <div key={index}>
+                            <div key={index} className="information">
                                 <div className='show-table-num'>
-                                    <p>tableNum</p>
+                                    <p>{element.TableNum}</p>
                                 </div>
                                 <table>
                                     <thead>
@@ -131,20 +140,14 @@ const Report = () => {
                                             <th>Ordered At</th>
                                             <th>Completed At</th>
                                             <th>Total Time</th>
-                                            <th>Average Prepared Timet</th>
+                                            <th>Average Prepared Time</th>
                                             <th>Prepared Time Difference</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {/* {let getCount=element.items.map((item) => {
-                            console.log(item)
-                            let count = count + 1;
-                            console.log(count)
-                            return count
-                        })} */}
-
                                         {element.items.map((item, index) => (
                                             <tr key={index}>
+                                                {calculateCount()}
                                                 <td>{index + 1}</td>
                                                 <td>{item.Quantity}</td>
                                                 <td>{item.ItemName}</td>
@@ -181,17 +184,13 @@ const Report = () => {
                         </div>
                     </div> */}
                                 <div className='report-info-two'>
-                                    {/* <div className='report-info'>
-                            <label>Total guest:</label>
-                            <span>Total</span>
-                        </div> */}
                                     <div className='report-info'>
                                         <label>Dine In:</label>
-                                        <span>{information.DineIn}</span>
+                                        <span>{information.DineIn_totalSales}</span>
                                     </div>
                                     <div className='report-info'>
                                         <label>Takeaway:</label>
-                                        <span>{information.TakeAway}</span>
+                                        <span>{information.TakeAway_totalSales}</span>
                                     </div>
                                     <div className='report-info'>
                                         <label>Voids:</label>
@@ -206,10 +205,7 @@ const Report = () => {
                             </div>
                         </div>
                     </div>
-
                 </div>
-                :
-                ""
             }
         </div>
     )

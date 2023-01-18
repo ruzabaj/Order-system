@@ -21,7 +21,7 @@ const Card = ({ handleFinished, handleCookProcess, handleCompleted, handleMinus,
                     <div className='item-detail'>
                         <div className='time-guests'>
                             <ConvertTime timeOrder={element.orderTime} />
-                            <p>Guests :<span>2</span>
+                            <p>Guests :<span>{element.Guest_count}</span>
                             </p>
                         </div>
                         <h1>{element.tableNum}</h1>

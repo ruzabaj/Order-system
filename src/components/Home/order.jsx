@@ -11,8 +11,9 @@ const Order = () => {
     const [id, setId] = useState("")
     const [hash, setHash] = useState("");
     const list_ref = useRef(list)
+    let url=process.env.REACT_APP_SOCKET_URL
 
-    var socket = io("ws://192.168.101.15:5000", {
+    var socket = io(`${url}`, {
         transports: ['websocket'],
         upgrade: false,
         cors: {

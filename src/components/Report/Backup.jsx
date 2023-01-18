@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef} from 'react'
+import React, { useState, useEffect } from 'react'
 import "../../scss/table.scss";
 import "react-datepicker/dist/react-datepicker.css";
 import { IoFastFoodOutline, IoFastFood, IoPeopleOutline } from "react-icons/io5";
@@ -7,7 +7,7 @@ import { FcClock } from "react-icons/fc";
 import axios from 'axios';
 import ControlDate from './ControlDate';
 import moment from 'moment';
-import Pagination from './Pagination';
+import PaginationTest from './paginationTest';
 
 const Report = () => {
     const [outletName, setOutletName] = useState("")
@@ -19,10 +19,15 @@ const Report = () => {
     const [secondDate, setSecondDate] = useState("")
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
-    const [maxPageLength, setMaxPageLength] = useState();
-    const [pageLength, setPageLength] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [recordsPerPage] = useState(2);
 
     let url = process.env.REACT_APP_BASE_URL;
+
+    const indexOfLastRecord = currentPage * recordsPerPage;
+    const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+    const Orders = orders.slice(indexOfFirstRecord, indexOfLastRecord);
+    const nPages = Math.ceil(orders.length / recordsPerPage)
 
     useEffect(() => {
         let initialDate = startDate
@@ -47,21 +52,11 @@ const Report = () => {
         setTotalCount(totalCount)
     }, [orders])
 
-    useEffect(() => {
-        let arrayLength = [];
-        for (let i = 1; i < maxPageLength+1; i++) {
-            arrayLength.push(i)
-        }
-        console.log('array length', arrayLength)
-        setPageLength(arrayLength)
-    }, [maxPageLength])
-
     const handleGenerateReport = () => {
         axios.post(`${url}/report`, {
             "start_date": firstDate,
             "end_date": secondDate,
-            "outlet_name": outletName,
-            "page_no": 1
+            "outlet_name": outletName
         })
             .then((response) => {
                 setInformation(response.data)
@@ -73,25 +68,6 @@ const Report = () => {
                 setError(true)
             })
     }
-    const handleNumber = (page) => {
-        console.log(typeof page)
-        axios.post(`${url}/report`, {
-            "start_date": firstDate,
-            "end_date": secondDate,
-            "outlet_name": outletName,
-            "page_no": page
-        })
-        .then((response)=>{
-            console.log(response.data)
-            console.log(response.data.orders)
-            setOrders(response.data.orders)
-        })
-        .catch((error)=>{
-            console.log(error )
-        })
-
-    }
-   
     const handleChange = (event) => {
         setOutletName(event.target.value)
     }
@@ -144,7 +120,7 @@ const Report = () => {
                             </div>
                         </div>
 
-                        {orders.map((element, index) => (
+                        {Orders.map((element, index) => (
                             <div key={index} className="information">
                                 <div className='show-table-num'>
                                     <p>Table <span>{element.TableNum}</span></p>
@@ -206,7 +182,10 @@ const Report = () => {
                     </div>
                 </div>
             }
-            <Pagination pageLength={pageLength} handleNumber={handleNumber}/>
+            <PaginationTest
+                nPages={nPages}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage} />
         </div>
     )
 }

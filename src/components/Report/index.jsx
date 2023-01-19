@@ -24,6 +24,8 @@ const Report = () => {
 
     let url = process.env.REACT_APP_BASE_URL;
 
+    const {TakeAway_totalSales, TakeAway, Voids, DineIn, DineIn_totalSales, first_orderAt, last_orderAt, Guest_count, Operating_hours, Cooked}= information;
+
     useEffect(() => {
         let initialDate = startDate
         let date = moment(initialDate).format();
@@ -100,7 +102,7 @@ const Report = () => {
     return (
         <div className='container'>
             <ControlDate setStartDate={setStartDate} startDate={startDate} endDate={endDate} setEndDate={setEndDate} handleChange={handleChange} handleGenerateReport={handleGenerateReport} />
-            {error ? (alert("Error")) :
+            {error ? "Error" :
                 <div className='report'>
                     <div className='show-outlet-name'>
                         <h4>{outletName}</h4>
@@ -118,28 +120,28 @@ const Report = () => {
                                 <IoFastFoodOutline className='icon' />
                                 <div className='padding-dashboard-items'>
                                     <label>First Order At:</label>
-                                    <p>{information.first_orderAt}</p>
+                                    <p>{first_orderAt}</p>
                                 </div>
                             </div>
                             <div className="col dashboard-items">
                                 <IoFastFood className='icon' />
                                 <div className='padding-dashboard-items'>
                                     <label>Last Order At:</label>
-                                    <p>{information.last_orderAt}</p>
+                                    <p>{last_orderAt}</p>
                                 </div>
                             </div>
                             <div className="col dashboard-items">
                                 <IoPeopleOutline className='icon' />
                                 <div className='padding-dashboard-items'>
                                     <label>Total guest:</label>
-                                    <p>{information.Guest_count}</p>
+                                    <p>{Guest_count}</p>
                                 </div>
                             </div>
                             <div className="col dashboard-items">
                                 <FcClock className='icon' />
                                 <div className='padding-dashboard-items'>
                                     <label>Operating Hours:</label>
-                                    <p>{information.Operating_hours}</p>
+                                    <p>{Operating_hours}</p>
                                 </div>
                             </div>
                         </div>
@@ -186,27 +188,27 @@ const Report = () => {
                             <div className='report-info-two'>
                                 <div className='report-info'>
                                     <label>Dine In:</label>
-                                    <span>{information.DineIn}</span>
+                                    <span>{DineIn}</span>
                                 </div>
                                 <div className='report-info'>
                                     <label>Dine-In (Total Sales):</label>
-                                    <span>{information.DineIn_totalSales}</span>
+                                    <span>{DineIn_totalSales}</span>
                                 </div>
                                 <div className='report-info'>
                                     <label>Takeaway:</label>
-                                    <span>{information.TakeAway}</span>
+                                    <span>{TakeAway}</span>
                                 </div>
                                 <div className='report-info'>
                                     <label>Takeaway (Total Sales):</label>
-                                    <span>{information.TakeAway_totalSales}</span>
+                                    <span>{TakeAway_totalSales}</span>
                                 </div>
                                 <div className='report-info'>
                                     <label>Voids:</label>
-                                    <span>{information.Voids}</span>
+                                    <span>{Voids}</span>
                                 </div>
                                 <div className='report-info'>
                                     <label>Cooked:</label>
-                                    <span>{information.Cooked}</span>
+                                    <span>{Cooked}</span>
                                 </div>
                             </div>
 

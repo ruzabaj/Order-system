@@ -34,12 +34,18 @@
     border: 1px solid black;
     height: auto;
 
+    .control-dates-flex {
+        display: flex;
+        justify-content: space-between;
+    }
+
     .date-picker {
         display: flex;
+        margin-left: 10px;
     }
 
     .input-style {
-        width: calc(100%);
+        width: 300px !important;
     }
 
     .datepicker-style {
@@ -50,13 +56,19 @@
     }
 
     .btn-report {
-        border: 1px solid $table-num;
-        background-color: $table-num;
-        color: white;
-        height: auto;
-        width: auto;
-        padding: 10px;
-        border-radius: 10px;
+        width: 155px;
+        margin-top: 10px;
+        text-align: center;
+
+        button {
+            height: calc(100% - 20px);
+            width: calc(100% - 10px);
+            border: 1px solid $table-num;
+            background-color: $table-num;
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+        }
 
         &:hover {
             background-color: $card-header;
@@ -158,6 +170,15 @@ th {
     }
 }
 
+@media only screen and (max-width: 990px) {
+    .control-dates{
+        .control-dates-flex {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+}
+
 @media only screen and (max-width: 760px),
 (min-device-width: 768px) and (max-device-width: 1024px) {
     .control-dates {
@@ -167,17 +188,18 @@ th {
 
         .datepicker-style,
         .input-style {
-            width: calc(100% - 30px);
+            width: calc(100% - 30px) !important;
         }
     }
-    .btn-report {
-        margin-top: 10px;
-        height: 30px !important;
-        text-align: center;
-        &:hover {
-            background-color: $card-header;
-        }
-    }
+
+    // .btn-report {
+    //     margin-top: 10px;
+    //     height: 30px !important;
+    //     text-align: center;
+    //     &:hover {
+    //         background-color: $card-header;
+    //     }
+    // }
     .report-flex {
         display: flex;
         flex-direction: column;

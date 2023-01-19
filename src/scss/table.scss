@@ -18,6 +18,7 @@
         margin: 05px 10px;
         display: flex;
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
         .padding-dashboard-items {
             padding-left: 7px;
         }
@@ -33,35 +34,13 @@
     border: 1px solid black;
     height: auto;
 
-    .datepicker-style {
-        border-radius: 10px;
-        outline: none;
-        border: none;
-        box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    .date-picker {
+        display: flex;
     }
 
-    .btn-report {
-        border: 1px solid $table-num;
-        background-color: $table-num;
-        color: white;
-        height: auto;
-        width: auto;
-        padding: 10px;
-        border-radius: 10px;
-
-        &:hover {
-            background-color: $card-header;
-        }
+    .input-style {
+        width: calc(100%);
     }
-}
-.control-dates-collapse {
-    margin: 20px 0px;
-    padding: 15px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border: 1px solid black;
-    height: auto;
 
     .datepicker-style {
         border-radius: 10px;
@@ -84,6 +63,7 @@
         }
     }
 }
+
 .report-flex {
 
     // display: flex;
@@ -109,16 +89,20 @@
         }
     }
 }
-.report{
+
+.report {
     margin-top: 50px;
+
     .show-outlet-name {
         text-align: center;
         margin: 10px 05px;
     }
 }
-.information{
+
+.information {
     margin-top: 10px;
 }
+
 .show-table-num {
     border-radius: 45%;
     width: 100px;
@@ -126,7 +110,8 @@
     text-align: center;
     margin-bottom: -30px;
     background-color: $table-num;
-    p{
+
+    p {
         font-weight: 500;
         color: $secondary-color;
     }
@@ -156,14 +141,41 @@ th {
     text-align: left;
 }
 
+@media only screen and (max-width: 376px) {
+    .control-dates {
+        margin: 20px 0px;
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        border: 1px solid black;
+        height: auto;
+    }
+
+    .date-picker {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
 @media only screen and (max-width: 760px),
 (min-device-width: 768px) and (max-device-width: 1024px) {
-    .control-dates{
+    .control-dates {
         display: flex;
         flex-direction: column !important;
         justify-content: center;
-        .datepicker-style {
+
+        .datepicker-style,
+        .input-style {
             width: calc(100% - 30px);
+        }
+    }
+    .btn-report {
+        margin-top: 10px;
+        height: 30px !important;
+        text-align: center;
+        &:hover {
+            background-color: $card-header;
         }
     }
     .report-flex {
@@ -200,7 +212,7 @@ th {
         position: relative;
         padding-left: 60%;
     }
-    
+
     td:before {
         /* Now like a table header */
         position: absolute;

@@ -64,6 +64,7 @@ const Report = () => {
             "page_no": 1
         })
             .then((response) => {
+                console.log(response)
                 setInformation(response.data)
                 setMaxPageLength(response.data.maxPage_Length)
                 setOrders(response.data.orders)
@@ -99,7 +100,7 @@ const Report = () => {
     return (
         <div className='container'>
             <ControlDate setStartDate={setStartDate} startDate={startDate} endDate={endDate} setEndDate={setEndDate} handleChange={handleChange} handleGenerateReport={handleGenerateReport} />
-            {error ? " Error" :
+            {error ? (alert("Error")) :
                 <div className='report'>
                     <div className='show-outlet-name'>
                         <h4>{outletName}</h4>
@@ -185,10 +186,18 @@ const Report = () => {
                             <div className='report-info-two'>
                                 <div className='report-info'>
                                     <label>Dine In:</label>
+                                    <span>{information.DineIn}</span>
+                                </div>
+                                <div className='report-info'>
+                                    <label>Dine-In (Total Sales):</label>
                                     <span>{information.DineIn_totalSales}</span>
                                 </div>
                                 <div className='report-info'>
                                     <label>Takeaway:</label>
+                                    <span>{information.TakeAway}</span>
+                                </div>
+                                <div className='report-info'>
+                                    <label>Takeaway (Total Sales):</label>
                                     <span>{information.TakeAway_totalSales}</span>
                                 </div>
                                 <div className='report-info'>

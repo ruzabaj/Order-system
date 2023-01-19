@@ -11,7 +11,7 @@ const Order = () => {
     const [id, setId] = useState("")
     const [hash, setHash] = useState("");
     const list_ref = useRef(list)
-    let url=process.env.REACT_APP_SOCKET_URL
+    let url = process.env.REACT_APP_SOCKET_URL
 
     var socket = io(`${url}`, {
         transports: ['websocket'],
@@ -36,6 +36,7 @@ const Order = () => {
     }
 
     socket.on('get_live_error', (msg) => {
+        console.log(msg)
         setShow(false)
     })
     socket.on('message', (msg) => {
@@ -65,21 +66,17 @@ const Order = () => {
             })
         })
 
-        socket.on(`${hash}itemvoid_response`, (res) => {
-            console.log(res)
-            socket.emit("get_live", { roomId: `${id}`, outlet_name: `${outletName}` })
-            // let list_items = list_ref.current;
-            // const listIndex = list_items.map(e => e.table_id).indexOf(res.table_id);
-            // let data = list_items[listIndex];
-            // console.log("data of void ", data )
-            // let tempList = list_items;
-            // let currentItem=res.item_id;
-            // console.log("temp list of void response",tempList)
-            // let index = Object.keys(data["OrderItemDetailsList"]).findIndex(key => data["OrderItemDetailsList"][key].item_id === currentItem)
-            // console.log("index of void response", index)
-            // tempList[listIndex]["OrderItemDetailsList"].splice(index, 1)
-            // updateList(tempList)
-        })
+        // let list_items = list_ref.current;
+        // const listIndex = list_items.map(e => e.table_id).indexOf(res.table_id);
+        // let data = list_items[listIndex];
+        // console.log("data of void ", data )
+        // let tempList = list_items;
+        // let currentItem=res.item_id;
+        // console.log("temp list of void response",tempList)
+        // let index = Object.keys(data["OrderItemDetailsList"]).findIndex(key => data["OrderItemDetailsList"][key].item_id === currentItem)
+        // console.log("index of void response", index)
+        // tempList[listIndex]["OrderItemDetailsList"].splice(index, 1)
+        // updateList(tempList)
 
         socket.on(`${hash}table_response`, (res) => {
             let list_items = list_ref.current;
@@ -95,23 +92,35 @@ const Order = () => {
         socket.on(`${hash}item_response`, (res) => {
             console.log(res)
             socket.emit("get_live", { roomId: `${id}`, outlet_name: `${outletName}` })
-            // let list_items = list_ref.current;
-            // const listIndex = list_items.map(e => e.table_id).indexOf(res.primary_key);
-            // let arr_index;
-            // listIndex < 0 ? arr_index = list_items.length - listIndex : arr_index = listIndex;
-            // let data = list_items[arr_index];
-            // let tempList = list_items;
-            // let toFind = res.item_id;
-            // let index = Object.keys(data["OrderItemDetailsList"]).findIndex(key => data["OrderItemDetailsList"][key].item_id === toFind);
-            // tempList[arr_index]["OrderItemDetailsList"].splice(index, 1);
-            // updateList(tempList);
-            // let itemCount = res.item_count;
-            // console.log(itemCount)
-            // if (itemCount === 0) {
-            //     console.log("R4EMOVE THIS TABLE FROM FRONTEND")
-            //     socket.emit("get_live", { roomId: `${id}`, outlet_name: `${outletName}` })
-            // }
+            let itemCount = res.item_count;
+            console.log(itemCount)
+            if (itemCount === 0) {
+                console.log("R4EMOVE THIS TABLE FROM FRONTEND")
+                socket.emit("get_live", { roomId: `${id}`, outlet_name: `${outletName}` })
+                setList(current => []);
+            }
+        })
 
+        // let list_items = list_ref.current;
+        // const listIndex = list_items.map(e => e.table_id).indexOf(res.primary_key);
+        // let arr_index;
+        // listIndex < 0 ? arr_index = list_items.length - listIndex : arr_index = listIndex;
+        // let data = list_items[arr_index];
+        // let tempList = list_items;
+        // let toFind = res.item_id;
+        // let index = Object.keys(data["OrderItemDetailsList"]).findIndex(key => data["OrderItemDetailsList"][key].item_id === toFind);
+        // tempList[arr_index]["OrderItemDetailsList"].splice(index, 1);
+        // updateList(tempList);
+        
+        socket.on(`${hash}itemvoid_response`, (res) => {
+            socket.emit("get_live", { roomId: `${id}`, outlet_name: `${outletName}` })
+            let itemCount = res.item_count;
+            console.log(itemCount)
+            if (itemCount === 0) {
+                console.log("R4EMOVE THIS TABLE FROM FRONTEND")
+                socket.emit("get_live", { roomId: `${id}`, outlet_name: `${outletName}` })
+                setList(current => []);
+            }
         })
         socket.on(`${hash}quantity_response`, (res) => {
             let list_items = list_ref.current;
@@ -133,24 +142,24 @@ const Order = () => {
             let currentList = listItems[listIndex]
             console.log("selected list", currentList)
 
-            // const listIndex = list_items.map(e => e.table_id).indexOf(res.table_id);
-            // let data = list_items[listIndex];
-            // console.log("data of void ", data )
-
-            // let tempList = list_items;
-            // let currentItem=res.item_id;
-            // console.log("temp list of void response",tempList)
-            // let index = Object.keys(data["OrderItemDetailsList"]).findIndex(key => data["OrderItemDetailsList"][key].item_id === currentItem)
-            // console.log("index of void response", index)
-            // tempList[listIndex]["OrderItemDetailsList"].splice(index, 1)
-            // updateList(tempList)
-
-
             socket.emit("get_live", { roomId: `${id}`, outlet_name: `${outletName}` })
         })
     }, [hash])
+    
+    // const listIndex = list_items.map(e => e.table_id).indexOf(res.table_id);
+    // let data = list_items[listIndex];
+    // console.log("data of void ", data )
+
+    // let tempList = list_items;
+    // let currentItem=res.item_id;
+    // console.log("temp list of void response",tempList)
+    // let index = Object.keys(data["OrderItemDetailsList"]).findIndex(key => data["OrderItemDetailsList"][key].item_id === currentItem)
+    // console.log("index of void response", index)
+    // tempList[listIndex]["OrderItemDetailsList"].splice(index, 1)
+    // updateList(tempList)
 
     socket.on('initial_load', (res) => {
+        console.log(res, "initial load")
         setShow(true)
         if (!res) {
             setShow(false)
@@ -212,7 +221,7 @@ const Order = () => {
     }
     return (
         <div className="row">
-            <Search handleChange={handleChange} handleEnter={handleEnter}/>
+            <Search handleChange={handleChange} handleEnter={handleEnter} />
             {!show && <><div>Error! Please check the outlet name.</div></>}
             {show && list.map((element, index) => (
                 <Card element={element} handleFinished={handleFinished} handleCookProcess={handleCookProcess} handleCompleted={handleCompleted} handleMinus={handleMinus} handleCancel={handleCancel} index={index} />

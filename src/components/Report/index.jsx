@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef} from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import "../../scss/table.scss";
 import "react-datepicker/dist/react-datepicker.css";
 import { IoFastFoodOutline, IoFastFood, IoPeopleOutline } from "react-icons/io5";
@@ -11,6 +11,7 @@ import Pagination from './Pagination';
 
 const Report = () => {
     const [outletName, setOutletName] = useState("")
+    const [outlet, setOutlet] = useState([]);
     const [information, setInformation] = useState({});
     const [orders, setOrders] = useState([]);
     const [error, setError] = useState(true);
@@ -24,8 +25,17 @@ const Report = () => {
 
     let url = process.env.REACT_APP_BASE_URL;
 
-    const {TakeAway_totalSales, TakeAway, Voids, DineIn, DineIn_totalSales, first_orderAt, last_orderAt, Guest_count, Operating_hours, Cooked}= information;
-
+    const { TakeAway_totalSales, TakeAway, Voids, DineIn, DineIn_totalSales, first_orderAt, last_orderAt, Guest_count, Operating_hours, Cooked, item_count } = information;
+    useEffect(() => {
+        axios.get(`${url}/outlets`)
+            .then((response) => {
+                console.log(response.data)
+                setOutlet(response.data)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }, [])
     useEffect(() => {
         let initialDate = startDate
         let date = moment(initialDate).format();
@@ -51,7 +61,7 @@ const Report = () => {
 
     useEffect(() => {
         let arrayLength = [];
-        for (let i = 1; i < maxPageLength+1; i++) {
+        for (let i = 1; i < maxPageLength + 1; i++) {
             arrayLength.push(i)
         }
         console.log('array length', arrayLength)
@@ -83,25 +93,26 @@ const Report = () => {
             "outlet_name": outletName,
             "page_no": page
         })
-        .then((response)=>{
-            console.log(response.data)
-            console.log(response.data.orders)
-            setOrders(response.data.orders)
-        })
-        .catch((error)=>{
-            console.log(error )
-        })
+            .then((response) => {
+                console.log(response.data)
+                console.log(response.data.orders)
+                setOrders(response.data.orders)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
 
     }
-   
+
     const handleChange = (event) => {
         setOutletName(event.target.value)
     }
 
-
     return (
         <div className='container'>
-            <ControlDate setStartDate={setStartDate} startDate={startDate} endDate={endDate} setEndDate={setEndDate} handleChange={handleChange} handleGenerateReport={handleGenerateReport} />
+            <ControlDate setStartDate={setStartDate} startDate={startDate} endDate={endDate} setEndDate={setEndDate} 
+            handleChange={handleChange} 
+            handleGenerateReport={handleGenerateReport} outlet={outlet}/>
             {error ? "Error" :
                 <div className='report'>
                     <div className='show-outlet-name'>
@@ -113,7 +124,9 @@ const Report = () => {
                                 <TbNumbers className='icon' />
                                 <div className='padding-dashboard-items'>
                                     <label>Total no.of items:</label>
-                                    <p>{totalCount}</p>
+                                    <p>{item_count}</p>
+                                    {/* <label>Items per page:</label>
+                                    <p>{totalCount}</p> */}
                                 </div>
                             </div>
                             <div className="col dashboard-items">
@@ -216,7 +229,7 @@ const Report = () => {
                     </div>
                 </div>
             }
-            <Pagination pageLength={pageLength} handleNumber={handleNumber}/>
+            <Pagination pageLength={pageLength} handleNumber={handleNumber} />
         </div>
     )
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import "../../scss/pagination.scss";
 
 const Pagination = ({ pageLength, handleNumber}) => {
     // const prevPage = () => {
@@ -6,7 +7,7 @@ const Pagination = ({ pageLength, handleNumber}) => {
     //         setCurrentPage(currentPage - 1)
     // }
     return (
-        <div>
+        <div className='pagination-width'>
             <ul className="pagination justify-content-center">
                 {/* <li className="page-item disabled">
                     <a className="page-link">Previous</a>

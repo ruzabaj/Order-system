@@ -1,19 +1,18 @@
 import React from 'react'
 import DatePicker from "react-datepicker";
 
-const ControlDate = ({ startDate, endDate, handleChange, handleGenerateReport, setStartDate, setEndDate }) => {
+const ControlDate = ({ startDate, endDate,  handleGenerateReport, setStartDate, setEndDate, outlet, handleChange }) => {
     return (
         <div className='control-dates'>
             <div className='control-dates-flex'>
                 <div>
                     <label>Outlet Name:</label>
-                    {/* <div>
-                        <input type="text" placeholder="Outlet Name" onChange={handleChange} className="input-style" />
-                    </div> */}
                     <div>
-                        <select name="outletName" id="outletName" className="input-style">
+                        <select name="outletName" id="outletName" className="input-style" onChange={handleChange}>
                             <option value=""></option>
-                            <option value="volvo">Volvo</option>
+                            {outlet.map((outlets, index) => (
+                                <option value={outlets.outlet_Name} key={index} >{outlets.outlet_Name}</option>
+                            ))}
                         </select>
                     </div>
                 </div>
@@ -33,7 +32,7 @@ const ControlDate = ({ startDate, endDate, handleChange, handleGenerateReport, s
                 </div>
             </div>
             <div className='btn-report'>
-                <button type='submit' onClick={handleGenerateReport}>
+                <button type='submit'onClick={handleGenerateReport}>
                     Generate Report
                 </button>
             </div>

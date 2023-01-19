@@ -1,7 +1,8 @@
 .pagination-width{
-    max-width: 500px;
-    border: 1px solid black;
     display: flex;
     justify-content: center;
+}
+.pagination{
     flex-wrap: wrap;
+    width: 100%;
 }

@@ -1,0 +1,263 @@
+@import "./config";
+
+.outlet-name {
+    font-family: "Open Sans";
+}
+
+.icon {
+    height: 50px;
+    width: 40px;
+}
+
+.dashboard {
+    margin: 20px 0px;
+
+    .dashboard-items {
+        border: 1px solid black;
+        border-radius: 10px;
+        margin: 05px 10px;
+        display: flex;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+        .padding-dashboard-items {
+            padding-left: 7px;
+        }
+    }
+}
+
+.control-dates {
+    margin: 20px 0px;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid black;
+    height: auto;
+
+    .date-picker {
+        display: flex;
+    }
+
+    .input-style {
+        width: calc(100%);
+    }
+
+    .datepicker-style {
+        border-radius: 10px;
+        outline: none;
+        border: none;
+        box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    }
+
+    .btn-report {
+        border: 1px solid $table-num;
+        background-color: $table-num;
+        color: white;
+        height: auto;
+        width: auto;
+        padding: 10px;
+        border-radius: 10px;
+
+        &:hover {
+            background-color: $card-header;
+        }
+    }
+}
+
+.report-flex {
+
+    // display: flex;
+    // justify-content: space-between;
+    .report-info {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    label {
+        font-family: "Poppins";
+        font-weight: 500;
+    }
+
+    .report-info-two {
+        float: right;
+    }
+
+    .report-info-one,
+    .report-info-two {
+        span {
+            padding-left: 10px;
+        }
+    }
+}
+
+.report {
+    margin-top: 50px;
+
+    .show-outlet-name {
+        text-align: center;
+        margin: 10px 05px;
+    }
+}
+
+.information {
+    margin-top: 10px;
+}
+
+.show-table-num {
+    border-radius: 45%;
+    width: 100px;
+    height: 35px;
+    text-align: center;
+    margin-bottom: -30px;
+    background-color: $table-num;
+
+    p {
+        font-weight: 500;
+        color: $secondary-color;
+    }
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 30px 05px;
+}
+
+/* Zebra striping */
+tr:nth-of-type(odd) {
+    background: $secondary-color;
+}
+
+th {
+    background: $card-header;
+    color: $secondary-color;
+    font-weight: bold;
+}
+
+td,
+th {
+    padding: 6px;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+
+@media only screen and (max-width: 376px) {
+    .control-dates {
+        margin: 20px 0px;
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        border: 1px solid black;
+        height: auto;
+    }
+
+    .date-picker {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px) {
+    .control-dates {
+        display: flex;
+        flex-direction: column !important;
+        justify-content: center;
+
+        .datepicker-style,
+        .input-style {
+            width: calc(100% - 30px);
+        }
+    }
+    .btn-report {
+        margin-top: 10px;
+        height: 30px !important;
+        text-align: center;
+        &:hover {
+            background-color: $card-header;
+        }
+    }
+    .report-flex {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Force table to not be like tables anymore */
+    table,
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
+        display: block;
+    }
+
+    /* Hide table headers (but not display: none;, for accessibility) */
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tr {
+        border: 1px solid #ccc;
+        margin: 20px 0px;
+    }
+
+    td {
+        /* Behave  like a "row" */
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 60%;
+    }
+
+    td:before {
+        /* Now like a table header */
+        position: absolute;
+        /* Top/left values mimic padding */
+        // background-color: $btn-seen;
+        // color: $secondary-color;
+        top: 6px;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+    }
+
+    /*
+	Label the data
+	*/
+    td:nth-of-type(1):before {
+        content: "S.No";
+    }
+
+    td:nth-of-type(2):before {
+        content: "Quantity";
+    }
+
+    td:nth-of-type(3):before {
+        content: "Item Name";
+    }
+
+    td:nth-of-type(4):before {
+        content: "Ordered at";
+    }
+
+    td:nth-of-type(5):before {
+        content: "Completed at";
+    }
+
+    td:nth-of-type(6):before {
+        content: "Total Time";
+    }
+
+    td:nth-of-type(7):before {
+        content: "Average Prepared Time";
+    }
+
+    td:nth-of-type(8):before {
+        content: "Prepared Time Difference";
+    }
+}

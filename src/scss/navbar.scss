@@ -1,0 +1,25 @@
+@import "./config";
+
+nav {
+    display: flex;
+    border-bottom: 1px solid white;
+    background-color: $btn-seen;
+}
+.navbar-icons {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: $secondary-color;
+    text-align: center;
+    margin: 10px;
+}
+
+.navbar-icon-cutlery {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: $secondary-color;
+    color: $cook-process-icon !important;
+    text-align: center;
+    margin: 10px;
+}

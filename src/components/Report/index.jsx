@@ -74,7 +74,6 @@ const Report = () => {
             })
     }
     const handleNumber = (page) => {
-        console.log(typeof page)
         axios.post(`${url}/report`, {
             "start_date": firstDate,
             "end_date": secondDate,

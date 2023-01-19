@@ -1,7 +1,10 @@
 import React from 'react';
 
 const Pagination = ({ pageLength, handleNumber}) => {
-
+    // const prevPage = () => {
+    //     if (currentPage !== 1)
+    //         setCurrentPage(currentPage - 1)
+    // }
     return (
         <div>
             <ul className="pagination justify-content-center">

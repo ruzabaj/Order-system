@@ -94,22 +94,23 @@ const Order = () => {
         })
         socket.on(`${hash}item_response`, (res) => {
             console.log(res)
-            let list_items = list_ref.current;
-            const listIndex = list_items.map(e => e.table_id).indexOf(res.primary_key);
-            let arr_index;
-            listIndex < 0 ? arr_index = list_items.length - listIndex : arr_index = listIndex;
-            let data = list_items[arr_index];
-            let tempList = list_items;
-            let toFind = res.item_id;
-            let index = Object.keys(data["OrderItemDetailsList"]).findIndex(key => data["OrderItemDetailsList"][key].item_id === toFind);
-            tempList[arr_index]["OrderItemDetailsList"].splice(index, 1);
-            updateList(tempList);
-            let itemCount = res.item_count;
-            console.log(itemCount)
-            if (itemCount === 0) {
-                console.log("R4EMOVE THIS TABLE FROM FRONTEND")
-                socket.emit("get_live", { roomId: `${id}`, outlet_name: `${outletName}` })
-            }
+            socket.emit("get_live", { roomId: `${id}`, outlet_name: `${outletName}` })
+            // let list_items = list_ref.current;
+            // const listIndex = list_items.map(e => e.table_id).indexOf(res.primary_key);
+            // let arr_index;
+            // listIndex < 0 ? arr_index = list_items.length - listIndex : arr_index = listIndex;
+            // let data = list_items[arr_index];
+            // let tempList = list_items;
+            // let toFind = res.item_id;
+            // let index = Object.keys(data["OrderItemDetailsList"]).findIndex(key => data["OrderItemDetailsList"][key].item_id === toFind);
+            // tempList[arr_index]["OrderItemDetailsList"].splice(index, 1);
+            // updateList(tempList);
+            // let itemCount = res.item_count;
+            // console.log(itemCount)
+            // if (itemCount === 0) {
+            //     console.log("R4EMOVE THIS TABLE FROM FRONTEND")
+            //     socket.emit("get_live", { roomId: `${id}`, outlet_name: `${outletName}` })
+            // }
 
         })
         socket.on(`${hash}quantity_response`, (res) => {

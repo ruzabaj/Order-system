@@ -41,3 +41,37 @@ export function createRoom(itemNumber){
         }
     }
 }
+
+export const JOIN_ROOM_REQUEST="JOIN_ROOM_REQUEST";
+export const JOIN_ROOM_SUCCESS="JOIN_ROOM_SUCCESS";
+export const JOIN_ROOM_ERROR="JOIN_ROOM_ERROR";
+
+export function joinRoomRequest(){
+    return{
+        type: JOIN_ROOM_REQUEST
+    }
+}
+
+export function joinRoomSuccess(payload){
+    return{
+        type: JOIN_ROOM_REQUEST,
+        payload
+    }
+}
+export function joinRoomError(error){
+    return{
+        type: JOIN_ROOM_REQUEST,
+        error
+    }
+}
+ export function joinRoom(roomId){
+    return async function (dispatch){
+        dispatch(joinRoomRequest());
+        try {
+            const response= await axios.get(`${url}/report`)
+            joinRoomSuccess(payload)
+        } catch (error) {
+            dispatch(joinRoomError(error))
+        }
+    }
+ }

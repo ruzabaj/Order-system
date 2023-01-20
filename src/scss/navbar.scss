@@ -5,10 +5,18 @@ nav {
     border-bottom: 1px solid white;
     background-color: $btn-seen;
 }
+
+.btn-bar{
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    background-color: $table-num;
+    color: white;
+}
 .navbar-icons {
     width: 30px;
     height: 30px;
-    border-radius: 50%;
+    // border-radius: 50%;
     background-color: $secondary-color;
     text-align: center;
     margin: 10px;
@@ -17,9 +25,9 @@ nav {
 .navbar-icon-cutlery {
     width: 30px;
     height: 30px;
-    border-radius: 50%;
+    // border-radius: 50%;
     background-color: $secondary-color;
-    color: $cook-process-icon !important;
+    color: $secondary-color;
     text-align: center;
     margin: 10px;
 }

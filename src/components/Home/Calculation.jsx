@@ -16,6 +16,7 @@ const Calculation = ({ Ordertime }) => {
     var { hours, minutes, seconds } = format
     let hour = parseInt(hours)
     let minute = parseInt(minutes)
+    console.log("minute", minute)
     let second = parseInt(seconds)
     const fromTime = new Date(0, 0, 0, hour, minute, second, 0);
     return (

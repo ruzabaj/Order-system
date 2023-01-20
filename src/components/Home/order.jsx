@@ -21,13 +21,17 @@ const Order = () => {
         },
         forceNode: true,
     })
+
+
     useEffect(() => {
         let uid = uuid();
         setId(uid)
     }, [])
+
     useEffect(() => {
         list_ref.current = list;
     }, [list])
+    
     const handleEnter = () => {
         socket.emit('join', {
             userName: `${outletName}`,

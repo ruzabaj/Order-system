@@ -76,8 +76,13 @@ const Information = ({orders, information}) => {
                                                 <td>{item.orderedAt}</td>
                                                 <td>{item.completedAt}</td>
                                                 <td>{item.TotalTime}</td>
+                                                {(item.prepTimeDifference)?
                                                 <td>{item.AvgPrepTime}</td>
+                                                :''}
+                                                
+                                                {(item.prepTimeDifference)?
                                                 <td>{item.prepTimeDifference}</td>
+                                                :''}
                                             </tr>
 
                                         ))}

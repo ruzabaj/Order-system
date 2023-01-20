@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import "../../scss/table.scss";
 import axios from 'axios';
 import moment from 'moment';
@@ -19,6 +19,10 @@ const Report = () => {
     const [endDate, setEndDate] = useState(new Date());
     const [maxPageLength, setMaxPageLength] = useState();
     const [pageLength, setPageLength] = useState([]);
+    const [appetizer, setAppetizer] = useState([]);
+    const [entree, setEntree] = useState([]);
+    const [dessert, setDessert] = useState([]);
+    const [salad, setSalad] = useState([]);
 
     let url = process.env.REACT_APP_BASE_URL;
 
@@ -27,7 +31,6 @@ const Report = () => {
     useEffect(() => {
         axios.get(`${url}/outlets`)
             .then((response) => {
-                console.log(response.data)
                 setOutlet(response.data)
             })
             .catch((error) => {
@@ -62,7 +65,6 @@ const Report = () => {
         for (let i = 1; i < maxPageLength + 1; i++) {
             arrayLength.push(i)
         }
-        console.log('array length', arrayLength)
         setPageLength(arrayLength)
     }, [maxPageLength])
 
@@ -74,13 +76,13 @@ const Report = () => {
             "page_no": 1
         })
             .then((response) => {
-                console.log(response)
                 setInformation(response.data)
                 setMaxPageLength(response.data.maxPage_Length)
                 setOrders(response.data.orders)
                 setError(false)
             })
             .catch((error) => {
+                console.log(error)
                 setError(true)
             })
     }
@@ -92,14 +94,29 @@ const Report = () => {
             "page_no": page
         })
             .then((response) => {
-                console.log(response.data)
-                console.log(response.data.orders)
                 setOrders(response.data.orders)
             })
             .catch((error) => {
                 console.log(error)
             })
 
+    }
+    const handleSidebar = () => {
+        axios.post(`${url}/completed`, {
+            "start_date": firstDate,
+            "end_date": secondDate,
+            "outlet_name": outletName,
+        })
+            .then((response) => {
+                console.log(response.data)
+                setAppetizer(response.data.Appetizer)
+                setSalad(response.data.Salads)
+                setEntree(response.data.Entree)
+                setDessert(response.data.Desserts)
+            })
+            .catch((error) => {
+                console.log(error.response.data)
+            })
     }
 
     const handleChange = (e) => {
@@ -108,15 +125,21 @@ const Report = () => {
 
     return (
         <div className='container'>
-            <ControlDate setStartDate={setStartDate} startDate={startDate} endDate={endDate} setEndDate={setEndDate} 
-            handleChange={handleChange} 
-            handleGenerateReport={handleGenerateReport} outlet={outlet}/>
+            <ControlDate setStartDate={setStartDate} startDate={startDate} endDate={endDate} setEndDate={setEndDate}
+                handleChange={handleChange}
+                handleGenerateReport={handleGenerateReport} outlet={outlet}
+                handleSidebar={handleSidebar}
+                appetizer={appetizer}
+                dessert={dessert}
+                salad={salad}
+                entree={entree}
+            />
             {error ? "Error" :
                 <div className='report'>
                     <div className='show-outlet-name'>
                         <h4>{outletName}</h4>
                     </div>
-                    <Information orders={orders} information={information}/>
+                    <Information orders={orders} information={information} />
                     <div className='information-report'>
                         <div className='report-flex'>
                             <div className='report-info-two'>

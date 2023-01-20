@@ -146,12 +146,11 @@
                             color: $btn-seen;
                             font-size: 24px;
                             padding: 0px 5px;
-                            transition: transform .2s;
                             cursor: pointer;
-
+                            transition: transform .2s;
                             &:hover {
-                                color: $primary-color;
                                 transform: scale(1.5);
+                                color: $primary-color;
                             }
                         }
 

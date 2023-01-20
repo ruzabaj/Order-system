@@ -1,10 +1,12 @@
 import React from 'react'
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import SelectSearch from 'react-select-search';
+import Sidebar from '../Navbar/sidebar';
+import "react-datepicker/dist/react-datepicker.css";
 import 'react-select-search/style.css'
+import "../../scss/navbar.scss";
 
-const ControlDate = ({ startDate, endDate, handleGenerateReport, setStartDate, setEndDate, outlet, handleChange }) => {
+const ControlDate = ({ startDate, endDate, handleGenerateReport, setStartDate, setEndDate, outlet, handleChange, handleSidebar, dessert, entree, salad, appetizer}) => {
     return (
         <div className='control-dates'>
             <div className='control-dates-flex'>
@@ -22,7 +24,7 @@ const ControlDate = ({ startDate, endDate, handleGenerateReport, setStartDate, s
                             defaultValue=""
                             search
                             placeholder="Select Outlet Name"
-                            onChange={(e)=>handleChange(e)}
+                            onChange={(e) => handleChange(e)}
                         />
                     </div>
                 </div>
@@ -46,6 +48,7 @@ const ControlDate = ({ startDate, endDate, handleGenerateReport, setStartDate, s
                     Generate Report
                 </button>
             </div>
+                <Sidebar handleSidebar={handleSidebar} dessert={dessert} appetizer={appetizer} entree={entree} salad={salad}/>
         </div>
     )
 }

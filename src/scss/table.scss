@@ -3,15 +3,16 @@
 .outlet-name {
     font-family: "Open Sans";
 }
-
-.icon {
+.btn-bar{
+    border-radius: 50%;
+    width: 50px;
     height: 50px;
-    width: 40px;
+    background-color: $table-num;
+    color: white;
 }
 
 .dashboard {
     margin: 20px 0px;
-
     .dashboard-items {
         border: 1px solid black;
         border-radius: 10px;
@@ -19,8 +20,23 @@
         display: flex;
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 
+        .icon {
+            height: 50px;
+            width: 40px;
+            transition: transform .2s;
+
+            &:hover {
+                transform: scale(1.5);
+            }
+        }
+
         .padding-dashboard-items {
             padding-left: 7px;
+
+            label {
+                font-size: 20px;
+                font-weight: 400;
+            }
         }
     }
 }
@@ -37,6 +53,11 @@
     .control-dates-flex {
         display: flex;
         justify-content: space-between;
+
+        label {
+            font-size: 20px;
+            font-weight: 500;
+        }
     }
 
     .date-picker {
@@ -48,10 +69,12 @@
         width: 300px !important;
     }
 
-    .datepicker-style, .select-search-input {
+    .datepicker-style,
+    .select-search-input {
         height: 45px;
         outline: none;
         border: none;
+        padding: 0px 15px;
         box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
     }
 
@@ -68,6 +91,7 @@
             color: white;
             padding: 10px;
             border-radius: 10px;
+
             &:hover {
                 background-color: $card-header;
             }
@@ -78,8 +102,6 @@
 
 .report-flex {
 
-    // display: flex;
-    // justify-content: space-between;
     .report-info {
         display: flex;
         justify-content: space-between;
@@ -133,6 +155,7 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin: 30px 05px;
+    border: 1px solid #ccc;
 }
 
 /* Zebra striping */
@@ -149,8 +172,9 @@ th {
 td,
 th {
     padding: 6px;
-    border: 1px solid #ccc;
     text-align: left;
+    border: 1px solid #ccc;
+    
 }
 
 @media only screen and (max-width: 376px) {
@@ -171,7 +195,7 @@ th {
 }
 
 @media only screen and (max-width: 990px) {
-    .control-dates{
+    .control-dates {
         .control-dates-flex {
             display: flex;
             flex-direction: column;

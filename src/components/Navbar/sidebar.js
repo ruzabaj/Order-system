@@ -3,11 +3,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import "../../scss/sidebar.scss";
 
-const Sidebar = () => {
+const Sidebar = ({ handleSidebar, appetizer, entree, salad, dessert }) => {
   return (
     <div>
-      <button className="btn-bar" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
-        <FontAwesomeIcon icon={faBars}/>
+      <button className="btn-bar" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions" onClick={() => handleSidebar()}>
+        <FontAwesomeIcon icon={faBars} />
       </button>
       <div className="offcanvas offcanvas-start" data-bs-scroll="true" tabIndex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
         <div className="offcanvas-header">
@@ -18,48 +18,41 @@ const Sidebar = () => {
           <div className='course-type'>
             <h5>Appetizer</h5>
             <ul>
-              <li>Cheese Selection
-                <span>5</span>
-              </li>
+              {appetizer.map((food, index) => (
+                <li key={index}>{food.item_name}
+                  <span>{food.quantity}</span>
+                </li>
+              ))}
             </ul>
           </div>
           <div className='course-type'>
             <h5>Entree</h5>
             <ul>
-              <li>Filet Miglon
-                <span>5</span>
-              </li>
-              <li>BBQ Shrimp
-                <span>5</span>
-              </li>
-              <li>New York Steak
-                <span>5</span>
-              </li>
-              <li>MeatBalls
-                <span>5</span>
-              </li>
+              {entree.map((food, index) => (
+                <li key={index}>{food.item_name}
+                  <span>{food.quantity}</span>
+                </li>
+              ))}
             </ul>
           </div>
           <div className='course-type'>
             <h5>Salads</h5>
             <ul>
-              <li>Tres Leches
-                <span>5</span>
-              </li>
+              {salad.map((food, index) => (
+                <li key={index}>{food.item_name}
+                  <span>{food.quantity}</span>
+                </li>
+              ))}
             </ul>
           </div>
           <div className='course-type'>
             <h5>Desserts</h5>
             <ul>
-              <li>Peach Cobbler
-                <span>5</span>
-              </li>
-              <li>Tres Leches
-                <span>5</span>
-              </li>
-              <li>Chocolate Truffle Brownie
-                <span>5</span>
-              </li>
+              {dessert.map((food, index) => (
+                <li key={index}>{food.item_name}
+                  <span>{food.quantity}</span>
+                </li>
+              ))}
             </ul>
           </div>
         </div>

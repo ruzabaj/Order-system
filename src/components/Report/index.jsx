@@ -110,9 +110,9 @@ const Report = () => {
             .then((response) => {
                 console.log(response.data)
                 setAppetizer(response.data.Appetizer)
-                setSalad(response.data.Salads)
+                setSalad(response.data.Salad)
                 setEntree(response.data.Entree)
-                setDessert(response.data.Desserts)
+                setDessert(response.data.Dessert)
             })
             .catch((error) => {
                 console.log(error.response.data)

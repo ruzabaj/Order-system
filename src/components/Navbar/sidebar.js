@@ -1,9 +1,12 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import "../../scss/sidebar.scss";
+import {storeContext} from "../useContext";
 
 const Sidebar = ({ handleSidebar, appetizer, entree, salad, dessert }) => {
+  let names=useContext(storeContext)
+
   return (
     <div>
       <button className="btn-bar" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions" onClick={() => handleSidebar()}>
@@ -16,6 +19,7 @@ const Sidebar = ({ handleSidebar, appetizer, entree, salad, dessert }) => {
         </div>
         <div className="offcanvas-body">
           <div className='course-type'>
+            {names}
             <h5>Appetizer</h5>
             <ul>
               {appetizer.map((food, index) => (

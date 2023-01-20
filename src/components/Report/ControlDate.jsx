@@ -5,8 +5,9 @@ import Sidebar from '../Navbar/sidebar';
 import "react-datepicker/dist/react-datepicker.css";
 import 'react-select-search/style.css'
 import "../../scss/navbar.scss";
+import Context from "../useContext";
 
-const ControlDate = ({ startDate, endDate, handleGenerateReport, setStartDate, setEndDate, outlet, handleChange, handleSidebar, dessert, entree, salad, appetizer}) => {
+const ControlDate = ({ startDate, endDate, handleGenerateReport, setStartDate, setEndDate, outlet, handleChange, handleSidebar, dessert, entree, salad, appetizer }) => {
     return (
         <div className='control-dates'>
             <div className='control-dates-flex'>
@@ -48,7 +49,9 @@ const ControlDate = ({ startDate, endDate, handleGenerateReport, setStartDate, s
                     Generate Report
                 </button>
             </div>
-                <Sidebar handleSidebar={handleSidebar} dessert={dessert} appetizer={appetizer} entree={entree} salad={salad}/>
+            <Context>
+                <Sidebar handleSidebar={handleSidebar} dessert={dessert} appetizer={appetizer} entree={entree} salad={salad} />
+            </Context>
         </div>
     )
 }

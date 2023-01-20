@@ -3,8 +3,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import "../../scss/sidebar.scss";
 import {storeContext} from "../useContext";
+import Category from '../Report/category';
 
-const Sidebar = ({ handleSidebar, appetizer, entree, salad, dessert }) => {
+const Sidebar = ({ handleSidebar, categories }) => {
+  // let {appetizer, setAppetizer}=useContext(storeContext)
   let names=useContext(storeContext)
 
   return (
@@ -14,51 +16,11 @@ const Sidebar = ({ handleSidebar, appetizer, entree, salad, dessert }) => {
       </button>
       <div className="offcanvas offcanvas-start" data-bs-scroll="true" tabIndex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
         <div className="offcanvas-header">
-          <h5 className="offcanvas-title" id="offcanvasWithBothOptionsLabel">Item Summary</h5>
+          <h5 className="offcanvas-title" id="offcanvasWithBothOptionsLabel">Cooked Item Summary</h5>
           <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div className="offcanvas-body">
-          <div className='course-type'>
-            {names}
-            <h5>Appetizer</h5>
-            <ul>
-              {appetizer.map((food, index) => (
-                <li key={index}>{food.item_name}
-                  <span>{food.quantity}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className='course-type'>
-            <h5>Entree</h5>
-            <ul>
-              {entree.map((food, index) => (
-                <li key={index}>{food.item_name}
-                  <span>{food.quantity}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className='course-type'>
-            <h5>Salads</h5>
-            <ul>
-              {salad.map((food, index) => (
-                <li key={index}>{food.item_name}
-                  <span>{food.quantity}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className='course-type'>
-            <h5>Desserts</h5>
-            <ul>
-              {dessert.map((food, index) => (
-                <li key={index}>{food.item_name}
-                  <span>{food.quantity}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <Category categories={categories}/>
         </div>
       </div>
     </div>

@@ -19,11 +19,7 @@ const Report = () => {
     const [endDate, setEndDate] = useState(new Date());
     const [maxPageLength, setMaxPageLength] = useState();
     const [pageLength, setPageLength] = useState([]);
-    const [appetizer, setAppetizer] = useState([]);
-    const [entree, setEntree] = useState([]);
-    const [dessert, setDessert] = useState([]);
-    const [salad, setSalad] = useState([]);
-
+    const [categories, setCategories]=useState({})
     let url = process.env.REACT_APP_BASE_URL;
 
     const { TakeAway_totalSales, TakeAway, Voids, DineIn, DineIn_totalSales, Cooked, cooking } = information;
@@ -109,10 +105,7 @@ const Report = () => {
         })
             .then((response) => {
                 console.log(response.data)
-                setAppetizer(response.data.Appetizer)
-                setSalad(response.data.Salad)
-                setEntree(response.data.Entree)
-                setDessert(response.data.Dessert)
+                setCategories(response.data)
             })
             .catch((error) => {
                 console.log(error.response.data)
@@ -129,10 +122,7 @@ const Report = () => {
                 handleChange={handleChange}
                 handleGenerateReport={handleGenerateReport} outlet={outlet}
                 handleSidebar={handleSidebar}
-                appetizer={appetizer}
-                dessert={dessert}
-                salad={salad}
-                entree={entree}
+                categories={categories}
             />
             {error ? "Error" :
                 <div className='report'>

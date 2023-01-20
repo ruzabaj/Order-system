@@ -82,8 +82,8 @@
         width: 155px;
         margin-top: 10px;
         text-align: center;
-
-        button {
+        display: flex;
+        .btn-generate-report {
             height: calc(100% - 20px);
             width: calc(100% - 10px);
             border: 1px solid $table-num;

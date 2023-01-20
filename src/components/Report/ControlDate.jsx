@@ -5,21 +5,15 @@ import Sidebar from '../Navbar/sidebar';
 import "react-datepicker/dist/react-datepicker.css";
 import 'react-select-search/style.css'
 import "../../scss/navbar.scss";
-import Context from "../useContext";
+// import Context from "../useContext";
 
-const ControlDate = ({ startDate, endDate, handleGenerateReport, setStartDate, setEndDate, outlet, handleChange, handleSidebar, dessert, entree, salad, appetizer }) => {
+const ControlDate = ({ startDate, categories, endDate, handleGenerateReport, setStartDate, setEndDate, outlet, handleChange, handleSidebar }) => {
     return (
         <div className='control-dates'>
             <div className='control-dates-flex'>
                 <div>
                     <label>Outlet Name:</label>
                     <div>
-                        {/* <select name="outletName" id="outletName" className="input-style" onChange={handleChange}>
-                            <option value=""></option>
-                            {outlet.map((outlets, index) => (
-                                <option value={outlets.outlet_Name} key={index} >{outlets.outlet_Name}</option>
-                            ))}
-                        </select> */}
                         <SelectSearch
                             options={outlet}
                             defaultValue=""
@@ -45,13 +39,14 @@ const ControlDate = ({ startDate, endDate, handleGenerateReport, setStartDate, s
                 </div>
             </div>
             <div className='btn-report'>
-                <button type='submit' onClick={handleGenerateReport}>
+                <button type='submit' onClick={handleGenerateReport} className="btn-generate-report">
                     Generate Report
                 </button>
+                <Sidebar handleSidebar={handleSidebar} categories={categories}/>
             </div>
-            <Context>
-                <Sidebar handleSidebar={handleSidebar} dessert={dessert} appetizer={appetizer} entree={entree} salad={salad} />
-            </Context>
+            {/* <Context>
+                <Sidebar handleSidebar={handleSidebar} categories={categories}/>
+            </Context> */}
         </div>
     )
 }

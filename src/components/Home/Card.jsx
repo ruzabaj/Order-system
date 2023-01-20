@@ -26,6 +26,7 @@ const Card = ({ handleFinished, handleCookProcess, handleCompleted, handleMinus,
                         </div>
                         <h1>{element.tableNum}</h1>
                         <p>{element.employee}</p>
+                        {console.log(element.orderTime)}
                         <Calculation Ordertime={element.orderTime} />
                     </div>
                     {element

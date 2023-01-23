@@ -41,7 +41,16 @@
         }
     }
 }
-
+.prep-time-green{
+    color:rgb(6, 179, 6);
+    font-size: 18px;
+    font-weight: 600;
+}
+.prep-time-red{
+    color:rgb(219, 27, 27);
+    font-size: 18px;
+    font-weight: 600;
+}
 .control-dates {
     margin: 20px 0px;
     padding: 15px 20px;
@@ -217,9 +226,9 @@ th {
         flex-direction: column !important;
         justify-content: center;
 
-        .datepicker-style,
+        .datepicker-style,.select-search-input,
         .input-style {
-            width: calc(100% - 30px) !important;
+            width: calc(100% - 40px) !important;
         }
     }
 
@@ -262,9 +271,6 @@ th {
         /* Now like a table header */
         position: absolute;
         /* Top/left values mimic padding */
-        // background-color: $btn-seen;
-        // color: $secondary-color;
-        top: 6px;
         left: 6px;
         width: 45%;
         padding-right: 10px;

@@ -45,17 +45,21 @@
     border-radius: 10px;
     margin: 10px;
     height: auto;
-
+    .kot-id{
+        padding: 5px;
+    }
     .item-order-type {
         height: 70px;
         background-color: $card-header;
         color: $secondary-color;
-
-        p {
+        display: flex;
+        justify-content: space-between;
+        .item-type{
+            margin-top: 12%;
             text-align: center;
             font-family: 'Source Serif Pro';
             font-weight: 600;
-            font-size: 26px;
+            font-size: 22px;
         }
     }
 

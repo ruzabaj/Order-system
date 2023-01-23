@@ -8,14 +8,17 @@ const Card = ({ handleFinished, handleCookProcess, handleCompleted, handleMinus,
     return (
         <div className="col-lg-3 col-md-4 col-sm-6 col-12" key={index}>
             <div className='ticket'>
-                <div className='item-order-type'>
+                <div className='item-order-type' >
+                    <div className='kot-id'>
+                       <p>Kot-id: <span>{element.KOTID}</span></p> 
+                    </div>
+                    <p className='item-type'>{element.orderType}</p>
                     <div className='top-icon'>
                         <FontAwesomeIcon
                             icon={faCheckCircle}
                             className="check-icon"
                             onClick={() => handleCompleted(element.table_id)} />
                     </div>
-                    <p className='item-type'>{element.orderType}</p>
                 </div>
                 <div className='item-course-detail'>
                     <div className='item-detail'>
@@ -24,7 +27,7 @@ const Card = ({ handleFinished, handleCookProcess, handleCompleted, handleMinus,
                             <p>Guests :<span>{element.Guest_count}</span>
                             </p>
                         </div>
-                        <h1>{element.tableNum}</h1>
+                        <h1>{element.tableNum==="Take-Away"?"":element.tableNum}</h1>
                         <p>{element.employee}</p>
                         <Calculation Ordertime={element.orderTime} />
                     </div>
@@ -40,7 +43,7 @@ const Card = ({ handleFinished, handleCookProcess, handleCompleted, handleMinus,
                                         <p className='food'>{item.ItemName}</p>
                                         <div className='item-check-process'>
                                             <div>
-                                                <FontAwesomeIcon icon={faCheck} className="completed-icon"  onClick={() => handleFinished(item.item_id)}/>
+                                                <FontAwesomeIcon icon={faCheck} className="completed-icon" onClick={() => handleFinished(item.item_id)} />
                                             </div>
                                             {(item.Quantity > 1) ?
                                                 <FontAwesomeIcon icon={faMinus} className="minus-icon" onClick={() => handleMinus(item.item_id)} />

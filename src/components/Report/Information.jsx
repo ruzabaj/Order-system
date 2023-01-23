@@ -3,6 +3,7 @@ import { IoFastFoodOutline, IoFastFood, IoPeopleOutline } from "react-icons/io5"
 import { TbNumbers } from "react-icons/tb";
 import { FcClock } from "react-icons/fc";
 import { RiNumbersLine } from "react-icons/ri";
+import Difference from './Difference';
 
 const Information = ({ orders, information }) => {
     const { first_orderAt, last_orderAt, Guest_count, Operating_hours, item_count } = information;
@@ -52,7 +53,7 @@ const Information = ({ orders, information }) => {
             {orders.map((element, index) => (
                 <div key={index} className="information">
                     <div className='show-table-num'>
-                        <p>Table <span>{element.TableNum}</span></p>
+                        <p>{(element.TableNum === "Take-Away") ? "" : "Table :"}<span>{element.TableNum}</span></p>
                     </div>
                     <table>
                         <thead>
@@ -81,8 +82,9 @@ const Information = ({ orders, information }) => {
                                         : ''}
 
                                     {(item.prepTimeDifference) ?
-                                        <td>{item.prepTimeDifference}</td>
+                                        <td ><Difference total={item.TotalTime} average={item.AvgPrepTime} difference={item.prepTimeDifference}/></td>
                                         : ''}
+                                    
                                 </tr>
 
                             ))}

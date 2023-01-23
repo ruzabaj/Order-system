@@ -5,6 +5,7 @@ import moment from 'moment';
 import ControlDate from './ControlDate';
 import Information from './Information';
 import Pagination from './Pagination';
+import Detail  from './Detail';
 
 const Report = () => {
     const [outletName, setOutletName] = useState("")
@@ -19,7 +20,7 @@ const Report = () => {
     const [endDate, setEndDate] = useState(new Date());
     const [maxPageLength, setMaxPageLength] = useState();
     const [pageLength, setPageLength] = useState([]);
-    const [categories, setCategories]=useState({})
+    const [categories, setCategories] = useState({})
     let url = process.env.REACT_APP_BASE_URL;
 
     const { TakeAway_totalSales, TakeAway, Voids, DineIn, DineIn_totalSales, Cooked, cooking } = information;
@@ -73,6 +74,7 @@ const Report = () => {
             "page_no": 1
         })
             .then((response) => {
+                console.log(response)
                 setInformation(response.data)
                 setMaxPageLength(response.data.maxPage_Length)
                 setOrders(response.data.orders)
@@ -129,42 +131,9 @@ const Report = () => {
                     <div className='show-outlet-name'>
                         <h4>{outletName}</h4>
                     </div>
-
                     <Information orders={orders} information={information} />
                     <div className='information-report'>
-                        <div className='report-flex'>
-                            <div className='report-info-two'>
-                                <div className='report-info'>
-                                    <label>Dine In:</label>
-                                    <span>{DineIn}</span>
-                                </div>
-                                <div className='report-info'>
-                                    <label>Dine-In (Total Sales):</label>
-                                    <span>{DineIn_totalSales}</span>
-                                </div>
-                                <div className='report-info'>
-                                    <label>Takeaway:</label>
-                                    <span>{TakeAway}</span>
-                                </div>
-                                <div className='report-info'>
-                                    <label>Takeaway (Total Sales):</label>
-                                    <span>{TakeAway_totalSales}</span>
-                                </div>
-                                <div className='report-info'>
-                                    <label>Voids:</label>
-                                    <span>{Voids}</span>
-                                </div>
-                                <div className='report-info'>
-                                    <label>Cooked:</label>
-                                    <span>{Cooked}</span>
-                                </div>
-                                <div className='report-info'>
-                                    <label>Cooking:</label>
-                                    <span>{cooking}</span>
-                                </div>
-                            </div>
-
-                        </div>
+                        <Detail information={information} />
                     </div>
                 </div>
             }

@@ -4,7 +4,7 @@
     font-family: "Open Sans";
 }
 
-.btn-bar{
+.btn-bar {
     border-radius: 50%;
     width: 50px;
     height: 50px;
@@ -14,6 +14,7 @@
 
 .dashboard {
     margin: 20px 0px;
+
     .dashboard-items {
         border: 1px solid black;
         border-radius: 10px;
@@ -41,16 +42,19 @@
         }
     }
 }
-.prep-time-green{
-    color:rgb(6, 179, 6);
+
+.prep-time-green {
+    color: rgb(6, 179, 6);
     font-size: 18px;
     font-weight: 600;
 }
-.prep-time-red{
-    color:rgb(219, 27, 27);
+
+.prep-time-red {
+    color: rgb(219, 27, 27);
     font-size: 18px;
     font-weight: 600;
 }
+
 .control-dates {
     margin: 20px 0px;
     padding: 15px 20px;
@@ -93,6 +97,7 @@
         margin-top: 10px;
         text-align: center;
         display: flex;
+
         .btn-generate-report {
             height: calc(100% - 20px);
             width: calc(100% - 10px);
@@ -102,6 +107,7 @@
             padding: 10px;
             border-radius: 10px;
             margin-right: 5px;
+
             &:hover {
                 background-color: $card-header;
             }
@@ -165,7 +171,6 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin: 30px 05px;
-    border: 1px solid #ccc;
 }
 
 /* Zebra striping */
@@ -184,7 +189,7 @@ th {
     padding: 6px;
     text-align: left;
     border: 1px solid #ccc;
-    
+
 }
 
 @media only screen and (max-width: 460px) {
@@ -203,6 +208,7 @@ th {
         flex-direction: column;
     }
 }
+
 @media only screen and (max-width: 990px) {
     .control-dates {
         .control-dates-flex {
@@ -211,8 +217,9 @@ th {
         }
     }
 }
+
 @media only screen and (max-width: 1190px) {
-    .control-dates{
+    .control-dates {
         display: flex;
         flex-direction: column;
     }
@@ -226,7 +233,8 @@ th {
         flex-direction: column !important;
         justify-content: center;
 
-        .datepicker-style,.select-search-input,
+        .datepicker-style,
+        .select-search-input,
         .input-style {
             width: calc(100% - 40px) !important;
         }

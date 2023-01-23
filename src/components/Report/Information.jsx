@@ -1,6 +1,5 @@
 import React from 'react'
 import { IoFastFoodOutline, IoFastFood, IoPeopleOutline } from "react-icons/io5";
-import { TbNumbers } from "react-icons/tb";
 import { FcClock } from "react-icons/fc";
 import { RiNumbersLine } from "react-icons/ri";
 import Difference from './Difference';
@@ -16,8 +15,6 @@ const Information = ({ orders, information }) => {
                     <div className='padding-dashboard-items'>
                         <label>Total no.of items:</label>
                         <p>{item_count}</p>
-                        {/* <label>Items per page:</label>
-                                    <p>{totalCount}</p> */}
                     </div>
                 </div>
                 <div className="col dashboard-items">
@@ -79,11 +76,11 @@ const Information = ({ orders, information }) => {
                                     <td>{item.TotalTime}</td>
                                     {(item.prepTimeDifference) ?
                                         <td>{item.AvgPrepTime}</td>
-                                        : ''}
+                                        :<td>-</td> }
 
                                     {(item.prepTimeDifference) ?
                                         <td ><Difference total={item.TotalTime} average={item.AvgPrepTime} difference={item.prepTimeDifference}/></td>
-                                        : ''}
+                                        :<td>-</td> }
                                     
                                 </tr>
 

@@ -12,7 +12,6 @@ const Order = () => {
     const [hash, setHash] = useState("");
     const list_ref = useRef(list)
     let url = process.env.REACT_APP_SOCKET_URL
-
     var socket = io(`${url}`, {
         transports: ['websocket'],
         upgrade: false,
@@ -148,6 +147,9 @@ const Order = () => {
 
             socket.emit("get_live", { roomId: `${id}`, outlet_name: `${outletName}` })
         })
+
+
+
     }, [hash])
     
     // const listIndex = list_items.map(e => e.table_id).indexOf(res.table_id);

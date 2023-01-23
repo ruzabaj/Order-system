@@ -6,6 +6,7 @@ import ControlDate from './ControlDate';
 import Information from './Information';
 import Pagination from './Pagination';
 import Detail  from './Detail';
+import Error from './Error';
 
 const Report = () => {
     const [outletName, setOutletName] = useState("")
@@ -22,8 +23,6 @@ const Report = () => {
     const [pageLength, setPageLength] = useState([]);
     const [categories, setCategories] = useState({})
     let url = process.env.REACT_APP_BASE_URL;
-
-    const { TakeAway_totalSales, TakeAway, Voids, DineIn, DineIn_totalSales, Cooked, cooking } = information;
 
     useEffect(() => {
         axios.get(`${url}/outlets`)
@@ -126,7 +125,7 @@ const Report = () => {
                 handleSidebar={handleSidebar}
                 categories={categories}
             />
-            {error ? "Error" :
+            {error ? <Error/> :
                 <div className='report'>
                     <div className='show-outlet-name'>
                         <h4>{outletName}</h4>

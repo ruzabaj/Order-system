@@ -8,8 +8,10 @@ var convert_time = require('convert-seconds');
 const Calculation = ({ Ordertime }) => {
     var customer_time = Ordertime
     let current_moment = moment().format('HH:mm:ss')
+    console.log(current_moment, "current Time")
     let current_date = new Date().toLocaleDateString('en-CA');
     let time = `${current_date} ${current_moment}`
+    console.log(time, "time")
     var test_time = `${current_date} ${customer_time}`
     var elapsed_time = timediff(test_time, time, 'S').seconds;
     let format = convert_time(elapsed_time)

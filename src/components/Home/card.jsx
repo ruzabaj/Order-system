@@ -10,7 +10,7 @@ const Card = ({ handleFinished, handleCookProcess, handleCompleted, handleMinus,
             <div className='ticket'>
                 <div className='item-order-type' >
                     <div className='kot-id'>
-                       <p>Kot-id: <span>{element.KOTID}</span></p> 
+                       <p>Kot Id: <span>{element.KOTID}</span></p> 
                     </div>
                     <p className='item-type'>{element.orderType}</p>
                     <div className='top-icon'>

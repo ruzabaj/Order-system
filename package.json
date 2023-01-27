@@ -2,7 +2,7 @@
   "name": "show-order",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://ordersystem.billing.silverlinepos.com",
+  "homepage":"./",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.2.1",
     "@fortawesome/free-solid-svg-icons": "^6.2.1",

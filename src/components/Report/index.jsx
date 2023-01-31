@@ -5,8 +5,9 @@ import moment from 'moment';
 import ControlDate from './ControlDate';
 import Information from './Information';
 import Pagination from './Pagination';
-import Detail  from './Detail';
+import Detail from './Detail';
 import Error from './Error';
+import Navbar from '../Navbar';
 
 const Report = () => {
     const [outletName, setOutletName] = useState("")
@@ -22,17 +23,24 @@ const Report = () => {
     const [maxPageLength, setMaxPageLength] = useState();
     const [pageLength, setPageLength] = useState([]);
     const [categories, setCategories] = useState({})
+    const [token, setToken]= useState("")
+
     let url = process.env.REACT_APP_BASE_URL;
 
+    useEffect(()=>{
+        setToken(localStorage.getItem("token"))
+    },[])
     useEffect(() => {
-        axios.get(`${url}/outlets`)
+        axios.post(`${url}/outlets`,{
+            token:`${token}`
+        })
             .then((response) => {
                 setOutlet(response.data)
             })
             .catch((error) => {
                 console.log(error)
             })
-    }, [])
+    }, [token])
     useEffect(() => {
         let initialDate = startDate
         let date = moment(initialDate).format();
@@ -70,7 +78,8 @@ const Report = () => {
             "start_date": firstDate,
             "end_date": secondDate,
             "outlet_name": outletName,
-            "page_no": 1
+            "page_no": 1,
+            "token" :token
         })
             .then((response) => {
                 console.log(response)
@@ -88,7 +97,8 @@ const Report = () => {
             "start_date": firstDate,
             "end_date": secondDate,
             "outlet_name": outletName,
-            "page_no": page
+            "page_no": page,
+            "token": token
         })
             .then((response) => {
                 setOrders(response.data.orders)
@@ -103,6 +113,7 @@ const Report = () => {
             "start_date": firstDate,
             "end_date": secondDate,
             "outlet_name": outletName,
+            "token": token
         })
             .then((response) => {
                 console.log(response.data)
@@ -118,25 +129,28 @@ const Report = () => {
     }
 
     return (
-        <div className='container'>
-            <ControlDate setStartDate={setStartDate} startDate={startDate} endDate={endDate} setEndDate={setEndDate}
-                handleChange={handleChange}
-                handleGenerateReport={handleGenerateReport} outlet={outlet}
-                handleSidebar={handleSidebar}
-                categories={categories}
-            />
-            {error ? <Error/> :
-                <div className='report'>
-                    <div className='show-outlet-name'>
-                        <h4>{outletName}</h4>
+        <div>
+            <Navbar/>
+            <div className='container'>
+                <ControlDate setStartDate={setStartDate} startDate={startDate} endDate={endDate} setEndDate={setEndDate}
+                    handleChange={handleChange}
+                    handleGenerateReport={handleGenerateReport} outlet={outlet}
+                    handleSidebar={handleSidebar}
+                    categories={categories}
+                />
+                {error ? <Error /> :
+                    <div className='report'>
+                        <div className='show-outlet-name'>
+                            <h4>{outletName}</h4>
+                        </div>
+                        <Information orders={orders} information={information} />
+                        <div className='information-report'>
+                            <Detail information={information} />
+                        </div>
                     </div>
-                    <Information orders={orders} information={information} />
-                    <div className='information-report'>
-                        <Detail information={information} />
-                    </div>
-                </div>
-            }
-            <Pagination pageLength={pageLength} handleNumber={handleNumber} />
+                }
+                <Pagination pageLength={pageLength} handleNumber={handleNumber} />
+            </div>
         </div>
     )
 }

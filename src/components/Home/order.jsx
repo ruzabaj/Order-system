@@ -10,12 +10,17 @@ const Order = () => {
     const [show, setShow] = useState(true)
     const [id, setId] = useState("")
     const [hash, setHash] = useState("");
+    const [token, setToken] = useState("");
     const [socket, setSocket] = useState(null)
     const roomIdRef = useRef(id)
     const outletRef = useRef(outletName)
     const hashRef = useRef(hash)
     const listRef = useRef(list)
     let url = process.env.REACT_APP_SOCKET_URL
+
+    useEffect(()=>{
+        setToken(localStorage.getItem("token"))
+    },[])
 
     useEffect(() => {
         if(!socket){
@@ -55,7 +60,7 @@ const Order = () => {
     useEffect(() => {
         if (socket?.connected){
         socket.on('message', (msg) => {
-            socket.emit("get_live", { roomId: `${roomIdRef.current}`, outlet_name: `${outletRef.current}` })
+            socket.emit("get_live", { roomId: `${roomIdRef.current}`, outlet_name: `${outletRef.current}`, token:`${token}`})
             let received_hash = msg.update_endpoint || ""
             setHash(received_hash)
             hashRef.current = received_hash
@@ -100,23 +105,23 @@ useEffect(() => {
     })
     socket.on(`${hashRef.current}item_response`, (res) => {
         console.log(res)
-        socket.emit("get_live", { roomId: `${roomIdRef.current}`, outlet_name: `${outletRef.current}` })
+        socket.emit("get_live", { roomId: `${roomIdRef.current}`, outlet_name: `${outletRef.current}`, token:`${token}` })
         let itemCount = res.item_count;
         console.log(itemCount)
         if (itemCount === 0) {
             console.log("R4EMOVE THIS TABLE FROM FRONTEND")
-            socket.emit("get_live", { roomId: `${roomIdRef.current}`, outlet_name: `${outletRef.current}` })
+            socket.emit("get_live", { roomId: `${roomIdRef.current}`, outlet_name: `${outletRef.current}`,token:`${token}` })
             setList(current => []);
         }
     })
    
     socket.on(`${hashRef.current}itemvoid_response`, (res) => {
-        socket.emit("get_live", { roomId: `${roomIdRef.current}`, outlet_name: `${outletRef.current}` })
+        socket.emit("get_live", { roomId: `${roomIdRef.current}`, outlet_name: `${outletRef.current}` ,token:`${token}`})
         let itemCount = res.item_count;
         console.log(itemCount)
         if (itemCount === 0) {
             console.log("R4EMOVE THIS TABLE FROM FRONTEND")
-            socket.emit("get_live", { roomId: `${roomIdRef.current}`, outlet_name: `${outletRef.current}` })
+            socket.emit("get_live", { roomId: `${roomIdRef.current}`, outlet_name: `${outletRef.current}`, token:`${token}` })
             setList(current => []);
         }
     })
@@ -139,7 +144,7 @@ useEffect(() => {
         const listIndex = listItems.map(i => i.table_id).indexOf(TableId);
         let currentList = listItems[listIndex]
         console.log("selected list", currentList)
-        socket.emit("get_live", { roomId: `${roomIdRef.current}`, outlet_name: `${outletRef.current}` })
+        socket.emit("get_live", { roomId: `${roomIdRef.current}`, outlet_name: `${outletRef.current}`, token:`${token}` })
     })
     socket.on('initial_load', (res) => {
         console.log(res, "initial load")
@@ -165,7 +170,8 @@ useEffect(() => {
         roomIdRef.current= id
         socket.emit('join', {
             userName: `${outletName}`,
-            roomCode: `${id}`
+            roomCode: `${id}`,
+            token:`${token}`
         })
     }
 
@@ -176,7 +182,8 @@ useEffect(() => {
         socket.emit("table_done", {
             roomId: `${id}`,
             table_id: `${item}`,
-            hash: `${hash}`
+            hash: `${hash}`,
+            token:`${token}`
         })
     }
   
@@ -185,7 +192,8 @@ useEffect(() => {
         socket.emit("item_complete", {
             roomId: `${id}`,
             item_id: `${item}`,
-            hash: `${hash}`
+            hash: `${hash}`,
+            token:`${token}`
         })
     }
     const handleCancel = (item) => {
@@ -193,7 +201,8 @@ useEffect(() => {
         socket.emit("item_void", {
             roomId: `${id}`,
             item_id: `${item}`,
-            hash: `${hash}`
+            hash: `${hash}`,
+            token:`${token}`
         })
     }
     const handleMinus = (item) => {
@@ -201,14 +210,16 @@ useEffect(() => {
         socket.emit("quantity_decrease", {
             roomId: `${id}`,
             item_id: `${item}`,
-            hash: `${hash}`
+            hash: `${hash}`,
+            token:`${token}`
         })
     }
     const handleCookProcess = (tableId) => {
         socket.emit("order_seen", {
             roomId: `${id}`,
             table_id: `${tableId}`,
-            hash: `${hash}`
+            hash: `${hash}`,
+            token:`${token}`
         })
     }
     return (

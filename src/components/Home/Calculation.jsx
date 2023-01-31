@@ -1,30 +1,42 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import moment from 'moment';
 import "../../scss/stopwatch.scss"
-import ReactTimerStopwatch from 'react-stopwatch-timer';
-var timediff = require('timediff');
-var convert_time = require('convert-seconds');
 
-const Calculation = ({ Ordertime }) => {
-    var customer_time = Ordertime
-    let current_moment = moment().format('HH:mm:ss')
-    let current_date = new Date().toLocaleDateString('en-CA');
-    let time = `${current_date} ${current_moment}`
-    var test_time = `${current_date} ${customer_time}`
-    var elapsed_time = timediff(test_time, time, 'S').seconds;
-    let format = convert_time(elapsed_time)
-    var { hours, minutes, seconds } = format
-    let hour = parseInt(hours)
-    let minute = parseInt(minutes)
-    console.log("minute", minute)
-    let second = parseInt(seconds)
-    const fromTime = new Date(0, 0, 0, hour, minute, second, 0);
+const Calculation = ({Ordertime}) => {
+    console.log(Ordertime)
+    const [countup_state,
+        setcountup_state] = useState(0)
+   
+    useEffect(() => {
+        const customerTime = Ordertime
+        console.log(`${Ordertime}test`)
+        const currentMoment = moment().format('HH:mm:ss')
+        const currentDate = new Date().toLocaleDateString('en-CA');
+        const time = `${currentDate} ${currentMoment}`
+        var testTime = `${currentDate} ${customerTime}`
+        var startDate = moment(testTime, 'YYYY/M/DD HH:mm:ss')
+        var endDate = moment(time, 'YYYY/M/DD HH:mm:ss')
+        var secondsDiff = endDate.diff(startDate, 'seconds')
+        let interval1 = setInterval(() => {
+            secondsDiff++;
+            var date = new Date(null);
+            date.setSeconds(secondsDiff);
+            let parsed_time = moment
+                .unix(secondsDiff)
+                .utc()
+                .format('H [H:] m [M:] s [S]');
+            setcountup_state(parsed_time)
+           
+        }, 1000);
+        return () => {
+            clearInterval(interval1)
+        }
+    }, [Ordertime])
+
     return (
-        <div className='show-elapsed-time'>
-            <ReactTimerStopwatch isOn={true} className="react-stopwatch-timer__table" watchType="stopwatch"
-                displayCricle={true} color="gray" hintColor="red" fromTime={fromTime} />
+        <div key={Math.random()}>
+            {countup_state}
         </div>
     )
 }
-
 export default Calculation

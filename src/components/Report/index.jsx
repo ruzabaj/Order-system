@@ -8,6 +8,7 @@ import Pagination from './Pagination';
 import Detail from './Detail';
 import Error from './Error';
 import Navbar from '../Navbar';
+import { useNavigate } from 'react-router-dom';
 
 const Report = () => {
     const [outletName, setOutletName] = useState("")
@@ -23,16 +24,26 @@ const Report = () => {
     const [maxPageLength, setMaxPageLength] = useState();
     const [pageLength, setPageLength] = useState([]);
     const [categories, setCategories] = useState({})
-    const [token, setToken]= useState("")
+    const [token, setToken] = useState("")
 
     let url = process.env.REACT_APP_BASE_URL;
+    let navigate = useNavigate();
 
-    useEffect(()=>{
-        setToken(localStorage.getItem("token"))
-    },[])
     useEffect(() => {
-        axios.post(`${url}/outlets`,{
-            token:`${token}`
+        setToken(localStorage.getItem("token"))
+    }, [])
+
+    useEffect(() => {
+        let tokenCheck = localStorage.getItem("token");
+        if (!tokenCheck) {
+            navigate('/')
+        } else {
+            setToken(localStorage.getItem("token"))
+        }
+    }, [])
+    useEffect(() => {
+        axios.post(`${url}/outlets`, {
+            token: `${token}`
         })
             .then((response) => {
                 setOutlet(response.data)
@@ -79,7 +90,7 @@ const Report = () => {
             "end_date": secondDate,
             "outlet_name": outletName,
             "page_no": 1,
-            "token" :token
+            "token": token
         })
             .then((response) => {
                 console.log(response)
@@ -130,7 +141,7 @@ const Report = () => {
 
     return (
         <div>
-            <Navbar/>
+            <Navbar />
             <div className='container'>
                 <ControlDate setStartDate={setStartDate} startDate={startDate} endDate={endDate} setEndDate={setEndDate}
                     handleChange={handleChange}

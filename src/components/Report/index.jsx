@@ -52,6 +52,7 @@ const Report = () => {
                 console.log(error)
             })
     }, [token])
+    
     useEffect(() => {
         let initialDate = startDate
         let date = moment(initialDate).format();

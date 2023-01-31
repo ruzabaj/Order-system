@@ -8,19 +8,23 @@
 .center-input-outlet {
     text-align: center;
     margin: 10px 5px;
-
+    display: flex;
     .btn-enter-icon {
         border: 0;
         background: transparent;
         margin-left: -25px;
     }
-
-    .input-enter {
+    .search {
+        border: 1px solid black;
         width: calc(100% - 70px);
         height: 40px;
         border-radius: 05px;
         outline: 0;
     }
+    .select-search-input{
+        width: 100% !important;
+    }
+    
 }
 
 .check-icon {

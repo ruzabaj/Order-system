@@ -2,8 +2,9 @@ import React, { useState, useEffect, useRef } from 'react'
 import io from 'socket.io-client';
 import uuid from 'uuid-random';
 import Card from './Card';
-import Search from './Search';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Search from './Search';
 
 const Order = () => {
     const [list, setList] = useState([]);
@@ -17,9 +18,15 @@ const Order = () => {
     const outletRef = useRef(outletName)
     const hashRef = useRef(hash)
     const listRef = useRef(list)
+    const [outlet, setOutlet] = useState([]);
+
     let url = process.env.REACT_APP_SOCKET_URL
+    let baseUrl = process.env.REACT_APP_BASE_URL
     let navigate = useNavigate();
+
     useEffect(() => {
+        console.log("inside token check")
+        console.log(token)
         let tokenCheck = localStorage.getItem("token");
         if (!tokenCheck) {
             navigate('/')
@@ -27,6 +34,22 @@ const Order = () => {
             setToken(localStorage.getItem("token"))
         }
     }, [])
+
+    useEffect(() => {
+        console.log(token)
+        axios.post(`${baseUrl}/outlets`, {
+            token: `${token}`
+        })
+            .then((response) => {
+                console.log('to get outlet name', response)
+                setOutlet(response.data)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }, [token])
+
+
 
     useEffect(() => {
         if (!socket) {
@@ -182,7 +205,7 @@ const Order = () => {
     }
 
     const handleChange = (event) => {
-        setOutletName(event.target.value)
+        setOutletName(event)
     }
     const handleCompleted = (item) => {
         socket.emit("table_done", {
@@ -228,9 +251,10 @@ const Order = () => {
             token: `${token}`
         })
     }
+
     return (
         <div className="row">
-            <Search handleChange={handleChange} handleEnter={handleEnter} />
+            <Search handleEnter={handleEnter} handleChange={handleChange} outlet={outlet} />
             {!show && <><div>Error! Please check the outlet name.</div></>}
             {show && list.map((element, index) => (
                 <Card element={element} handleFinished={handleFinished} handleCookProcess={handleCookProcess} handleCompleted={handleCompleted} handleMinus={handleMinus} handleCancel={handleCancel} index={index} />

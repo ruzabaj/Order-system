@@ -24,7 +24,7 @@ const Calculation = ({Ordertime}) => {
             let parsed_time = moment
                 .unix(secondsDiff)
                 .utc()
-                .format('H [H:] m [M:] s [S]');
+                .format('m [M:] s [S]');
             setcountup_state(parsed_time)
            
         }, 1000);

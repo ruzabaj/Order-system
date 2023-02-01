@@ -26,15 +26,20 @@
     border: 2px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
     padding: 50px 35px;
-  }
-
-  form * {
     font-family: "Poppins", sans-serif;
     color: black;
     letter-spacing: 0.5px;
     outline: none;
     border: none;
   }
+  
+  // form * {
+  //   font-family: "Poppins", sans-serif;
+  //   color: black;
+  //   letter-spacing: 0.5px;
+  //   outline: none;
+  //   border: none;
+  // }
 
   form h3 {
     font-size: 40px;
@@ -84,7 +89,10 @@
 
 }
 
-
+.error{
+  color: red;
+  text-align: center;
+}
 @media only screen and (max-width: 768px) {
   .bg-form-img {
     background: url("../../public/responsivebg.jpeg") !important;

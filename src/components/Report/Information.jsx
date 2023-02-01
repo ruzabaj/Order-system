@@ -54,8 +54,14 @@ const Information = ({ orders, information }) => {
                         <div className='show-table-num'>
                             <p>{(element.TableNum === "Take-Away") ? "" : "Table :"}<span>{element.TableNum}</span></p>
                         </div>
-                        <div className='show-table-emp'>
-                            <p>{element.Employee}</p>
+                        <div className='show-table-kot'>
+                            <p>KOT ID:<span>{element.KOTID}</span></p>
+                        </div>
+                        <div className='show-table'>
+                            <div className='show-table-emp'>
+                                <p>Employee:  <span>{element.Employee}</span></p>
+
+                            </div>
                         </div>
                     </div>
                     <table>

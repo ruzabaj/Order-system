@@ -265,7 +265,11 @@
     }
 }
 @media (max-width:427px){
-    .select-search-value {
-        width: 100px !important;
+    .search{
+        .select-search-value {
+            background-color: white !important;
+            color: black;
+            width: 100px !important;
+        }
     }
 }

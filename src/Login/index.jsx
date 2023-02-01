@@ -8,6 +8,8 @@ const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [token, setToken] = useState("");
+    const [error, setError] = useState({});
+    const [errorValue, setErrorValue] = useState(false);
     let navigate = useNavigate();
     let url = process.env.REACT_APP_BASE_URL;
 
@@ -18,11 +20,12 @@ const Login = () => {
             password: password
         })
             .then((res) => {
-                console.log(res)
                 setToken(res.data.token)
             })
             .catch((error) => {
                 console.log(error)
+                setError(error.response.data)
+                setErrorValue(true)
             })
     }
     const handleUsername = (event) => {
@@ -52,6 +55,7 @@ const Login = () => {
                 <input type="password" placeholder="Password" id="password" onChange={handlePassword} className="password" />
 
                 <button className='btn-login' onClick={handleLogin}>Log In</button>
+                {errorValue?<p className='error'>{error.error}</p>: ""}
             </form>
         </div>
     )

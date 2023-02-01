@@ -5,9 +5,11 @@ import Card from './Card';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Search from './Search';
+import Info from './Info';
 
 const Order = () => {
     const [list, setList] = useState([]);
+    const [info, setInfo] = useState({});
     const [outletName, setOutletName] = useState("")
     const [show, setShow] = useState(true)
     const [id, setId] = useState("")
@@ -18,6 +20,7 @@ const Order = () => {
     const outletRef = useRef(outletName)
     const hashRef = useRef(hash)
     const listRef = useRef(list)
+    // const tokenRef = useRef(token)
     const [outlet, setOutlet] = useState([]);
 
     let url = process.env.REACT_APP_SOCKET_URL
@@ -36,17 +39,20 @@ const Order = () => {
     }, [])
 
     useEffect(() => {
+        // tokenRef.current = token
         console.log(token)
-        axios.post(`${baseUrl}/outlets`, {
-            token: `${token}`
-        })
-            .then((response) => {
-                console.log('to get outlet name', response)
-                setOutlet(response.data)
+        if (token) {
+            axios.post(`${baseUrl}/outlets`, {
+                token: `${token}`
             })
-            .catch((error) => {
-                console.log(error)
-            })
+                .then((response) => {
+                    console.log('to get outlet name', response)
+                    setOutlet(response.data)
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        }
     }, [token])
 
 
@@ -79,8 +85,29 @@ const Order = () => {
 
     useEffect(() => {
         listRef.current = list;
-    }, [list])
+        outletRef.current = outletName
+        console.log("inside use effect", outletName)
+        console.log("len", list.length)
+        let len = list.length
+        if (len !== 0) {
+            console.log("list", list)
+            axios.post(`${baseUrl}/stats`, {
+                outlet: `${outletName}`,
+                token: `${token}`
+            })
+                .then((response) => {
+                    console.log(response)
+                    setInfo(response.data)
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        }
+        else {
+            console.log("okay")
+        }
 
+    }, [list])
 
     const updateList = (data) => {
         console.log(data, "inside update list");
@@ -195,13 +222,20 @@ const Order = () => {
     }, [hash])
 
     const handleEnter = () => {
+        console.log(token, "inisde handle enter token")
         outletRef.current = outletName
+        console.log("inside handle enter")
+        console.log("inside handle enter", outletName)
         roomIdRef.current = id
+        console.log("inside handle enter-token123", token)
+        // tokenRef.current = token
+        console.log("inside handle enter-token", token)
         socket.emit('join', {
             userName: `${outletName}`,
             roomCode: `${id}`,
             token: `${token}`
         })
+
     }
 
     const handleChange = (event) => {
@@ -256,6 +290,7 @@ const Order = () => {
         <div className="row">
             <Search handleEnter={handleEnter} handleChange={handleChange} outlet={outlet} />
             {!show && <><div>Error! Please check the outlet name.</div></>}
+            <Info info={info} />
             {show && list.map((element, index) => (
                 <Card element={element} handleFinished={handleFinished} handleCookProcess={handleCookProcess} handleCompleted={handleCompleted} handleMinus={handleMinus} handleCancel={handleCancel} index={index} />
             ))}

@@ -1,0 +1,29 @@
+.dashboard {
+    margin: 20px 0px;
+
+    .dashboard-items {
+        border-radius: 08px;
+        margin: 05px 10px;
+        display: flex;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+        .icon {
+            height: 50px;
+            width: 40px;
+            transition: transform .2s;
+
+            &:hover {
+                transform: scale(1.5);
+            }
+        }
+
+        .padding-dashboard-items {
+            padding-left: 7px;
+
+            label {
+                font-size: 20px;
+                font-weight: 400;
+            }
+        }
+    }
+}

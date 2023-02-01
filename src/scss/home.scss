@@ -9,22 +9,25 @@
     text-align: center;
     margin: 10px 5px;
     display: flex;
+
     .btn-enter-icon {
         border: 0;
         background: transparent;
         margin-left: -25px;
     }
+
     .search {
         border: 1px solid black;
         width: calc(100% - 70px);
         height: 40px;
         border-radius: 05px;
         outline: 0;
+
+        .select-search-input {
+            height: 36px !important;
+            border: none !important;
+        }
     }
-    .select-search-input{
-        width: 100% !important;
-    }
-    
 }
 
 .check-icon {
@@ -45,7 +48,8 @@
 
 .ticket {
     background-color: $secondary-color;
-    border: 1px solid $primary-color;
+    // border: 1px solid $primary-color;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
     border-radius: 10px;
     margin: 10px;
     height: auto;
@@ -250,13 +254,18 @@
     .item-list {
         height: 130px;
     }
-
 }
-@media  (min-width:760px) and (max-width:1200px){
+
+@media (min-width:760px)  {
     .item-type {
         margin-top: 14% !important;
         text-align: center;
         font-weight: 300;
         font-size: 20px !important;
+    }
+}
+@media (max-width:427px){
+    .select-search-value {
+        width: 100px !important;
     }
 }

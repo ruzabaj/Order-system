@@ -3,6 +3,7 @@ import { IoFastFoodOutline, IoFastFood, IoPeopleOutline } from "react-icons/io5"
 import { FcClock } from "react-icons/fc";
 import { RiNumbersLine } from "react-icons/ri";
 import Difference from './Difference';
+import "../../scss/info.scss";
 
 const Information = ({ orders, information }) => {
     const { first_orderAt, last_orderAt, Guest_count, Operating_hours, item_count } = information;
@@ -49,8 +50,13 @@ const Information = ({ orders, information }) => {
 
             {orders.map((element, index) => (
                 <div key={index} className="information">
-                    <div className='show-table-num'>
-                        <p>{(element.TableNum === "Take-Away") ? "" : "Table :"}<span>{element.TableNum}</span></p>
+                    <div className='show-table-info'>
+                        <div className='show-table-num'>
+                            <p>{(element.TableNum === "Take-Away") ? "" : "Table :"}<span>{element.TableNum}</span></p>
+                        </div>
+                        <div className='show-table-emp'>
+                            <p>{element.Employee}</p>
+                        </div>
                     </div>
                     <table>
                         <thead>
@@ -76,12 +82,12 @@ const Information = ({ orders, information }) => {
                                     <td>{item.TotalTime}</td>
                                     {(item.prepTimeDifference) ?
                                         <td>{item.AvgPrepTime}</td>
-                                        :<td>-</td> }
+                                        : <td>-</td>}
 
                                     {(item.prepTimeDifference) ?
-                                        <td ><Difference total={item.TotalTime} average={item.AvgPrepTime} difference={item.prepTimeDifference}/></td>
-                                        :<td>-</td> }
-                                    
+                                        <td ><Difference total={item.TotalTime} average={item.AvgPrepTime} difference={item.prepTimeDifference} /></td>
+                                        : <td>-</td>}
+
                                 </tr>
 
                             ))}

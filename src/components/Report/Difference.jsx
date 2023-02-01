@@ -1,5 +1,4 @@
 import React from 'react'
-import { useEffect } from 'react';
 
 const Difference = ({total, average, difference}) => {
     // Function to find the time difference

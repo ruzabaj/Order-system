@@ -12,36 +12,34 @@ const Info = ({ info }) => {
                 <div className="col dashboard-items">
                     <FcClock className='icon' />
                     <div className='padding-dashboard-items'>
-                        <label>Orders not seen:</label>
-                        <p>{started}</p>
+                        <label>Orders not seen:<span>{started}</span></label>
                     </div>
                 </div>
                 <div className="col dashboard-items">
                     <IoFastFoodOutline className='icon' />
                     <div className='padding-dashboard-items'>
-                        <label>Cooking:</label>
-                        <p>{cooking}</p>
+                        <label>Cooking:<span>{cooking}</span></label>
+                        
                     </div>
                 </div>
                 <div className="col dashboard-items">
                     <IoFastFood className='icon' />
                     <div className='padding-dashboard-items'>
-                        <label>Cooked:</label>
-                        <p>{completedToday}</p>
+                        <label>Cooked:<span>{completedToday}</span></label>
+                        
                     </div>
                 </div>
                 <div className="col dashboard-items">
                     <IoPeopleOutline className='icon' />
                     <div className='padding-dashboard-items'>
-                        <label>Total Orders today:</label>
-                        <p>{totalOrdersToday}</p>
+                        <label>Total Orders today:<span>{totalOrdersToday}</span></label>
+                        
                     </div>
                 </div>
                 <div className="col dashboard-items">
                     <RiNumbersLine className='icon' />
                     <div className='padding-dashboard-items'>
-                        <label>Total items prepared:</label>
-                        <p>{itemsCompetedToday}</p>
+                        <label>Total items prepared:<span>{itemsCompetedToday}</span></label>
                     </div>
                 </div>
             </div>

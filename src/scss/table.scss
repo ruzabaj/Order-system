@@ -221,8 +221,25 @@ th {
         display: flex;
         flex-direction: column;
     }
+    .show-table-info{
+        display: none;
+    }
+    .show-info{
+        display: flex;
+        flex-direction: column;
+        .show-info-num, .show-info-kot, .show-info-emp{
+             background-color: $table-num;
+             p{
+                color: $secondary-color;
+             }
+        }
+    }
 }
-
+@media only screen and (min-width: 460px) {
+    .show-info{
+        display: none;
+    }
+}
 @media only screen and (max-width: 990px) {
     .control-dates {
         .control-dates-flex {

@@ -11,35 +11,35 @@ const Information = ({ orders, information }) => {
     return (
         <div className='dashboard'>
             <div className="row">
-                <div className="col dashboard-items">
+                <div className="col-lg-2 col-md-3 col-sm-12 dashboard-items">
                     <RiNumbersLine className='icon' />
                     <div className='padding-dashboard-items'>
                         <label>Total no.of items:</label>
                         <p>{item_count}</p>
                     </div>
                 </div>
-                <div className="col dashboard-items">
+                <div className="col-lg-2 col-md-3 col-sm-12 dashboard-items">
                     <IoFastFoodOutline className='icon' />
                     <div className='padding-dashboard-items'>
                         <label>First Order At:</label>
                         <p>{first_orderAt}</p>
                     </div>
                 </div>
-                <div className="col dashboard-items">
+                <div className="col-lg-2 col-md-3 col-sm-12 dashboard-items">
                     <IoFastFood className='icon' />
                     <div className='padding-dashboard-items'>
                         <label>Last Order At:</label>
                         <p>{last_orderAt}</p>
                     </div>
                 </div>
-                <div className="col dashboard-items">
+                <div className="col-lg-2 col-md-3 col-sm-12 dashboard-items">
                     <IoPeopleOutline className='icon' />
                     <div className='padding-dashboard-items'>
                         <label>Total guest:</label>
                         <p>{Guest_count}</p>
                     </div>
                 </div>
-                <div className="col dashboard-items">
+                <div className="col-lg-2 col-md-3 col-sm-12 dashboard-items">
                     <FcClock className='icon' />
                     <div className='padding-dashboard-items'>
                         <label>Operating Hours:</label>

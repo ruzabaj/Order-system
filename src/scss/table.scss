@@ -4,6 +4,16 @@
     font-family: "Open Sans";
 }
 
+.select-search-container {
+    background-color: white !important;
+    color: black;
+
+    .select-search-input {
+        background-color: white !important;
+        color: black;
+    }
+}
+
 .btn-bar {
     border-radius: 50%;
     width: 50px;
@@ -140,6 +150,7 @@
             color: $secondary-color;
         }
     }
+
     .show-table-kot {
         border-radius: 45%;
         width: 100px;
@@ -153,8 +164,10 @@
             color: $secondary-color;
         }
     }
-    .show-table{
+
+    .show-table {
         width: auto;
+
         .show-table-emp {
             border-radius: 45%;
             width: calc(100% - 10px);
@@ -162,7 +175,7 @@
             text-align: center;
             margin-bottom: -30px;
             background-color: $table-num;
-    
+
             p {
                 font-weight: 500;
                 color: $secondary-color;
@@ -171,6 +184,7 @@
     }
 
 }
+
 // @media only screen and (max-width: 426px){
 //     .show-table-info {
 //         display: flex !important;
@@ -221,25 +235,37 @@ th {
         display: flex;
         flex-direction: column;
     }
-    .show-table-info{
+
+    .show-table-info {
         display: none;
     }
-    .show-info{
+
+    .show-info {
         display: flex;
         flex-direction: column;
-        .show-info-num, .show-info-kot, .show-info-emp{
-             background-color: $table-num;
-             p{
+
+        .show-info-num,
+        .show-info-kot,
+        .show-info-emp {
+            background-color: $table-num;
+
+            p {
                 color: $secondary-color;
-             }
+            }
+
+            span {
+                padding-left: 05px;
+            }
         }
     }
 }
+
 @media only screen and (min-width: 460px) {
-    .show-info{
+    .show-info {
         display: none;
     }
 }
+
 @media only screen and (max-width: 990px) {
     .control-dates {
         .control-dates-flex {

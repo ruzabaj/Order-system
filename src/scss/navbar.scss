@@ -2,10 +2,40 @@
 
 nav {
     display: flex;
-    border-bottom: 1px solid white;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid grey;
     background-color: $btn-seen;
+    height: 90px;
+    .navbar-icons {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 5px 30px;
+        padding-left: -5px;
+        .nav-icon{
+            width: 30px;
+            height: 30px;
+            color: $secondary-color;
+            text-align: center;
+           
+        }
+    }
+    label{
+        margin: 0px 10px;
+        color: $secondary-color;
+    }
 }
-
+@media screen and (max-width:768px) {
+    nav{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        .navbar-icons{
+            margin: 5px 10px;
+        }
+    }
+}
 .btn-bar{
     border-radius: 50%;
     width: 50px;
@@ -13,21 +43,4 @@ nav {
     background-color: $table-num;
     color: white;
 }
-.navbar-icons {
-    width: 30px;
-    height: 30px;
-    // border-radius: 50%;
-    background-color: $secondary-color;
-    text-align: center;
-    margin: 10px;
-}
 
-.navbar-icon-cutlery {
-    width: 30px;
-    height: 30px;
-    // border-radius: 50%;
-    background-color: $secondary-color;
-    color: $secondary-color;
-    text-align: center;
-    margin: 10px;
-}

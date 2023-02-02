@@ -39,7 +39,7 @@ const Info = ({ info }) => {
                 <div className="col dashboard-items">
                     <RiNumbersLine className='icon' />
                     <div className='padding-dashboard-items'>
-                        <label>Total items prepared:<span>{itemsCompetedToday}</span></label>
+                        <label>Total items prepared:<span>{(itemsCompetedToday === null)? "0":itemsCompetedToday}</span></label>
                     </div>
                 </div>
             </div>

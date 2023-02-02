@@ -42,7 +42,7 @@ const ControlDate = ({ startDate, categories, endDate, handleGenerateReport, set
                 <button type='submit' onClick={handleGenerateReport} className="btn-generate-report">
                     Generate Report
                 </button>
-                <Sidebar handleSidebar={handleSidebar} categories={categories}/>
+                <Sidebar handleSidebar={handleSidebar} categories={categories} />
             </div>
             {/* <Context>
                 <Sidebar handleSidebar={handleSidebar} categories={categories}/>

@@ -52,14 +52,14 @@ const Information = ({ orders, information }) => {
                 <div key={index} className="information">
                     <div className='show-table-info'>
                         <div className='show-table-num'>
-                            <p>{(element.TableNum === "Take-Away") ? "" : "Table :"}<span>{element.TableNum}</span></p>
+                            <p>{(element.TableNum === "Take-Away") ? "" : "Table : "}<span>{element.TableNum}</span></p>
                         </div>
                         <div className='show-table-kot'>
-                            <p>KOT ID:<span>{element.KOTID}</span></p>
+                            <p>KOT ID : <span>{element.KOTID}</span></p>
                         </div>
                         <div className='show-table'>
                             <div className='show-table-emp'>
-                                <p>Employee:  <span>{element.Employee}</span></p>
+                                <p>Employee :  <span>{element.Employee}</span></p>
 
                             </div>
                         </div>
@@ -69,11 +69,11 @@ const Information = ({ orders, information }) => {
                             <p>{(element.TableNum === "Take-Away") ? "" : "Table :"}<span>{element.TableNum}</span></p>
                         </div>
                         <div className='show-info-kot'>
-                            <p>KOT ID:<span>{element.KOTID}</span></p>
+                            <p>KOT ID :<span>{element.KOTID}</span></p>
                         </div>
                         <div className='show-table'>
                             <div className='show-info-emp'>
-                                <p>Employee:  <span>{element.Employee}</span></p>
+                                <p>Employee :  <span>{element.Employee}</span></p>
 
                             </div>
                         </div>

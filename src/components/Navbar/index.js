@@ -2,30 +2,42 @@ import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faHome,
-    // faCutlery,
     faReceipt
 } from '@fortawesome/free-solid-svg-icons'
 import "../../scss/navbar.scss";
-import { Link } from 'react-router-dom';
-
+import { Link, useNavigate } from 'react-router-dom';
+import { FiRefreshCcw } from "react-icons/fi";
+import { IoPeopleOutline } from "react-icons/io5";
+import { TbReportSearch } from "react-icons/tb";
 const Navbar = () => {
+    let navigate = useNavigate();
+
+    const logoutUser = () => {
+        localStorage.removeItem('token');
+        navigate("/")
+    }
     return (
         <nav>
             <div className='navbar-icons'>
-                <Link to="/home">
-                    <FontAwesomeIcon icon={faHome} />
+                <Link to="/home" >
+                    <FontAwesomeIcon icon={faHome} className='nav-icon' />
                 </Link>
+                <label>Home</label>
             </div>
-            {/* <div className='navbar-icon-cutlery'>
-                <Link to="/on-cooking">
-                    <FontAwesomeIcon icon={faCutlery} />
-                </Link>
-            </div> */}
-            <button className='navbar-icon-cutlery'>
+            <div className='navbar-icons'>
                 <Link to="/report">
-                    <FontAwesomeIcon icon={faReceipt} />
+                    <TbReportSearch className='nav-icon' />
                 </Link>
-            </button>
+                <label>Report</label>
+            </div>
+            <div className='navbar-icons' onClick={() => window.location.reload(false)}>
+                <FiRefreshCcw className='nav-icon' />
+                <label>Refresh</label>
+            </div>
+            <div className='navbar-icons' onClick={logoutUser}>
+                <IoPeopleOutline className='nav-icon' />
+                <label>Logout</label>
+            </div>
         </nav>
     )
 }

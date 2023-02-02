@@ -18,6 +18,7 @@ const Order = () => {
     const [socket, setSocket] = useState(null)
     const roomIdRef = useRef(id)
     const outletRef = useRef(outletName)
+    const outRef = useRef(outletName)
     const hashRef = useRef(hash)
     const listRef = useRef(list)
     // const tokenRef = useRef(token)
@@ -86,26 +87,26 @@ const Order = () => {
     useEffect(() => {
         listRef.current = list;
         outletRef.current = outletName
-        console.log("inside use effect", outletName)
-        console.log("len", list.length)
-        let len = list.length
-        if (len !== 0) {
-            console.log("list", list)
-            axios.post(`${baseUrl}/stats`, {
-                outlet: `${outletName}`,
-                token: `${token}`
+        axios.post(`${baseUrl}/stats`, {
+            outlet: `${outletName}`,
+            token: `${token}`
+        })
+            .then((response) => {
+                console.log("info",response)
+                setInfo(response.data)
             })
-                .then((response) => {
-                    console.log(response)
-                    setInfo(response.data)
-                })
-                .catch((error) => {
-                    console.log(error)
-                })
-        }
-        else {
-            console.log("okay")
-        }
+            .catch((error) => {
+                console.log(error)
+            })
+        // console.log("len", list.length)
+        // let len = list.length
+        // if (len != 0) {
+        //     console.log("list", list)
+           
+        // }
+        // else {
+        //     console.log("okay")
+        // }
 
     }, [list])
 
@@ -193,13 +194,13 @@ const Order = () => {
                 updateList(newlist);
             })
             socket.on(`${hashRef.current}orderseen_response`, (res) => {
-                console.log("res of orderseen_response", res.table_id)
-                let listItems = listRef.current;
-                console.log(listItems, "list Items")
-                let TableId = res.table_id;
-                const listIndex = listItems.map(i => i.table_id).indexOf(TableId);
-                let currentList = listItems[listIndex]
-                console.log("selected list", currentList)
+                // console.log("res of orderseen_response", res.table_id)
+                // let listItems = listRef.current;
+                // console.log(listItems, "list Items")
+                // let TableId = res.table_id;
+                // const listIndex = listItems.map(i => i.table_id).indexOf(TableId);
+                // let currentList = listItems[listIndex]
+                // console.log("selected list", currentList)
                 socket.emit("get_live", { roomId: `${roomIdRef.current}`, outlet_name: `${outletRef.current}`, token: `${token}` })
             })
             socket.on('initial_load', (res) => {
@@ -221,26 +222,24 @@ const Order = () => {
         }
     }, [hash])
 
-    const handleEnter = () => {
-        console.log(token, "inisde handle enter token")
-        outletRef.current = outletName
-        console.log("inside handle enter")
-        console.log("inside handle enter", outletName)
-        roomIdRef.current = id
-        console.log("inside handle enter-token123", token)
-        // tokenRef.current = token
-        console.log("inside handle enter-token", token)
-        socket.emit('join', {
-            userName: `${outletName}`,
-            roomCode: `${id}`,
-            token: `${token}`
-        })
-
-    }
-
     const handleChange = (event) => {
         setOutletName(event)
     }
+    
+    const handleEnter = (name) => {
+        console.log('=>',name)
+        setOutletName(name)
+        console.log('123=>',name)
+        // outRef.current = name
+        outletRef.current = name
+        socket.emit('join', {
+            userName: `${name}`,
+            roomCode: `${id}`,
+            token: `${token}`
+        })
+    }
+
+
     const handleCompleted = (item) => {
         socket.emit("table_done", {
             roomId: `${id}`,

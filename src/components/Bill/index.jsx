@@ -1,16 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../Navbar'
 import DatePicker from "react-datepicker";
-import ConvertDate from './convertDate';
 import "react-datepicker/dist/react-datepicker.css";
+import SelectSearch from 'react-select-search';
 import "../../scss/bill.scss";
 import axios from 'axios';
+import BillTable from './BillTable';
+
 
 const Bill = () => {
+    let url = process.env.REACT_APP_BASE_URL;
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
     const [token, setToken] = useState("");
+    const [selectedOutlet, setSelectedOutlet] = useState("");
+    const [listOutlet, setListOutlet] = useState([]);
     const [order, setOrder] = useState([]);
     const [totalInfo, setTotalInfo] = useState({});
 
@@ -25,11 +30,34 @@ const Bill = () => {
         } else {
             setToken(localStorage.getItem("token"))
         }
+        // let outletCheck = localStorage.getItem("outlet");
+        // if (!outletCheck) {
+        //     return
+        // } else {
+        //     setSelectedOutlet(localStorage.getItem("outlet"))
+        // }
+        setSelectedOutlet(localStorage.getItem("outlet"))
+
+        console.log("=>", selectedOutlet)
     }, [])
+    useEffect(() => {
+        axios.post(`${url}/outlets`, {
+            token: token
+        })
+            .then((response) => {
+                console.log('to get outlet name', response)
+                setListOutlet(response.data)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    },[token])
+    
+    console.log("=out>", selectedOutlet)
 
     const viewBill = () => {
-        axios.post(`https://ordersystem.silverlinepos.com/saleshistory`, {
-            "outlet": "Bluestar Services Pvt Ltd.",
+        axios.post(`${url}/saleshistory`, {
+            "outlet": `${selectedOutlet}`,
             "dateStart": start,
             "dateEnd": end,
             "token": token
@@ -54,14 +82,14 @@ const Bill = () => {
                             <DatePicker selected={startDate} dateFromat='YYYY-MM-DD' onChange={(date) => setStartDate(date)} className='date-picker' />
                         </div>
                         <div>
-                            {/* <label >Outlet Name:</label> */}
                             <div>
-                                <input
-                                    type="text"
-                                    className=""
-                                    // value={inputValue}
-                                    // onChange={handleInputChange}
-                                    placeholder="Outlet Name"
+                                <h3>{selectedOutlet}</h3>
+                                <SelectSearch
+                                    defaultValue={selectedOutlet}
+                                    search
+                                    placeholder="Select Outlet Name"
+                                    onChange={(event) => setSelectedOutlet(event)}
+                                    options={listOutlet}
                                 />
                             </div>
                         </div>
@@ -78,53 +106,7 @@ const Bill = () => {
                         </button>
                     </div>
                 </div>
-                <div class="table-responsive-bill">
-                    <table class="table-bill">
-                        <tr>
-                            <th>Date</th>
-                            <th>Bill no:</th>
-                            <th>Discount:</th>
-                            <th>Sub Total: (Rs)</th>
-                            <th>Service Charge</th>
-                            <th>VAT(Rs)</th>
-                            <th>Total(Rs)</th>
-                            <th>Payment</th>
-                            <th>Guest Name</th>
-                        </tr>
-                        {order.map((item, index) => (
-                            <tr key={index}>
-                                <td><ConvertDate date={item.Date} /></td>
-                                <td>{item.bill_no}</td>
-                                <td>{item.DiscountAmt}</td>
-                                <td>{item.Subtotal}</td>
-                                <td>{item.serviceCharge}</td>
-                                <td>{item.VAT}</td>
-                                <td>{item.Total}</td>
-                                <td>{item.PaymentMode}</td>
-                                <td>{item.GuestName}</td>
-                            </tr>
-                        ))}
-                        <tr>
-                            <td></td>
-                            <td> <span className='detail-info'>Order : </span>{totalInfo.TotalOrders}</td>
-                            <td><span className='detail-info'>Discount Sum : </span>{totalInfo.DiscountAmountSum}</td>
-                            <td> <span className='detail-info'>Sub-Total Sum : </span>{totalInfo.TotalSum}</td>
-                            <td> <span className='detail-info'>Service Charge Sum : </span>{totalInfo.ServiceChargeSum}</td>
-                            <td> <span className='detail-info'>VAT sum : </span>{totalInfo.VatSum}</td>
-                            <td><span className='detail-info'>Sum : </span>{totalInfo.TotalSum}</td>
-                        </tr>
-
-                    </table>
-                </div>
-                {/* <div>
-                    <div className='view-totals'>
-                        <label>Total: <span>{totalInfo.TotalSum}</span></label>
-                        <label>VAT: <span>{totalInfo.VatSum}</span></label>
-                        <label>Sub Total Sum: <span>{totalInfo.TotalSum}</span></label>
-                        <label>ServiceChargeSum: <span>{totalInfo.ServiceChargeSum}</span></label>
-                        <label>Order: <span>{totalInfo.TotalOrders}</span></label>
-                    </div>
-                </div> */}
+                <BillTable order={order} totalInfo={totalInfo} />
             </section>
         </div>
     )

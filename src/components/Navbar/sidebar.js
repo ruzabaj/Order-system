@@ -2,12 +2,12 @@ import React, {useContext} from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import "../../scss/sidebar.scss";
-import {storeContext} from "../useContext";
+//import {storeContext} from "../useContext";
 import Category from '../Report/category';
 
 const Sidebar = ({ handleSidebar, categories }) => {
   // let {appetizer, setAppetizer}=useContext(storeContext)
-  let names=useContext(storeContext)
+  //let names=useContext(storeContext)
 
   return (
     <div>

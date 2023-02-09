@@ -4,12 +4,11 @@ import Navbar from '../Navbar';
 import Order from './order';
 
 const Home = () => {
+
     return (
         <div>
-            <Navbar/>
-            <div className="container">
-                <Order/>
-            </div>
+            <Navbar />
+            <Order />
         </div>
     )
 }

@@ -6,6 +6,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Search from './Search';
 import Info from './Info';
+import { UserContext } from '../Context';
+import { useContext } from "react";
 
 const Order = () => {
     const [list, setList] = useState([]);
@@ -24,6 +26,11 @@ const Order = () => {
     // const tokenRef = useRef(token)
     const [outlet, setOutlet] = useState([]);
 
+
+
+    const { setUserName } = useContext(UserContext);
+
+
     let url = process.env.REACT_APP_SOCKET_URL
     let baseUrl = process.env.REACT_APP_BASE_URL
     let navigate = useNavigate();
@@ -37,6 +44,7 @@ const Order = () => {
         } else {
             setToken(localStorage.getItem("token"))
         }
+        localStorage.removeItem('outlet')
     }, [])
 
     useEffect(() => {
@@ -87,28 +95,30 @@ const Order = () => {
     useEffect(() => {
         listRef.current = list;
         outletRef.current = outletName
+        if (!token || !outletName) {
+            return
+        }
         axios.post(`${baseUrl}/stats`, {
             outlet: `${outletName}`,
             token: `${token}`
         })
             .then((response) => {
-                console.log("info",response)
+                console.log("info", response)
                 setInfo(response.data)
             })
             .catch((error) => {
                 console.log(error)
             })
-        // console.log("len", list.length)
         // let len = list.length
         // if (len != 0) {
         //     console.log("list", list)
-           
+
         // }
         // else {
         //     console.log("okay")
         // }
 
-    }, [list])
+    }, [list, token, outletName])
 
     const updateList = (data) => {
         console.log(data, "inside update list");
@@ -225,12 +235,11 @@ const Order = () => {
     const handleChange = (event) => {
         setOutletName(event)
     }
-    
+
     const handleEnter = (name) => {
-        console.log('=>',name)
+        console.log(name)
         setOutletName(name)
-        console.log('123=>',name)
-        // outRef.current = name
+        localStorage.setItem("outlet", name)
         outletRef.current = name
         socket.emit('join', {
             userName: `${name}`,
@@ -286,14 +295,17 @@ const Order = () => {
     }
 
     return (
-        <div className="row">
-            <Search handleEnter={handleEnter} handleChange={handleChange} outlet={outlet} />
-            {!show && <><div>Error! Please check the outlet name.</div></>}
-            <Info info={info} />
-            {show && list.map((element, index) => (
-                <Card element={element} handleFinished={handleFinished} handleCookProcess={handleCookProcess} handleCompleted={handleCompleted} handleMinus={handleMinus} handleCancel={handleCancel} index={index} />
-            ))}
+        <div className="container">
+            <div className="row">
+                <Search handleEnter={handleEnter} handleChange={handleChange} outlet={outlet} />
+                {!show && <><div>Error! Please check the outlet name.</div></>}
+                <Info info={info} />
+                {show && list.map((element, index) => (
+                    <Card element={element} handleFinished={handleFinished} handleCookProcess={handleCookProcess} handleCompleted={handleCompleted} handleMinus={handleMinus} handleCancel={handleCancel} index={index} />
+                ))}
+            </div>
         </div>
+
     )
 }
 export default Order

@@ -11,15 +11,11 @@ import React from 'react';
                     <span>{DineIn}</span>
                 </div>
                 <div className='report-info'>
-                    <label>Dine-In (Total Sales):</label>
-                    <span>{DineIn_totalSales}</span>
-                </div>
-                <div className='report-info'>
                     <label>Takeaway:</label>
                     <span>{TakeAway}</span>
                 </div>
                 <div className='report-info'>
-                    <label>Takeaway (Total Sales):</label>
+                    <label>Takeaway-TotalSales:</label>
                     <span>{TakeAway_totalSales}</span>
                 </div>
                 <div className='report-info'>
@@ -35,7 +31,6 @@ import React from 'react';
                     <span>{cooking}</span>
                 </div>
             </div>
-
         </div>
     )
 }

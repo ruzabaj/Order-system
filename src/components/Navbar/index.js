@@ -8,7 +8,7 @@ import "../../scss/navbar.scss";
 import { Link, useNavigate } from 'react-router-dom';
 import { FiRefreshCcw } from "react-icons/fi";
 import { IoPeopleOutline } from "react-icons/io5";
-import { TbReportSearch } from "react-icons/tb";
+import { TbReportSearch, TbZoomMoney } from "react-icons/tb";
 const Navbar = () => {
     let navigate = useNavigate();
 
@@ -36,7 +36,13 @@ const Navbar = () => {
             </div>
             <div className='navbar-icons' onClick={logoutUser}>
                 <IoPeopleOutline className='nav-icon' />
-                <label>Logout</label>
+                <label>Logout </label>
+            </div>
+            <div className='navbar-icons'>
+                <Link to="/bill">
+                    <TbZoomMoney className='nav-icon' />
+                </Link>
+                <label>Bill</label>
             </div>
         </nav>
     )

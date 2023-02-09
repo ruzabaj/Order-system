@@ -8,6 +8,9 @@
 .offcanvas-body{
     padding: 0;
 }
+.offcanvas-backdrop.show {
+   opacity: 0;
+}
 .course-type{
     h5{
         height: auto;

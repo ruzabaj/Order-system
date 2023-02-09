@@ -7,7 +7,7 @@
         border-radius: 08px;
         margin: 05px 10px;
         display: flex;
-        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 
         .icon {
             height: 50px;
@@ -33,4 +33,23 @@
             }
         }
     }
+}
+.void{
+    // color: $primary-color;
+    color: $secondary-color;
+    background-color: #ee4949;
+    border-radius: 10px;
+    height: 35px;
+    // width: 90px;
+    padding: 5px;
+    text-align: center;    
+}
+.completed{
+    color: $secondary-color;
+    background-color: rgb(84, 73, 238);
+    border-radius: 10px;
+    height: 35px;
+    width: auto;
+    padding: 5px;
+    text-align: center;    
 }

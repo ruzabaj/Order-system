@@ -54,14 +54,14 @@ const Information = ({ orders, information }) => {
                         <div className='show-table-num'>
                             <p>{(element.TableNum === "Take-Away") ? "" : "Table : "}<span>{element.TableNum}</span></p>
                         </div>
-                        <div className='show-table-kot'>
-                            <p>KOT ID : <span>{element.KOTID}</span></p>
-                        </div>
                         <div className='show-table'>
                             <div className='show-table-emp'>
                                 <p>Employee :  <span>{element.Employee}</span></p>
 
                             </div>
+                        </div>
+                        <div className='show-table-kot'>
+                            <p>KOT ID : <span>{element.KOTID}</span></p>
                         </div>
                     </div>
                     <div className='show-info'>
@@ -74,45 +74,48 @@ const Information = ({ orders, information }) => {
                         <div className='show-table'>
                             <div className='show-info-emp'>
                                 <p>Employee :  <span>{element.Employee}</span></p>
-
                             </div>
                         </div>
                     </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>S.No</th>
-                                <th>Quantity</th>
-                                <th>Item Name</th>
-                                <th>Ordered At</th>
-                                <th>Completed At</th>
-                                <th>Total Time</th>
-                                <th>Average Prepared Time</th>
-                                <th>Prepared Time Difference</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {element.items.map((item, index) => (
-                                <tr key={index}>
-                                    <td>{index + 1}</td>
-                                    <td>{item.Quantity}</td>
-                                    <td>{item.ItemName}</td>
-                                    <td>{item.orderedAt}</td>
-                                    <td>{item.completedAt}</td>
-                                    <td>{item.TotalTime}</td>
-                                    {(item.prepTimeDifference) ?
-                                        <td>{item.AvgPrepTime}</td>
-                                        : <td>-</td>}
-
-                                    {(item.prepTimeDifference) ?
-                                        <td ><Difference total={item.TotalTime} average={item.AvgPrepTime} difference={item.prepTimeDifference} /></td>
-                                        : <td>-</td>}
-
+                    <div className='table'>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>S.No</th>
+                                    <th>Quantity</th>
+                                    <th>Item Name</th>
+                                    <th>Ordered At</th>
+                                    <th>Completed At</th>
+                                    <th>Total Time</th>
+                                    <th>Status</th>
+                                    <th>Average Prepared Time</th>
+                                    <th>Prepared Time Difference</th>
                                 </tr>
+                            </thead>
+                            <tbody>
+                                {element.items.map((item, index) => (
+                                    <tr key={index}>
+                                        <td>{index + 1}</td>
+                                        <td>{item.Quantity}</td>
+                                        <td>{item.ItemName}</td>
+                                        <td>{item.orderedAt}</td>
+                                        <td>{item.completedAt}</td>
+                                        <td>{item.TotalTime}</td>
+                                        <td>{(item.voidTotalTime) ? <p className='void'>Void</p>:<p className='completed'>Completed</p>}</td>
+                                        {(item.prepTimeDifference) ?
+                                            <td>{item.AvgPrepTime}</td>
+                                            : <td>-</td>}
 
-                            ))}
-                        </tbody>
-                    </table>
+                                        {(item.prepTimeDifference) ?
+                                            <td ><Difference total={item.TotalTime} average={item.AvgPrepTime} difference={item.prepTimeDifference} /></td>
+                                            : <td>-</td>}
+
+                                    </tr>
+
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             ))}
         </div>

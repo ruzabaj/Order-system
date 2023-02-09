@@ -52,7 +52,7 @@ const Report = () => {
                 console.log(error)
             })
     }, [token])
-    
+
     useEffect(() => {
         let initialDate = startDate
         let date = moment(initialDate).format();
@@ -143,25 +143,32 @@ const Report = () => {
     return (
         <div>
             <Navbar />
-            <div className='container'>
-                <ControlDate setStartDate={setStartDate} startDate={startDate} endDate={endDate} setEndDate={setEndDate}
-                    handleChange={handleChange}
-                    handleGenerateReport={handleGenerateReport} outlet={outlet}
-                    handleSidebar={handleSidebar}
-                    categories={categories}
-                />
-                {error ? <Error /> :
-                    <div className='report'>
-                        <div className='show-outlet-name'>
-                            <h4>{outletName}</h4>
-                        </div>
-                        <Information orders={orders} information={information} />
-                        <div className='information-report'>
-                            <Detail information={information} />
-                        </div>
+            <div className='info-side-bar'>
+                <div className='info-bar-report'>
+                    <div className='information-report'>
+                        <Detail information={information} />
                     </div>
-                }
-                <Pagination pageLength={pageLength} handleNumber={handleNumber} />
+                </div>
+                <div className='info-report-container'>
+                    <ControlDate setStartDate={setStartDate} startDate={startDate} endDate={endDate} setEndDate={setEndDate}
+                        handleChange={handleChange}
+                        handleGenerateReport={handleGenerateReport} outlet={outlet}
+                        handleSidebar={handleSidebar}
+                        categories={categories}
+                    />
+                    <div className='information-report-responsive'>
+                        <Detail information={information} />
+                    </div>
+                    {error ? <Error /> :
+                        <div className='report'>
+                            <div className='show-outlet-name'>
+                                <h4>{outletName}</h4>
+                            </div>
+                            <Information orders={orders} information={information} />
+                        </div>
+                    }
+                    <Pagination pageLength={pageLength} handleNumber={handleNumber} />
+                </div>
             </div>
         </div>
     )

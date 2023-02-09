@@ -18,6 +18,7 @@ const Bill = () => {
     const [listOutlet, setListOutlet] = useState([]);
     const [order, setOrder] = useState([]);
     const [totalInfo, setTotalInfo] = useState({});
+    const [error, setError] = useState(false);
 
     let start = startDate.toISOString().slice(0, 10)
     let end = endDate.toISOString().slice(0, 10)
@@ -51,11 +52,12 @@ const Bill = () => {
             .catch((error) => {
                 console.log(error)
             })
-    },[token])
-    
+    }, [token])
+
     console.log("=out>", selectedOutlet)
 
     const viewBill = () => {
+        console.log("view bill", selectedOutlet)
         axios.post(`${url}/saleshistory`, {
             "outlet": `${selectedOutlet}`,
             "dateStart": start,
@@ -63,12 +65,14 @@ const Bill = () => {
             "token": token
         })
             .then((response) => {
+                setError(false)
                 console.log(response.data)
                 setTotalInfo(response.data)
                 setOrder(response.data.orderDetails)
             })
             .catch((error) => {
                 console.log(error)
+                setError(true)
             })
     }
     return (
@@ -106,7 +110,9 @@ const Bill = () => {
                         </button>
                     </div>
                 </div>
-                <BillTable order={order} totalInfo={totalInfo} />
+                {error ? "" :
+                    <BillTable order={order} totalInfo={totalInfo} />
+                }
             </section>
         </div>
     )

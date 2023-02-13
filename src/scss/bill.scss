@@ -1,19 +1,145 @@
-.select-options{
-    margin: 30px 0px;
-    .date-picker-outlet{
+@import "./config";
+
+.offcanvas-start .show {
+    display: block;
+}
+
+.btn-side {
+    background-color: $btn-seen;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    color: $secondary-color;
+    position: absolute;
+    top: 50%;
+
+    .icon-arrow {
+        width: calc(100% - 05px);
+        height: calc(100% - 10px);
+        color: $secondary-color;
+    }
+}
+
+.btn-side-info {
+    background-color: $btn-seen;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    color: $secondary-color;
+    position: absolute;
+    top: 50%;
+    left: 100%;
+
+    .icon-arrow {
+        width: calc(100% - 05px);
+        height: calc(100% - 10px);
+        color: $secondary-color;
+    }
+}
+
+.fix-width-contain {
+    display: flex;
+
+    .dine-tabs-info {
+        // flex: 1;
+        // height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+
+        .offcanvas-header {
+            background-color: #372791;
+            height: 90px;
+        }
+    }
+
+    .dine-tabs-list {
+        margin: 30px 10px;
+        width: 100%;
+
+        .hr-line {
+            border: 1px dotted black;
+            margin: 10px 20px;
+        }
+
+        .total-info {
+            padding: 10px 0px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            label {
+                font-size: 20px;
+            }
+
+            span {
+                font-weight: 600;
+            }
+
+            .info {
+                padding: 10px 0px;
+                margin-left: 10px;
+            }
+        }
+
+    }
+}
+
+.dine-tabs-paymemnt-status {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    span {
+        font-size: 20px;
+        font-weight: 600;
+    }
+}
+.start-date, .end-date{
+border: 1px solid black
+}
+@media screen and (max-width: 700px) {
+    .fix-width-contain {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.select-options {
+    // flex: 2;
+    flex-direction: column;
+    margin: 30px;
+
+    .date-picker-outlet {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        .date-picker{
-            border-radius: 05px;
-            height: 35px;
+
+        .date-picker {
+            border: 1px solid rgb(220, 224, 232);
+            height: 50px;
         }
     }
-    .btn-search-view{
+
+    .date-picker-outlet-sm {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .date-picker {
+            border: 1px solid rgb(220, 224, 232);
+            height: 50px;
+        }
+    }
+
+    .btn-search-view {
         display: flex;
         justify-content: center;
         margin: 20px 0px;
-        .btn-search{
+
+        .btn-search {
             width: 120px;
             height: 50px;
             border: 1px solid #9b05717d;
@@ -22,33 +148,64 @@
             padding: 10px;
             border-radius: 10px;
             margin-right: 5px;
-            &:hover{
+
+            &:hover {
                 background-color: #0822e17d
             }
         }
     }
 }
-.table-bill{
-    .detail-info{
+
+.table-bill {
+    .detail-info {
         font-size: 20px;
         font-weight: 500;
     }
 }
-@media screen and (max-width:740px) {
-    .date-picker-outlet{
+
+@media screen and (max-width:900px) {
+    .date-picker-outlet-sm {
         display: flex;
         align-items: center;
         flex-direction: column;
         justify-content: space-between;
     }
 }
-.table-responsive-bill{
+
+@media screen and (min-width:780px) {
+    .date-picker-outlet-sm {
+        display: none !important;
+    }
+}
+
+@media screen and (max-width: 780px) {
+    .date-picker-outlet {
+        display: none !important;
+    }
+
+    .btn-side-info, .btn-side {
+        width: 35px;
+        height: 35px;
+
+        .icon-arrow {
+            width: calc(100% - 05px);
+            height: calc(100% - 10px);
+            color: $secondary-color;
+        }
+    }
+}
+
+.table-responsive-bill {
+    font-size: 20px;
     display: block;
     width: 100%;
     overflow-x: auto;
     margin: 30px 0px;
-    .table-bill{
-        td,tr,
+
+    .table-bill {
+
+        td,
+        tr,
         th {
             padding: 6px;
             border: 1px solid #ccc;
@@ -56,8 +213,8 @@
         }
     }
 
-  }
+}
 
-  .table-responsive-bill > table {
+.table-responsive-bill>table {
     width: 100%;
-  }
+}

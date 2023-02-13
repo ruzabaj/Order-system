@@ -2,6 +2,11 @@ import React from 'react'
 import ConvertDate from './convertDate';
 
 const BillTable = ({ order, totalInfo }) => {
+    const billNum= [];
+    let calculateBillNum=  order.map((item) => {
+         billNum.push(item.bill_no)
+    })
+    console.log(calculateBillNum)
     return (
         <div class="table-responsive-bill">
             <table class="table-bill">

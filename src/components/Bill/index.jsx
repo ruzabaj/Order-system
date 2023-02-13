@@ -101,9 +101,9 @@ const Bill = () => {
         <div>
             <Navbar />
             <section className='fix-width-contain'>
-                <Dine dineinTabs={dineinTabs} paymentStatus={paymentStatus} />
+                <Dine dineinTabs={dineinTabs} paymentStatus={paymentStatus} toggleArrow={toggleArrow} arrow={arrow}/>
                 <button onClick={toggleArrow} className="btn-side" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions" >
-                    {arrow ? <AiOutlineArrowRight className='icon-arrow' /> : <AiOutlineArrowLeft className='icon-arrow' />}</button>
+                    {arrow ? <AiOutlineArrowLeft className='icon-arrow' /> : <AiOutlineArrowRight className='icon-arrow' />}</button>
                 <div className='container'>
                     <div className='select-options '>
                         <div className="date-picker-outlet">
@@ -142,15 +142,16 @@ const Bill = () => {
                                     />
                                 </div>
                             </div>
+                            <label className="">Start Date:</label>
                             <div className='start-date'>
-                                <label className="">Start Date:</label>
                                 <DatePicker selected={startDate} dateFromat='YYYY-MM-DD' onChange={(date) => setStartDate(date)} className='date-picker' />
                             </div>
+                            <label className="">End Date:</label>
                             <div className='end-date'>
-                                <label className="">End Date:</label>
                                 <DatePicker selected={endDate} dateFromat='yyyy-mm-dd' onChange={(date) => setEndDate(date)} className='date-picker' />
                             </div>
                         </div>
+
                         <div className='btn-search-view'>
                             <button
                                 onClick={viewBill}

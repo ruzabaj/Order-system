@@ -97,9 +97,7 @@
         font-weight: 600;
     }
 }
-.start-date, .end-date{
-border: 1px solid black
-}
+
 @media screen and (max-width: 700px) {
     .fix-width-contain {
         display: flex;
@@ -129,6 +127,7 @@ border: 1px solid black
         justify-content: space-between;
 
         .date-picker {
+            width: 300px;
             border: 1px solid rgb(220, 224, 232);
             height: 50px;
         }
@@ -186,7 +185,7 @@ border: 1px solid black
     .btn-side-info, .btn-side {
         width: 35px;
         height: 35px;
-
+        top: 60%;
         .icon-arrow {
             width: calc(100% - 05px);
             height: calc(100% - 10px);

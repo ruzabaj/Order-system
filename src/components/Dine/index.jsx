@@ -1,11 +1,7 @@
 import React, { useState } from 'react'
 import { AiOutlineArrowRight, AiOutlineArrowLeft} from "react-icons/ai";
 
-const Dine = ({ dineinTabs, paymentStatus }) => {
-    const [arrow, setArrow] = useState(true);
-    const toggleArrow = () => {
-        setArrow(!arrow)
-    }
+const Dine = ({ dineinTabs, paymentStatus, arrow, toggleArrow }) => {
     return (
         <section className='dine-tabs-info'>
             <div className="offcanvas offcanvas-start show" data-bs-scroll="true" tabIndex="0" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
@@ -33,7 +29,7 @@ const Dine = ({ dineinTabs, paymentStatus }) => {
                             </div>
                         </div>
                         <hr className="hr-line" />
-                        <button className="btn-side-info" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions" onClick={toggleArrow}>{arrow?<AiOutlineArrowRight className='icon-arrow' />:<AiOutlineArrowLeft className='icon-arrow' />}</button>
+                        <button className="btn-side-info" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions" onClick={toggleArrow}>{arrow?<AiOutlineArrowLeft className='icon-arrow' />:<AiOutlineArrowRight className='icon-arrow' />}</button>
                         <div className='total-info'>
                             <label> <span>Total Service Charge : </span>{dineinTabs.TotalServiceCharge}</label>
                             <div className='info'>

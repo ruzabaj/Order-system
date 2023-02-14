@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { AiOutlineArrowRight, AiOutlineArrowLeft } from "react-icons/ai";
 
-const Dine = ({ dineinTabs, paymentStatus, arrow, toggleArrow }) => {
+const Dine = ({ dineinTabs, paymentStatus, arrow, toggleArrow, endBillNum, startBillNum }) => {
     return (
         <section className='dine-tabs-info'>
             <div className="offcanvas offcanvas-start show" data-bs-scroll="true" tabIndex="0" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
@@ -29,6 +29,16 @@ const Dine = ({ dineinTabs, paymentStatus, arrow, toggleArrow }) => {
                             </div>
                         </div>
                         <hr className="hr-line" />
+                        <div className='total-info'>
+                            <label> <span>VAT: </span>{dineinTabs.TotalVat}</label>
+                            <div className='info'>
+                                <label><span>Dine-In : </span>{dineinTabs.DineInVAT}</label>
+                            </div>
+                            <div className='info'>
+                                <label><span>Tabs : </span>{dineinTabs.TabVAT = dineinTabs.TabVAT ?? "0"}</label>
+                            </div>
+                        </div>
+                        <hr className="hr-line" />
                         <button className="btn-side-info" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions" onClick={toggleArrow}>{arrow ? <AiOutlineArrowLeft className='icon-arrow' /> : <AiOutlineArrowRight className='icon-arrow' />}</button>
                         <div className='total-info'>
                             <label> <span>Total Service Charge : </span>{dineinTabs.TotalServiceCharge}</label>
@@ -50,25 +60,23 @@ const Dine = ({ dineinTabs, paymentStatus, arrow, toggleArrow }) => {
                             </div>
                         </div>
                         <hr className="hr-line" />
+
                     </div>
                     <div className='dine-tabs-paymemnt-status'>
                         <div>
-                            <label><span>Cash : </span>{paymentStatus.Cash}</label>
-                        </div>
-                        <div>
-                            <label><span>Complimentary : </span>{paymentStatus.Complimentary}</label>
-                        </div>
-                        <div>
-                            <label><span>Credit : </span>{paymentStatus.Credit}</label>
-                        </div>
-                        <div>
                             <label><span>Credit Card : </span>{paymentStatus.CreditCard}</label>
+                        </div>
+                        <div>
+                            <label><span>Cash : </span>{paymentStatus.Cash}</label>
                         </div>
                         <div>
                             <label><span> Mobile Payment : </span>{paymentStatus.MobilePayment}</label>
                         </div>
                         <div>
-                            <label><span> Non Chargeable : </span>{paymentStatus.NonChargeable}</label>
+                            <label> <span>Credit Sale: </span>{paymentStatus.Credit}</label>
+                        </div>
+                        <div>
+                            <label><span>Complimentary : </span>{paymentStatus.Complimentary}</label>
                         </div>
                         <div>
                             <label><span> Split : </span>{paymentStatus.Split}</label>
@@ -77,12 +85,13 @@ const Dine = ({ dineinTabs, paymentStatus, arrow, toggleArrow }) => {
                             <label><span> Discount Amount : </span>{dineinTabs.DiscountAmountSum}</label>
                         </div>
                     </div>
+                    <hr className="hr-line" />
                     <div className='bill-no'>
                         <div className='start-bill-no'>
-                            <label><span>Starting Bill No : </span>{dineinTabs.DineInServiceCharge}</label>
+                            <label><span>Starting Bill No : </span>{startBillNum}</label>
                         </div>
                         <div className='end-bill-no'>
-                            <label><span>Ending Bill No : </span>{dineinTabs.TabServiceCharge = dineinTabs.TabServiceCharge ?? "0"}</label>
+                            <label><span>Ending Bill No : </span>{(endBillNum === "") ? "-" : endBillNum}</label>
                         </div>
                     </div>
                 </div>

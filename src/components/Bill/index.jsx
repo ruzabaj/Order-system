@@ -58,8 +58,6 @@ const Bill = () => {
             })
     }, [token])
 
-    console.log("=out>", selectedOutlet)
-
     const viewBill = () => {
         console.log("view bill", selectedOutlet)
         axios.post(`${url}/saleshistory`, {
@@ -97,11 +95,27 @@ const Bill = () => {
     const toggleArrow = () => {
         setArrow(!arrow)
     }
+    const [billNumber, setBillNumber] = useState([]);
+    const [startBillNum, setStartBillNumber] = useState("");
+    const [endBillNum, setEndBillNumber] = useState("");
+    const billNum = [];
+    useEffect(() => {
+        order.forEach((item) => {
+            {
+                billNum.push(item.bill_no)
+                setBillNumber(billNum)
+                let len= billNum.length
+                setStartBillNumber(billNum[0]);
+                setEndBillNumber(billNum[len-1]);
+            }
+        })
+    }, [order])
+
     return (
         <div>
             <Navbar />
             <section className='fix-width-contain'>
-                <Dine dineinTabs={dineinTabs} paymentStatus={paymentStatus} toggleArrow={toggleArrow} arrow={arrow}/>
+                <Dine dineinTabs={dineinTabs} paymentStatus={paymentStatus} toggleArrow={toggleArrow} arrow={arrow} startBillNum={startBillNum} endBillNum={endBillNum}/>
                 <button onClick={toggleArrow} className="btn-side" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions" >
                     {arrow ? <AiOutlineArrowLeft className='icon-arrow' /> : <AiOutlineArrowRight className='icon-arrow' />}</button>
                 <div className='container'>

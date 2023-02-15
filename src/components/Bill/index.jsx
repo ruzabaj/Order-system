@@ -9,6 +9,9 @@ import axios from 'axios';
 import BillTable from './BillTable';
 import Dine from '../Dine';
 import { AiOutlineArrowRight, AiOutlineArrowLeft } from "react-icons/ai";
+import Piechart from './Piechart';
+import BeverageTable from './BeverageTable';
+import Foodtable from './Foodtable';
 
 const Bill = () => {
     let url = process.env.REACT_APP_BASE_URL;
@@ -18,6 +21,8 @@ const Bill = () => {
     const [selectedOutlet, setSelectedOutlet] = useState("");
     const [listOutlet, setListOutlet] = useState([]);
     const [order, setOrder] = useState([]);
+    const [food, setFood] = useState([]);
+    const [beverage, setBeverage] = useState([]);
     const [totalInfo, setTotalInfo] = useState({});
     const [error, setError] = useState(false);
     const [paymentStatus, setPaymentStatus] = useState({});
@@ -71,6 +76,8 @@ const Bill = () => {
                 console.log(response.data)
                 setTotalInfo(response.data)
                 setOrder(response.data.orderDetails)
+                setFood(response.data.itemDetails.food)
+                setBeverage(response.data.itemDetails.beverage)
             })
             .catch((error) => {
                 console.log(error)
@@ -104,9 +111,9 @@ const Bill = () => {
             {
                 billNum.push(item.bill_no)
                 setBillNumber(billNum)
-                let len= billNum.length
+                let len = billNum.length
                 setStartBillNumber(billNum[0]);
-                setEndBillNumber(billNum[len-1]);
+                setEndBillNumber(billNum[len - 1]);
             }
         })
     }, [order])
@@ -115,7 +122,7 @@ const Bill = () => {
         <div>
             <Navbar />
             <section className='fix-width-contain'>
-                <Dine dineinTabs={dineinTabs} paymentStatus={paymentStatus} toggleArrow={toggleArrow} arrow={arrow} startBillNum={startBillNum} endBillNum={endBillNum}/>
+                <Dine dineinTabs={dineinTabs} paymentStatus={paymentStatus} toggleArrow={toggleArrow} arrow={arrow} startBillNum={startBillNum} endBillNum={endBillNum} />
                 <button onClick={toggleArrow} className="btn-side" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions" >
                     {arrow ? <AiOutlineArrowLeft className='icon-arrow' /> : <AiOutlineArrowRight className='icon-arrow' />}</button>
                 <div className='container'>
@@ -174,10 +181,17 @@ const Bill = () => {
                             </button>
                         </div>
                         {error ? "" :
-                            <BillTable order={order} totalInfo={totalInfo} />
+                            <div>
+                                <BillTable order={order} totalInfo={totalInfo} />
+                                <div className='food-beverage-table'>
+                                    <BeverageTable beverage={beverage}/>
+                                    <Foodtable food={food}/>
+                                </div>
+                            </div>
                         }
                     </div>
                 </div>
+                <Piechart dineinTabs={dineinTabs} />
             </section>
         </div>
     )

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import ConvertDate from './convertDate';
-import CalculateTotal from './calculateTotal';
+import CalculateTotal from './Piechart';
 
 const BillTable = ({ order, totalInfo }) => {
     const [isChecked, setIsChecked] = useState(true);
@@ -21,8 +21,8 @@ const BillTable = ({ order, totalInfo }) => {
     useEffect(() => {
         order.forEach((item) => {
             {
-                let newSubTotal = (item.Total / 1.243).toFixed(3)
-                let newServiceCharge = (newSubTotal / 10).toFixed(3);
+                let newSubTotal = (item.Total / 1.243).toFixed(2)
+                let newServiceCharge = (newSubTotal / 10).toFixed(2);
                 SubTotal.push(newSubTotal)
                 setShowSubTotal(SubTotal)
 
@@ -34,11 +34,11 @@ const BillTable = ({ order, totalInfo }) => {
                 SubTotal.forEach((unit) => {
                     sum += parseFloat(unit);
                 })
-                setTotalSubUnit(sum.toFixed(3))
+                setTotalSubUnit(sum.toFixed(2))
                 ServiceCharge.forEach((unit) => {
                     serviceSum += parseFloat(unit);
                 })
-                setServiceSum(serviceSum.toFixed(3))
+                setServiceSum(serviceSum.toFixed(2))
             }
         })
     }, [order])

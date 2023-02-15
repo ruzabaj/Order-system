@@ -2,12 +2,10 @@ import React, {useContext} from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import "../../scss/sidebar.scss";
-//import {storeContext} from "../useContext";
 import Category from '../Report/category';
 
-const Sidebar = ({ handleSidebar, categories }) => {
-  // let {appetizer, setAppetizer}=useContext(storeContext)
-  //let names=useContext(storeContext)
+const Sidebar = ({ handleSidebar, categories, categoryVoid}) => {
+
 
   return (
     <div>
@@ -20,7 +18,7 @@ const Sidebar = ({ handleSidebar, categories }) => {
           <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div className="offcanvas-body">
-          <Category categories={categories}/>
+          <Category categories={categories} categoryVoid={categoryVoid}/>
         </div>
       </div>
     </div>

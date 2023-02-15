@@ -105,6 +105,19 @@ input[type=checkbox]{
     width: 20px;
     height: 20px;
 }
+.show-pie-chart{
+    height: 100vh;
+    border-left: 1px solid $bg-course;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    .pie-chart{
+        margin-top: 50%;
+        height: 200px;
+        width: 200px;
+    }
+}
+.chart-table{
+    display: flex;
+}
 @media screen and (max-width: 700px) {
     .fix-width-contain {
         display: flex;
@@ -123,7 +136,7 @@ input[type=checkbox]{
         justify-content: space-between;
 
         .date-picker {
-            border: 1px solid rgb(220, 224, 232);
+            border: 1px solid $date-picker-border;
             height: 50px;
         }
     }
@@ -135,7 +148,7 @@ input[type=checkbox]{
 
         .date-picker {
             width: 300px;
-            border: 1px solid rgb(220, 224, 232);
+            border: 1px solid $date-picker-border;
             height: 50px;
         }
     }
@@ -148,15 +161,15 @@ input[type=checkbox]{
         .btn-search {
             width: 120px;
             height: 50px;
-            border: 1px solid #9b05717d;
-            background-color: #9b05717d;
+            border: 1px solid $btn-search;
+            background-color: $btn-search;
             color: white;
             padding: 10px;
             border-radius: 10px;
             margin-right: 5px;
 
             &:hover {
-                background-color: #0822e17d
+                background-color: $btn-search-hover;
             }
         }
     }
@@ -199,6 +212,11 @@ input[type=checkbox]{
             color: $secondary-color;
         }
     }
+
+    .food-beverage-table{
+        display: flex;
+        flex-direction: column;
+    }
 }
 
 .table-responsive-bill {
@@ -206,8 +224,7 @@ input[type=checkbox]{
     display: block;
     width: 100%;
     overflow-x: auto;
-    margin: 30px 0px;
-
+    margin: 30px 10px;
     .table-bill {
 
         td,
@@ -220,7 +237,50 @@ input[type=checkbox]{
     }
 
 }
+.food-beverage-table{
+    display: flex;
+    .food-heading{
+        color: $add-on
 
-.table-responsive-bill>table {
+    } 
+    .beverage-heading{
+        color: $btn-seen-hover
+    }
+    .bg-heading-food{
+        background-color: #f8eaea;
+        border-radius: 05px;
+        height: 40px;
+        width: 150px;
+        padding: 10px;
+        text-align: center;
+    }
+}
+.table-responsive-beverage>table,  .table-responsive-food>table{
+    width: 100%;
+}
+// .table-responsive{
+//     background-color: #ccc;
+//     color: $primary-color;
+// }
+.table-responsive-beverage, .table-responsive-food {
+    font-size: 21px;
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    margin: 20px 10px;
+    .table-beverage, .table-food{
+
+        td,
+        tr,
+        th {
+            padding: 6px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+    }
+
+}
+
+.table-responsive-beverage>table .table-responsive-food>table{
     width: 100%;
 }

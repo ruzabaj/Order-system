@@ -2,6 +2,10 @@ import React from 'react'
 import { AiOutlineArrowRight, AiOutlineArrowLeft } from "react-icons/ai";
 
 const Dine = ({ dineinTabs, paymentStatus, arrow, toggleArrow, endBillNum, startBillNum }) => {
+    const netTotalSale = dineinTabs.netTOTALSALES;
+    const numGuest = dineinTabs.TotalGuests;
+
+    let revenuePerGuest = netTotalSale / numGuest
     return (
         <section className='dine-tabs-info'>
             <div className="offcanvas offcanvas-start show" data-bs-scroll="true" tabIndex="0" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
@@ -9,6 +13,21 @@ const Dine = ({ dineinTabs, paymentStatus, arrow, toggleArrow, endBillNum, start
                 </div>
                 <div className="offcanvas-body">
                     <div className='dine-tabs-list'>
+                        <div className='bill-no'>
+                            <div className='start-bill-no'>
+                                <label><span>Starting Bill No : </span>{startBillNum}</label>
+                            </div>
+                            <div className='end-bill-no'>
+                                <label><span>Ending Bill No : </span>{(endBillNum === "") ? "-" : endBillNum}</label>
+                            </div>
+                            <div className='total-guest'>
+                                <label><span>Total No. of Guest : </span>{(dineinTabs.TotalGuests === "") ? "-" : dineinTabs.TotalGuests}</label>
+                            </div>
+                            <div className='revenue'>
+                                <label><span>Revenue Per Guest : </span>{(revenuePerGuest === "") ? "-" : revenuePerGuest}</label>
+                            </div>
+                        </div>
+                        <hr className="hr-line" />
                         <div className='total-info'>
                             <label> <span>Total Sales : </span>{dineinTabs.TOTALSALES}</label>
                             <div className='info'>
@@ -86,14 +105,7 @@ const Dine = ({ dineinTabs, paymentStatus, arrow, toggleArrow, endBillNum, start
                         </div>
                     </div>
                     <hr className="hr-line" />
-                    <div className='bill-no'>
-                        <div className='start-bill-no'>
-                            <label><span>Starting Bill No : </span>{startBillNum}</label>
-                        </div>
-                        <div className='end-bill-no'>
-                            <label><span>Ending Bill No : </span>{(endBillNum === "") ? "-" : endBillNum}</label>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </section>

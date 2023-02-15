@@ -24,6 +24,7 @@ const Report = () => {
     const [maxPageLength, setMaxPageLength] = useState();
     const [pageLength, setPageLength] = useState([]);
     const [categories, setCategories] = useState({})
+    const [categoryVoid, setCategorieVoid] = useState({})
     const [token, setToken] = useState("")
 
     let url = process.env.REACT_APP_BASE_URL;
@@ -121,7 +122,7 @@ const Report = () => {
 
     }
     const handleSidebar = () => {
-        axios.post(`${url}/completed`, {
+        axios.post(`${url}/itemstats`, {
             "start_date": firstDate,
             "end_date": secondDate,
             "outlet_name": outletName,
@@ -129,7 +130,8 @@ const Report = () => {
         })
             .then((response) => {
                 console.log(response.data)
-                setCategories(response.data)
+                setCategories(response.data.Completed)
+                setCategorieVoid(response.data.Void)
             })
             .catch((error) => {
                 console.log(error.response.data)
@@ -155,6 +157,7 @@ const Report = () => {
                         handleGenerateReport={handleGenerateReport} outlet={outlet}
                         handleSidebar={handleSidebar}
                         categories={categories}
+                        categoryVoid={categoryVoid}
                     />
                     <div className='information-report-responsive'>
                         <Detail information={information} />

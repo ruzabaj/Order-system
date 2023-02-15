@@ -7,7 +7,7 @@ import 'react-select-search/style.css'
 import "../../scss/navbar.scss";
 // import Context from "../useContext";
 
-const ControlDate = ({ startDate, categories, endDate, handleGenerateReport, setStartDate, setEndDate, outlet, handleChange, handleSidebar }) => {
+const ControlDate = ({ startDate, categories, endDate, handleGenerateReport, setStartDate, setEndDate, outlet, handleChange, handleSidebar, categoryVoid }) => {
     return (
         <div className='control-dates'>
             <div className='control-dates-flex'>
@@ -42,7 +42,7 @@ const ControlDate = ({ startDate, categories, endDate, handleGenerateReport, set
                 <button type='submit' onClick={handleGenerateReport} className="btn-generate-report">
                     Generate Report
                 </button>
-                <Sidebar handleSidebar={handleSidebar} categories={categories} />
+                <Sidebar handleSidebar={handleSidebar} categories={categories} categoryVoid={categoryVoid}/>
             </div>
             {/* <Context>
                 <Sidebar handleSidebar={handleSidebar} categories={categories}/>

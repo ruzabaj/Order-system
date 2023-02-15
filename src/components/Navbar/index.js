@@ -46,7 +46,7 @@ const Navbar = () => {
                     <label>Bill</label>
                 </div>
             </Link>
-            <Link to="/bill">
+            <Link to="/history">
                 <div className='navbar-icons'>
                     <AiOutlineHistory className='nav-icon' />
                     <label>History</label>

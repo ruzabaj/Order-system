@@ -5,6 +5,7 @@ import App from '../App';
 import Home from '../components/Home';
 import Report from '../components/Report';
 import Bill from '../components/Bill';
+import History from '../components/History';
 import { UserContext } from '../components/Context';
 
 const MainRoutes = () => {
@@ -24,6 +25,7 @@ const MainRoutes = () => {
                 <Route path='/home' element={<Home />} />
                 <Route path='/report' element={<Report />} />
                 <Route path='/bill' element={<Bill />} />
+                <Route path='/history' element={<History/>} />
             </Routes>
       
         </UserContext.Provider>

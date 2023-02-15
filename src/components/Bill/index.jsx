@@ -23,6 +23,7 @@ const Bill = () => {
     const [order, setOrder] = useState([]);
     const [food, setFood] = useState([]);
     const [beverage, setBeverage] = useState([]);
+    const [FoodBeverageSum, setFoodBeverageSum] = useState([]);
     const [totalInfo, setTotalInfo] = useState({});
     const [error, setError] = useState(false);
     const [paymentStatus, setPaymentStatus] = useState({});
@@ -78,6 +79,7 @@ const Bill = () => {
                 setOrder(response.data.orderDetails)
                 setFood(response.data.itemDetails.food)
                 setBeverage(response.data.itemDetails.beverage)
+                setFoodBeverageSum(response.data.itemDetails.itemSum)
             })
             .catch((error) => {
                 console.log(error)
@@ -184,14 +186,14 @@ const Bill = () => {
                             <div>
                                 <BillTable order={order} totalInfo={totalInfo} />
                                 <div className='food-beverage-table'>
-                                    <BeverageTable beverage={beverage}/>
                                     <Foodtable food={food}/>
+                                    <BeverageTable beverage={beverage}/>
                                 </div>
                             </div>
                         }
                     </div>
                 </div>
-                <Piechart dineinTabs={dineinTabs} />
+                <Piechart dineinTabs={dineinTabs} FoodBeverageSum={FoodBeverageSum}/>
             </section>
         </div>
     )

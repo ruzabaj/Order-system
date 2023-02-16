@@ -9,7 +9,8 @@ import { AiOutlineHistory } from "react-icons/ai";
 import { Link, useNavigate } from 'react-router-dom';
 import { FiRefreshCcw } from "react-icons/fi";
 import { IoPeopleOutline } from "react-icons/io5";
-import { TbReportSearch, TbZoomMoney } from "react-icons/tb";
+import { TbReportSearch, TbZoomMoney, TbToolsKitchen } from "react-icons/tb";
+import { ImStatsDots } from "react-icons/im";
 const Navbar = () => {
     let navigate = useNavigate();
 
@@ -20,7 +21,7 @@ const Navbar = () => {
     }
     return (
         <nav>
-            <Link to="/home" >
+            <Link to="/bill">
                 <div className='navbar-icons'>
                     <FontAwesomeIcon icon={faHome} className='nav-icon' />
                     <label>Home</label>
@@ -32,18 +33,11 @@ const Navbar = () => {
                     <label>Report</label>
                 </div>
             </Link>
-            <div className='navbar-icons' onClick={() => window.location.reload(false)}>
-                <FiRefreshCcw className='nav-icon' />
-                <label>Refresh</label>
-            </div>
-            <div className='navbar-icons' onClick={logoutUser}>
-                <IoPeopleOutline className='nav-icon' />
-                <label>Logout </label>
-            </div>
-            <Link to="/bill">
+            <Link to="/home" >
                 <div className='navbar-icons'>
-                    <TbZoomMoney className='nav-icon' />
-                    <label>Bill</label>
+                    {/* <TbZoomMoney  /> */}
+                    <TbToolsKitchen className='nav-icon'/>
+                    <label>Kitchen</label>
                 </div>
             </Link>
             <Link to="/history">
@@ -52,6 +46,20 @@ const Navbar = () => {
                     <label>History</label>
                 </div>
             </Link>
+            <Link to="/stats">
+                <div className='navbar-icons'>
+                    <ImStatsDots className='nav-icon' />
+                    <label>Stats</label>
+                </div>
+            </Link>
+            <div className='navbar-icons' onClick={() => window.location.reload(false)}>
+                <FiRefreshCcw className='nav-icon' />
+                <label>Refresh</label>
+            </div>
+            <div className='navbar-icons' onClick={logoutUser}>
+                <IoPeopleOutline className='nav-icon' />
+                <label>Logout </label>
+            </div>
         </nav>
     )
 }

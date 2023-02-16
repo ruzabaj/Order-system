@@ -1,10 +1,10 @@
 import React from 'react'
 
 const ConvertDate = ({date}) => {
-    let newDate= date.slice(0, 17);
+  const convertDate = new Date(date).toISOString().substring(0,10)
   return (
-    <div>
-        {newDate}
+    <div key={date}>
+        {convertDate}
     </div>
   )
 }

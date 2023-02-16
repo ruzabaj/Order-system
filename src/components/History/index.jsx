@@ -7,6 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from 'react-router-dom';
 import CustomerHistory from './CustomerHistory';
 import "../../scss/history.scss";
+import SelectSearch from 'react-select-search';
 
 const History = () => {
   let url = process.env.REACT_APP_BASE_URL;
@@ -20,6 +21,7 @@ const History = () => {
   const [token, setToken] = useState("");
   const [selectedOutlet, setSelectedOutlet] = useState("");
   const [inputChange, setInputChange] = useState("");
+  const [listOutlet, setListOutlet] = useState([]);
 
   let start = startDate.toISOString().slice(0, 10)
   let end = endDate.toISOString().slice(0, 10)
@@ -32,9 +34,20 @@ const History = () => {
     } else {
       setToken(localStorage.getItem("token"))
     }
-    setSelectedOutlet(localStorage.getItem("outlet"))
   }, [])
 
+  useEffect(() => {
+    axios.post(`${url}/outlets`, {
+      token: token
+    })
+      .then((response) => {
+        console.log('to get outlet name', response)
+        setListOutlet(response.data)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }, [token])
   const showComplimentary = () => {
     axios.post(`${url}/customersaleshistory`, {
       start_date: start,
@@ -81,6 +94,16 @@ const History = () => {
         </div>
         <div className='input-customer-name'>
           <input type="text" placeholder="Customer Name" onChange={handleInputChange} value={inputChange} />
+        </div>
+        <div className='select-search'>
+          <h3>{selectedOutlet}</h3>
+          <SelectSearch
+            defaultValue={selectedOutlet}
+            search
+            placeholder="Select Outlet Name"
+            onChange={(event) => setSelectedOutlet(event)}
+            options={listOutlet}
+          />
         </div>
         <div className='date-picker-end'>
           <label className="">End Date:</label>

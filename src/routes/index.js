@@ -7,6 +7,7 @@ import Report from '../components/Report';
 import Bill from '../components/Bill';
 import History from '../components/History';
 import { UserContext } from '../components/Context';
+import Stats from "../components/Stats";
 
 const MainRoutes = () => {
     const [userName, setUserName] = useState("");
@@ -21,11 +22,12 @@ const MainRoutes = () => {
         <UserContext.Provider value={value}>
   
             <Routes>
-                <Route path='/' element={<App />} />
-                <Route path='/home' element={<Home />} />
+                {/* <Route path='/' element={<App />} /> */}
+                <Route path='/home' element={<Home/>} />
                 <Route path='/report' element={<Report />} />
                 <Route path='/bill' element={<Bill />} />
                 <Route path='/history' element={<History/>} />
+                <Route path='/stats' element={<Stats/>} />
             </Routes>
       
         </UserContext.Provider>

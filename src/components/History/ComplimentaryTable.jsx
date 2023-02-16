@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import DateFormat from './DateFormat'
 
 const ComplimentaryTable = ({ complimentary, complimentaryTotal }) => {
     return (
@@ -17,7 +18,7 @@ const ComplimentaryTable = ({ complimentary, complimentaryTotal }) => {
                     </tr>
                     {complimentary.map((item) => (
                         <tr>
-                            <td>{item.Date}</td>
+                            <td><DateFormat date={item.Date}/></td>
                             <td>{item.Customer}</td>
                             <td>{item.Total}</td>
                             <td>{ }</td>

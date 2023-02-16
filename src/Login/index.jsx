@@ -38,7 +38,7 @@ const Login = () => {
     useEffect(() => {
         if (token) {
             localStorage.setItem("token", token)
-            navigate("/home")
+            navigate("/bill")
         }
     }, [token])
     return (

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../Navbar'
 import DatePicker from "react-datepicker";
@@ -7,9 +7,8 @@ import SelectSearch from 'react-select-search';
 import "../../scss/bill.scss";
 import axios from 'axios';
 import BillTable from './BillTable';
-import Dine from '../Dine';
+import Dine from '../DineSidebar';
 import { AiOutlineArrowRight, AiOutlineArrowLeft } from "react-icons/ai";
-import Piechart from './Piechart';
 import BeverageTable from './BeverageTable';
 import Foodtable from './Foodtable';
 
@@ -23,9 +22,12 @@ const Bill = () => {
     const [order, setOrder] = useState([]);
     const [food, setFood] = useState([]);
     const [beverage, setBeverage] = useState([]);
+    const [beverageGroup, setBeverageGroup] = useState([]);
+    const [foodGroup, setFoodGroup] = useState([]);
     const [FoodBeverageSum, setFoodBeverageSum] = useState([]);
     const [totalInfo, setTotalInfo] = useState({});
     const [error, setError] = useState(false);
+    const [show, setShow] = useState(false);
     const [paymentStatus, setPaymentStatus] = useState({});
     const [dineinTabs, setDineinTabs] = useState({});
 
@@ -47,8 +49,6 @@ const Bill = () => {
         //     setSelectedOutlet(localStorage.getItem("outlet"))
         // }
         setSelectedOutlet(localStorage.getItem("outlet"))
-
-        console.log("=>", selectedOutlet)
     }, [])
 
     useEffect(() => {
@@ -65,7 +65,6 @@ const Bill = () => {
     }, [token])
 
     const viewBill = () => {
-        console.log("view bill", selectedOutlet)
         axios.post(`${url}/saleshistory`, {
             "outlet": `${selectedOutlet}`,
             "dateStart": start,
@@ -74,12 +73,14 @@ const Bill = () => {
         })
             .then((response) => {
                 setError(false)
-                console.log(response.data)
                 setTotalInfo(response.data)
                 setOrder(response.data.orderDetails)
                 setFood(response.data.itemDetails.food)
                 setBeverage(response.data.itemDetails.beverage)
                 setFoodBeverageSum(response.data.itemDetails.itemSum)
+                setBeverageGroup(response.data.itemDetails.beverageGroup)
+                setFoodGroup(response.data.itemDetails.foodGroup)
+                setShow(true)
             })
             .catch((error) => {
                 console.log(error)
@@ -123,78 +124,83 @@ const Bill = () => {
     return (
         <div>
             <Navbar />
-            <section className='fix-width-contain'>
-                <Dine dineinTabs={dineinTabs} paymentStatus={paymentStatus} toggleArrow={toggleArrow} arrow={arrow} startBillNum={startBillNum} endBillNum={endBillNum} />
+            <div>
+                <Dine dineinTabs={dineinTabs} paymentStatus={paymentStatus} toggleArrow={toggleArrow} arrow={arrow} startBillNum={startBillNum} endBillNum={endBillNum} FoodBeverageSum={FoodBeverageSum} />
                 <button onClick={toggleArrow} className="btn-side" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions" >
                     {arrow ? <AiOutlineArrowLeft className='icon-arrow' /> : <AiOutlineArrowRight className='icon-arrow' />}</button>
-                <div className='container'>
-                    <div className='select-options '>
-                        <div className="date-picker-outlet">
-                            <div>
-                                <label className="">Start Date:</label>
-                                <DatePicker selected={startDate} dateFromat='YYYY-MM-DD' onChange={(date) => setStartDate(date)} className='date-picker' />
-                            </div>
-                            <div>
-                                <div>
-                                    <h3>{selectedOutlet}</h3>
-                                    <SelectSearch
-                                        defaultValue={selectedOutlet}
-                                        search
-                                        placeholder="Select Outlet Name"
-                                        onChange={(event) => setSelectedOutlet(event)}
-                                        options={listOutlet}
-                                    />
-                                </div>
-                            </div>
-                            <div>
-                                <label className="">End Date:</label>
-                                <DatePicker selected={endDate} dateFromat='yyyy-mm-dd' onChange={(date) => setEndDate(date)} className='date-picker' />
-                            </div>
-                        </div>
+            </div>
 
-                        <div className="date-picker-outlet-sm">
-                            <div>
-                                <div>
-                                    <h3>{selectedOutlet}</h3>
-                                    <SelectSearch
-                                        defaultValue={selectedOutlet}
-                                        search
-                                        placeholder="Select Outlet Name"
-                                        onChange={(event) => setSelectedOutlet(event)}
-                                        options={listOutlet}
-                                    />
-                                </div>
-                            </div>
+            <div className='container'>
+                <div className='select-options '>
+                    <div className="date-picker-outlet">
+                        <div>
                             <label className="">Start Date:</label>
-                            <div className='start-date'>
-                                <DatePicker selected={startDate} dateFromat='YYYY-MM-DD' onChange={(date) => setStartDate(date)} className='date-picker' />
-                            </div>
-                            <label className="">End Date:</label>
-                            <div className='end-date'>
-                                <DatePicker selected={endDate} dateFromat='yyyy-mm-dd' onChange={(date) => setEndDate(date)} className='date-picker' />
-                            </div>
+                            <DatePicker selected={startDate} dateFromat='YYYY-MM-DD' onChange={(date) => setStartDate(date)} className='date-picker' />
                         </div>
-
-                        <div className='btn-search-view'>
-                            <button
-                                onClick={viewBill}
-                                className="btn-search">
-                                View
-                            </button>
-                        </div>
-                        {error ? "" :
+                        <div>
                             <div>
-                                <BillTable order={order} totalInfo={totalInfo} />
-                                <div className='food-beverage-table'>
-                                    <Foodtable food={food}/>
-                                    <BeverageTable beverage={beverage}/>
-                                </div>
+                                <h3>{selectedOutlet}</h3>
+                                <SelectSearch
+                                    defaultValue={selectedOutlet}
+                                    search
+                                    placeholder="Select Outlet Name"
+                                    onChange={(event) => setSelectedOutlet(event)}
+                                    options={listOutlet}
+                                />
                             </div>
-                        }
+                        </div>
+                        <div>
+                            <label className="">End Date:</label>
+                            <DatePicker selected={endDate} dateFromat='yyyy-mm-dd' onChange={(date) => setEndDate(date)} className='date-picker' />
+                        </div>
                     </div>
+
+                    <div className="date-picker-outlet-sm">
+                        <div>
+                            <div>
+                                <h3>{selectedOutlet}</h3>
+                                <SelectSearch
+                                    defaultValue={selectedOutlet}
+                                    search
+                                    placeholder="Select Outlet Name"
+                                    onChange={(event) => setSelectedOutlet(event)}
+                                    options={listOutlet}
+                                />
+                            </div>
+                        </div>
+                        <label className="">Start Date:</label>
+                        <div className='start-date'>
+                            <DatePicker selected={startDate} dateFromat='YYYY-MM-DD' onChange={(date) => setStartDate(date)} className='date-picker' />
+                        </div>
+                        <label className="">End Date:</label>
+                        <div className='end-date'>
+                            <DatePicker selected={endDate} dateFromat='yyyy-mm-dd' onChange={(date) => setEndDate(date)} className='date-picker' />
+                        </div>
+                    </div>
+
+                    <div className='btn-search-view'>
+                        <button
+                            onClick={viewBill}
+                            className="btn-search">
+                            View
+                        </button>
+                    </div>
+                    {show &&
+                        <div>
+                            <BillTable order={order} totalInfo={totalInfo} />
+                            <div className='food-beverage-table'>
+                                <Foodtable food={food} foodGroup={foodGroup} />
+                                <BeverageTable beverage={beverage} beverageGroup={beverageGroup} />
+                            </div>
+                        </div>
+                    }
+                    {error &&
+                        <div>
+                            <p>An error occured!!</p>
+                        </div>
+                    }
                 </div>
-                <Piechart dineinTabs={dineinTabs} FoodBeverageSum={FoodBeverageSum}/>
-            </section>
+            </div>
         </div>
     )
 }

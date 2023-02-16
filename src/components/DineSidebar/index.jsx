@@ -1,7 +1,8 @@
-import React from 'react'
+import React from 'react';
+import Piechart from '../Charts/Piechart';
 import { AiOutlineArrowRight, AiOutlineArrowLeft } from "react-icons/ai";
 
-const Dine = ({ dineinTabs, paymentStatus, arrow, toggleArrow, endBillNum, startBillNum }) => {
+const Dine = ({ dineinTabs, paymentStatus, arrow, toggleArrow, endBillNum, startBillNum, FoodBeverageSum }) => {
     const netTotalSale = dineinTabs.netTOTALSALES;
     const numGuest = dineinTabs.TotalGuests;
 
@@ -24,7 +25,7 @@ const Dine = ({ dineinTabs, paymentStatus, arrow, toggleArrow, endBillNum, start
                                 <label><span>Total No. of Guest : </span>{(dineinTabs.TotalGuests === "") ? "-" : dineinTabs.TotalGuests}</label>
                             </div>
                             <div className='revenue'>
-                                <label><span>Revenue Per Guest : </span>{(revenuePerGuest === "") ? "-" : revenuePerGuest}</label>
+                                <label><span>Revenue Per Guest : </span>{(revenuePerGuest === "") ? "-" : revenuePerGuest.toFixed(2)}</label>
                             </div>
                         </div>
                         <hr className="hr-line" />
@@ -69,6 +70,8 @@ const Dine = ({ dineinTabs, paymentStatus, arrow, toggleArrow, endBillNum, start
                             </div>
                         </div>
                         <hr className="hr-line" />
+                        <Piechart  FoodBeverageSum={FoodBeverageSum} dineinTabs={dineinTabs}/>
+
                         <div className='total-info'>
                             <label> <span>Food Sale : </span>{dineinTabs.FoodSale}</label>
                             <div>

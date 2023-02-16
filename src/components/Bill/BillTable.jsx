@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import ConvertDate from './convertDate';
-import CalculateTotal from './Piechart';
+import CalculateTotal from '../Charts/Piechart';
+import { DownloadTableExcel } from 'react-export-table-to-excel';
 
 const BillTable = ({ order, totalInfo }) => {
     const [isChecked, setIsChecked] = useState(true);
@@ -8,6 +9,7 @@ const BillTable = ({ order, totalInfo }) => {
     const [ServiceSum, setServiceSum] = useState("");
     const [showSubTotal, setShowSubTotal] = useState([]);
     const [showServiceCharge, setServiceCharge] = useState([]);
+    const tableRef = useRef(null);
 
     const handleCheckbox = () => {
         console.log("handle check box", isChecked)
@@ -44,43 +46,52 @@ const BillTable = ({ order, totalInfo }) => {
     }, [order])
 
     return (
-        <div class="table-responsive-bill">
-            <table class="table-bill">
-                <tr>
-                    <th>Date</th>
-                    <th>Bill no:</th>
-                    <th>Discount: (Rs)</th>
-                    <th>Sub Total: (Rs)</th>
-                    <th>Service Charge<input type="checkbox" className='checkbox' onChange={handleCheckbox} /></th>
-                    <th>VAT(Rs)</th>
-                    <th>Total(Rs)</th>
-                    <th>Payment</th>
-                    <th>Guest Name</th>
-                </tr>
-
-                {order.map((item, index) => (
-                    <tr key={index}>
-                        <td><ConvertDate date={item.Date} /></td>
-                        <td>{item.bill_no}</td>
-                        <td>{item.DiscountAmt}</td>
-                        <td> {isChecked ? item.Subtotal: showSubTotal[index]}</td>
-                        <td> {isChecked ? item.serviceCharge: showServiceCharge[index]}</td>
-                        <td>{item.VAT}</td>
-                        <td>{item.Total}</td>
-                        <td>{item.PaymentMode}</td>
-                        <td>{item.GuestName}</td>
+        <div>
+            <DownloadTableExcel
+                filename="users_table"
+                sheet="users"
+                currentTableRef={tableRef.current}
+            >
+                <button className='export'> Export </button>
+            </DownloadTableExcel>
+            <div class="table-responsive-bill" ref={tableRef}>
+                <table class="table-bill" >
+                    <tr>
+                        <th>Date</th>
+                        <th>Bill no:</th>
+                        <th>Discount: (Rs)</th>
+                        <th>Sub Total: (Rs)</th>
+                        <th>Service Charge<input type="checkbox" className='checkbox' onChange={handleCheckbox} /></th>
+                        <th>VAT(Rs)</th>
+                        <th>Total(Rs)</th>
+                        <th>Payment</th>
+                        <th>Guest Name</th>
                     </tr>
-                ))}
-                <tr>
-                    <td><span className='detail-info'>Total:</span></td>
-                    <td> <span className='detail-info'>{totalInfo.TotalOrders}</span></td>
-                    <td><span className='detail-info'>{totalInfo.DiscountAmountSum}</span></td>
-                    <td> <span className='detail-info'>{isChecked ? totalInfo.SubtotalAmountSum : totalSubUnit}</span></td>
-                    <td> <span className='detail-info'>{isChecked ? totalInfo.ServiceChargeSum : ServiceSum}</span></td>
-                    <td> <span className='detail-info'>{totalInfo.VatSum}</span></td>
-                    <td><span className='detail-info'>{totalInfo.TotalSum}</span></td>
-                </tr>
-            </table>
+
+                    {order.map((item, index) => (
+                        <tr key={index}>
+                            <td><ConvertDate date={item.Date} /></td>
+                            <td>{item.bill_no}</td>
+                            <td>{item.DiscountAmt}</td>
+                            <td> {isChecked ? item.Subtotal : showSubTotal[index]}</td>
+                            <td> {isChecked ? item.serviceCharge : showServiceCharge[index]}</td>
+                            <td>{item.VAT}</td>
+                            <td>{item.Total}</td>
+                            <td>{item.PaymentMode}</td>
+                            <td>{item.GuestName}</td>
+                        </tr>
+                    ))}
+                    <tr>
+                        <td><span className='detail-info'>Total:</span></td>
+                        <td> <span className='detail-info'>{totalInfo.TotalOrders}</span></td>
+                        <td><span className='detail-info'>{totalInfo.DiscountAmountSum}</span></td>
+                        <td> <span className='detail-info'>{isChecked ? totalInfo.SubtotalAmountSum : totalSubUnit}</span></td>
+                        <td> <span className='detail-info'>{isChecked ? totalInfo.ServiceChargeSum : ServiceSum}</span></td>
+                        <td> <span className='detail-info'>{totalInfo.VatSum}</span></td>
+                        <td><span className='detail-info'>{totalInfo.TotalSum}</span></td>
+                    </tr>
+                </table>
+            </div>
         </div>
     )
 }

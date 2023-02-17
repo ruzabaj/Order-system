@@ -5,6 +5,7 @@ import axios from 'axios';
 import Navbar from '../Navbar';
 import LineChart from './../Charts/Stats/LineChart';
 import "../../scss/performance.scss";
+import "../../scss/button.scss";
 
 const Performance = () => {
     let url = process.env.REACT_APP_BASE_URL;
@@ -18,6 +19,7 @@ const Performance = () => {
     const [dailyLabel, setDailyLabel] = useState([])
     const [monthlyLabel, setMonthlyLabel] = useState([])
     const [monthlyTotal, setMonthlyTotal] = useState([])
+    const [chartShow, setshowChart] = useState(false)
 
     useEffect(() => {
         let tokenCheck = localStorage.getItem("token");
@@ -57,7 +59,14 @@ const Performance = () => {
                 })
         }
     }, [selectedOutlet])
+
     const showChart = () => {
+        setshowChart(true)
+    }
+
+    
+    useEffect(() => {
+      if(selectedYear){
         axios.post(`${url}/chartsummary`, {
             outlet: `${selectedOutlet}`,
             date: `${selectedYear}`,
@@ -70,17 +79,24 @@ const Performance = () => {
                     setDailyTotal(res.data?.dailytotal)
                     setMonthlyLabel(res.data?.monthlylabel)
                     setMonthlyTotal(res.data?.monthlytotal)
+                    
                 }
             })
             .catch((error) => {
                 console.log(error)
             })
-    }
+      }
+      return () => {
+        setshowChart(false)
+      }
+    }, [selectedYear])
+    
+
     return (
         <div>
             <Navbar />
             <div className='search-select-year-outlet'>
-                <div>
+                <div className='select-outlet-year'>
                     <h3>{selectedOutlet}</h3>
                     <SelectSearch
                         defaultValue={selectedOutlet}
@@ -90,7 +106,7 @@ const Performance = () => {
                         options={listOutlet}
                     />
                 </div>
-                <div>
+                <div className='select-outlet-year'>
                     <SelectSearch
                         defaultValue={selectedYear}
                         search
@@ -100,15 +116,15 @@ const Performance = () => {
                         disabled={selectedOutlet ? false : true}
                     />
                 </div>
-                <div>
-                    <button onClick={showChart}>Show Chart</button>
+                <div className='btn-search-view '>
+                    <button onClick={showChart} className="btn-search">Show Chart</button>
                 </div>
             </div>
             <div className='performance-chart'>
-                {monthlyLabel && monthlyTotal && monthlyLabel.length > 0 && monthlyTotal.length > 0 &&
+                {chartShow && monthlyLabel && monthlyTotal && monthlyLabel.length > 0 && monthlyTotal.length > 0 &&
                     <LineChart labels={monthlyLabel} Total={monthlyTotal} labelTitle={"Month"} Title={"Monthly Performance"} />
                 }
-                {dailyTotal && dailyLabel && dailyTotal.length > 0 && dailyLabel.length > 0 &&
+                {chartShow && dailyTotal && dailyLabel && dailyTotal.length > 0 && dailyLabel.length > 0 &&
                     <LineChart Total={dailyTotal} labels={dailyLabel} labelTitle={"WeekDay"} Title={"Yearly Weekday Performance"} />
                 }
 

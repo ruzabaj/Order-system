@@ -9,7 +9,7 @@ import { AiOutlineHistory } from "react-icons/ai";
 import { Link, useNavigate } from 'react-router-dom';
 import { FiRefreshCcw } from "react-icons/fi";
 import { IoPeopleOutline } from "react-icons/io5";
-import { TbReportSearch, TbZoomMoney, TbTimeline,TbToolsKitchen } from "react-icons/tb";
+import { TbReportSearch, TbZoomMoney, TbTimeline,TbToolsKitchen, TbCalendarTime } from "react-icons/tb";
 import { ImStatsDots } from "react-icons/im";
 import { GrPerformance } from "react-icons/gr";
 const Navbar = () => {
@@ -61,7 +61,7 @@ const Navbar = () => {
             </Link>
             <Link to="/performance">
                 <div className='navbar-icons'>
-                    <GrPerformance className='nav-icon' style={{color: "white"}}/>
+                    <TbCalendarTime className='nav-icon'/>
                     <label>Performance</label>
                 </div>
             </Link>

@@ -9,7 +9,8 @@ import { DateRangePicker } from 'rsuite';
 import SelectSearch from 'react-select-search';
 import "../../scss/stats.scss";
 import LineChart from '../Charts/Stats/LineChart';
-import SelectRange from './SelectRange';
+// import SelectRange from './SelectRange';
+import Performance from './../Performance/index';
 
 const Stats = () => {
     let url = process.env.REACT_APP_BASE_URL;
@@ -31,43 +32,91 @@ const Stats = () => {
     const [token, setToken] = useState("");
     const [selectedOutlet, setSelectedOutlet] = useState("");
     const [listOutlet, setListOutlet] = useState([]);
+    const [Total, setTotal] = useState([]);
+    const [labels, setLabels] = useState([]);
+    const [rangeType, setRangeType] = useState("")
 
     const handleMonthly = () => {
         setmonthly(true)
         setWeekly(false)
         setFreely(false)
+        setRangeType("monthly")
     }
     const handleWeekly = () => {
         setmonthly(false)
         setWeekly(true)
         setFreely(false)
-
+        setRangeType("weekly")
     }
     const handleFreely = () => {
         setmonthly(false)
         setWeekly(false)
         setFreely(true)
+        setRangeType("Free range")
     }
 
     const handleDate = (e) => {
+        console.log("here")
         let newStartdate = new Date(e[0])
         let newEnddate = new Date(e[1])
         let start = newStartdate.toISOString().slice(0, 10)
         let end = newEnddate.toISOString().slice(0, 10)
         console.log(start, end)
+        if (rangeType === "Free Range") {
+            axios.post(`${url}/datestats`, {
+                Outlet_Name: `${selectedOutlet}`,
+                start_date: `${start}`,
+                end_date: `${end}`,
+                token: `${token}`
+            })
+                .then((response) => {
+                    console.log(response.data)
+                    setTotal(response.data.total)
+                    setLabels(response.data.labels)
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        }
+        if (rangeType && rangeType === "weekly") {
+            axios.post(`${url}/chartsummary`, {
+                outlet: `${selectedOutlet}`,
+                start_date: `${start}`,
+                end_date: `${end}`,
+                type: `${rangeType}`,
+                token: `${token}`
+            })
+                .then((response) => {
+                    if (response?.data) {
+                        setTotal(response.data.weeklyTotal)
+                        setLabels(response.data.weeklabel)
+                    }
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        }
 
-        axios.post(`${url}/datestats`, {
-            Outlet_Name: `${selectedOutlet}`,
-            start_date: `${start}`,
-            end_date: `${end}`,
-            token: `${token}`
-        })
-            .then((response) => {
-                console.log(response)
+        console.log(rangeType)
+        if (rangeType && rangeType === "monthly") {
+            console.log("here monthly")
+            axios.post(`${url}/chartsummary`, {
+                outlet: `${selectedOutlet}`,
+                start_date: `${start}`,
+                end_date: `${end}`,
+                type: `${rangeType}`,
+                token: `${token}`
             })
-            .catch((error) => {
-                console.log(error)
-            })
+                .then((response) => {
+                    if (response?.data) {
+                        setTotal(response.data.monthlyTotal)
+                        setLabels(response.data.monthlabel)
+                    }
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        }
     }
     useEffect(() => {
         let tokenCheck = localStorage.getItem("token");
@@ -93,53 +142,61 @@ const Stats = () => {
     return (
         <div>
             <Navbar />
-            <div className="datepicker-select-search-radio">
-                <div>
-                    <p>Please select your favorite Web language:</p>
-                    <div className='select-range'>
-                        <input type="radio" id="Monthly" name="fav_language" value="Monthly" onClick={handleMonthly} />
-                        <label for="Monthly">Monthly</label>
+            <div className='stats-chart'>
+                <div className="datepicker-select-search-radio">
+                    <div>
+                        <p>Please select your favorite Web language:</p>
+                        <div className='select-range'>
+                            <input type="radio" id="Monthly" name="fav_language" value="Monthly" onClick={handleMonthly} />
+                            <label for="Monthly">Monthly</label>
+                        </div>
+                        <div className='select-range'>
+                            <input type="radio" id="Weekly" name="fav_language" value="Weekly" onClick={handleWeekly} />
+                            <label for="Weekly">Weekly</label>
+                        </div>
+                        <input type="radio" id="Free" name="fav_language" value="Free" onClick={handleFreely} />
+                        <label for="Free">Free Range</label>
                     </div>
-                    <div className='select-range'>
-                        <input type="radio" id="Weekly" name="fav_language" value="Weekly" onClick={handleWeekly} />
-                        <label for="Weekly">Weekly</label>
+                    <div className='select-search'>
+                        <h3>{selectedOutlet}</h3>
+                        <SelectSearch
+                            defaultValue={selectedOutlet}
+                            search
+                            placeholder="Select Outlet Name"
+                            onChange={(event) => setSelectedOutlet(event)}
+                            options={listOutlet}
+                        />
                     </div>
-                    <input type="radio" id="Free" name="fav_language" value="Free" onClick={handleFreely} />
-                    <label for="Free">Free Range</label>
+
+                    <div className='calendar-month-week'>
+                    </div>
                 </div>
-                <div className='select-search'>
-                    <h3>{selectedOutlet}</h3>
-                    <SelectSearch
-                        defaultValue={selectedOutlet}
-                        search
-                        placeholder="Select Outlet Name"
-                        onChange={(event) => setSelectedOutlet(event)}
-                        options={listOutlet}
-                    />
-                </div>
-                <div className='calendar-month-week'>
+                {monthly &&
+                    <div className='calendar-month'>
+                        <p>Select Single Month</p>
+                        <DateRangePicker ranges={[]} onOk={(e) => handleDate(e)} />
+                    </div>
+                }
+                {weekly &&
+                    <div className='calendar-week'>
+                        <p>Select Single Week</p>
+                        <DateRangePicker ranges={[]} onOk={(e) => handleDate(e)} />
+                    </div>
+                }
+
+                <div className='stats-chart'>
                     {freely &&
                         <div className='calendar'>
                             <DateRangePicker onOk={(e) => handleDate(e)} />
                         </div>
                     }
-                    {monthly &&
-                        <div className='calendar-month'>
-                            <p>Select Single Month</p>
-                            <DateRangePicker  showOneCalendar hoverRange="month" ranges={[]} onOk={(e) => handleDate(e)}/>
+                    {Total && Total.length > 0 && labels && labels.length > 0 &&
+                        <div className='stats-chart'>
+                            <div>
+                                <LineChart labels={labels} Total={Total} labelTitle={rangeType} Title={"Stats"} />
+                            </div>
                         </div>
                     }
-                    {weekly &&
-                        <div className='calendar-week'>
-                            <p>Select Single Week</p>
-                            <DateRangePicker oneTap showOneCalendar hoverRange="week" ranges={[]} onOk={(e) => handleDate(e)}/>
-                        </div>
-                    }
-                </div>
-            </div>
-            <div className='stats-chart'>
-                <div>
-                    <LineChart/>
                 </div>
             </div>
         </div>

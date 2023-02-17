@@ -25,11 +25,11 @@
 }
 
 .modal {
-    overflow: scroll;
+    // overflow: scroll;
 }
 
 .bill-info-details {
-    overflow: scroll;
+    // overflow: scroll;
     height: auto;
     text-align: center;
 
@@ -282,7 +282,7 @@ input[type=checkbox] {
 .table-responsive-beverage {
     height: 500px;
     overflow-x: auto;
-    overflow-y: scroll;
+    // overflow-y: scroll;
 }
 
 .table-responsive-bill {
@@ -291,7 +291,7 @@ input[type=checkbox] {
     width: 100%;
     height: 500px;
     overflow-x: auto;
-    overflow-y: scroll;
+    // overflow-y: scroll;
     margin: 30px 10px;
 
     .table-bill {

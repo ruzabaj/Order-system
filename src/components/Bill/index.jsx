@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../Navbar'
 import DatePicker from "react-datepicker";
@@ -16,9 +16,9 @@ const Bill = () => {
     let url = process.env.REACT_APP_BASE_URL;
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
-    const [token, setToken] = useState("");
-    const [selectedOutlet, setSelectedOutlet] = useState("");
     const [listOutlet, setListOutlet] = useState([]);
+    const [selectedOutlet, setSelectedOutlet] = useState("");
+    const [token, setToken] = useState("");
     const [order, setOrder] = useState([]);
     const [food, setFood] = useState([]);
     const [beverage, setBeverage] = useState([]);
@@ -56,7 +56,6 @@ const Bill = () => {
             token: token
         })
             .then((response) => {
-                console.log('to get outlet name', response)
                 setListOutlet(response.data)
             })
             .catch((error) => {

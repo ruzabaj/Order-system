@@ -3,3 +3,10 @@
     justify-content: space-around;
     margin: 20px 0px;
 }
+.stats-chart-width{
+    display: flex;
+}
+.line-chart-stats{
+    width: calc(100% -  250px);  
+    height:  500px;
+}

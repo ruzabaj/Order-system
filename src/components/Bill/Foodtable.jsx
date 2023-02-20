@@ -1,5 +1,5 @@
 import React from 'react'
-import FoodGroupTable from './Table/FoodGroupTable';
+// import GroupTable from './Table/GroupTable';
 
 const Foodtable = ({ food, foodGroup }) => {
     return (
@@ -10,17 +10,17 @@ const Foodtable = ({ food, foodGroup }) => {
                 </div>
                 <div className="table-responsive">
                     <table className="table-food">
-                        <tr>
-                            {/* <th>ItemType</th> */}
-                            <th>Group</th>
-                            <th>Item Name </th>
-                            <th>Item Rate (Rs)</th>
-                            <th>Quantity</th>
-                            <th>Total(Rs)</th>
-                        </tr>
+                        <thead>
+                            <tr>
+                                <th>Group</th>
+                                <th>Item Name </th>
+                                <th>Item Rate (Rs)</th>
+                                <th>Quantity</th>
+                                <th>Total(Rs)</th>
+                            </tr>
+                        </thead>
                         {food.map((item) => (
                             <tr>
-                                {/* <td>{item.ItemType}</td> */}
                                 <td>{item.Description}</td>
                                 <td>{item.itemName}</td>
                                 <td>{item.itemrate}</td>
@@ -31,7 +31,9 @@ const Foodtable = ({ food, foodGroup }) => {
                     </table>
                 </div>
             </div>
-            <FoodGroupTable foodGroup={foodGroup}/>
+            {/* <FoodGroupTable foodGroup={foodGroup} /> */}
+            {/* <GroupTable Group={foodGroup}/> */}
+
         </div>
     )
 }

@@ -1,5 +1,6 @@
 import React from 'react'
-import BeverageGroupTable from '../Bill/Table/BeverageGroupTable';
+// import BeverageGroupTable from '../Bill/Table/BeverageGroupTable';
+// import GroupTable from '../Bill/Table/GroupTable';
 
 const BeverageTable = ({ beverage, beverageGroup }) => {
     return (
@@ -31,7 +32,8 @@ const BeverageTable = ({ beverage, beverageGroup }) => {
                     </table>
                 </div>
             </div >
-            <BeverageGroupTable beverageGroup={beverageGroup}/>
+            {/* <BeverageGroupTable beverageGroup={beverageGroup}/> */}
+            {/* <GroupTable Group={beverageGroup}/> */}
         </div>
     )
 }

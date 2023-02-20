@@ -5,13 +5,13 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import SelectSearch from 'react-select-search';
 import "../../scss/bill.scss";
+import "../../scss/FoodBeverage.scss";
 import axios from 'axios';
 import BillTable from './BillTable';
-import Dine from '../DineSidebar';
-import { AiOutlineArrowRight, AiOutlineArrowLeft } from "react-icons/ai";
 import BeverageTable from './BeverageTable';
 import Foodtable from './Foodtable';
 import ReactSidebar from './../ReactSidebar/index';
+import GroupTable from './Table/GroupTable';
 
 const Bill = () => {
     let url = process.env.REACT_APP_BASE_URL;
@@ -125,11 +125,8 @@ const Bill = () => {
         <div>
             <Navbar />
             <div className='sidebar-container'>
-                    <ReactSidebar dineinTabs={dineinTabs} paymentStatus={paymentStatus} toggleArrow={toggleArrow} arrow={arrow} startBillNum={startBillNum} endBillNum={endBillNum} FoodBeverageSum={FoodBeverageSum} />
-                {/* <div className={arrow ? 'sidebar' : "sidebar-less"}>
-                    <Dine dineinTabs={dineinTabs} paymentStatus={paymentStatus} toggleArrow={toggleArrow} arrow={arrow} startBillNum={startBillNum} endBillNum={endBillNum} FoodBeverageSum={FoodBeverageSum}/>
-                </div> */}
-                <div className='main-content'>
+                <ReactSidebar dineinTabs={dineinTabs} paymentStatus={paymentStatus} toggleArrow={toggleArrow} arrow={arrow} startBillNum={startBillNum} endBillNum={endBillNum} FoodBeverageSum={FoodBeverageSum} />
+                <div className='container main-content'>
                     <div className='select-options '>
                         <div className="date-picker-outlet">
                             <div>
@@ -187,9 +184,15 @@ const Bill = () => {
                         {show &&
                             <div>
                                 <BillTable order={order} totalInfo={totalInfo} />
-                                <div className='food-beverage-table'>
-                                    <Foodtable food={food} foodGroup={foodGroup} />
-                                    <BeverageTable beverage={beverage} beverageGroup={beverageGroup} />
+                                <div className='food-beverage-table-width'>
+                                    <div className='food-beverage-table'>
+                                        <Foodtable food={food} foodGroup={foodGroup} />
+                                        <BeverageTable beverage={beverage} beverageGroup={beverageGroup} />
+                                    </div>
+                                </div>
+                                <div>
+                                    <GroupTable Group={foodGroup}  title={"Food"}/>
+                                    <GroupTable Group={beverageGroup}  title={"Beverage"}/>
                                 </div>
                             </div>
                         }

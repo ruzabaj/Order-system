@@ -1,0 +1,59 @@
+@import "./config";
+
+.css-1wvake5.ps-collapsed {
+    min-width: 0px !important;
+    width: 0px !important;
+}
+
+.sidebar {
+    position: relative;
+
+    .btn-sidebar {
+        width: 50px;
+        height: 50px;
+        border: 1px solid $btn-search;
+        background-color: $btn-search;
+        color: white;
+        padding: 10px;
+        border-radius: 50%;
+        margin-right: 5px;
+
+        // position: absolute;
+        // top: 2%;
+        // left:250px;
+        &:hover {
+            background-color: $btn-search-hover;
+        }
+    }
+
+    .dine-tabs-list {
+        margin: 30px 10px;
+
+        .hr-line {
+            border: 1px dotted black;
+            margin: 10px 20px;
+        }
+
+        .total-info {
+            padding: 10px 0px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            label {
+                font-size: 20px;
+            }
+
+            span {
+                font-weight: 600;
+            }
+
+            .info {
+                padding: 10px 0px;
+                margin-left: 10px;
+            }
+        }
+
+    }
+}

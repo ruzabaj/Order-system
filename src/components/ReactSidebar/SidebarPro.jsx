@@ -1,18 +1,22 @@
-import React from 'react';
+import React from 'react'
+import "../../scss/reactSidebar.scss";
+import { Sidebar, useProSidebar } from 'react-pro-sidebar';
+import {AiOutlineArrowRight } from "react-icons/ai";
 import Piechart from '../Charts/Piechart';
-import { AiOutlineArrowRight, AiOutlineArrowLeft } from "react-icons/ai";
 
-const Dine = ({ dineinTabs, paymentStatus, arrow, toggleArrow, endBillNum, startBillNum, FoodBeverageSum}) => {
+const SidebarPro = ({dineinTabs, paymentStatus, startBillNum, endBillNum, FoodBeverageSum}) => {
     const netTotalSale = dineinTabs.netTOTALSALES;
     const numGuest = dineinTabs.TotalGuests;
 
-    let revenuePerGuest = netTotalSale / numGuest
+    let revenuePerGuest = netTotalSale / numGuest;
+    const { collapseSidebar } = useProSidebar();
+
     return (
-    <section className={arrow?'dine-tabs-info-open':"dine-tabs-info"}>
-            <div className="offcanvas offcanvas-start show"   data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions">
-                <div className="offcanvas-header">
-                </div>
-                <div className="offcanvas-body">
+        <div className='sidebar'>
+            <main>
+                <button onClick={() => collapseSidebar()} className="btn-sidebar" >{<AiOutlineArrowRight className='icon-arrow' />}</button>
+            </main>
+            <Sidebar>
                     <div className='dine-tabs-list'>
                         <div className='bill-no'>
                             <div className='start-bill-no'>
@@ -59,7 +63,7 @@ const Dine = ({ dineinTabs, paymentStatus, arrow, toggleArrow, endBillNum, start
                             </div>
                         </div>
                         <hr className="hr-line" />
-                        <button className="btn-side-info" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions" onClick={toggleArrow}>{arrow ? <AiOutlineArrowLeft className='icon-arrow' /> : <AiOutlineArrowRight className='icon-arrow' />}</button>
+                        {/* <button className="btn-side-info" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions" onClick={toggleArrow}>{arrow ? <AiOutlineArrowLeft className='icon-arrow' /> : <AiOutlineArrowRight className='icon-arrow' />}</button> */}
                         <div className='total-info'>
                             <label> <span>Total Service Charge : </span>{dineinTabs.TotalServiceCharge}</label>
                             <div className='info'>
@@ -70,7 +74,7 @@ const Dine = ({ dineinTabs, paymentStatus, arrow, toggleArrow, endBillNum, start
                             </div>
                         </div>
                         <hr className="hr-line" />
-                        <Piechart  FoodBeverageSum={FoodBeverageSum} dineinTabs={dineinTabs}/>
+                        <Piechart  FoodBeverageSum={FoodBeverageSum} dineinTabs={dineinTabs} />
 
                         <div className='total-info'>
                             <label> <span>Food Sale : </span>{dineinTabs.FoodSale}</label>
@@ -109,10 +113,11 @@ const Dine = ({ dineinTabs, paymentStatus, arrow, toggleArrow, endBillNum, start
                     </div>
                     <hr className="hr-line" />
 
-                </div>
-            </div>
-        </section>
+                {/* </div>
+            </div> */}
+            </Sidebar>
+        </div>
     )
 }
 
-export default Dine
+export default SidebarPro

@@ -11,6 +11,7 @@ import Dine from '../DineSidebar';
 import { AiOutlineArrowRight, AiOutlineArrowLeft } from "react-icons/ai";
 import BeverageTable from './BeverageTable';
 import Foodtable from './Foodtable';
+import ReactSidebar from './../ReactSidebar/index';
 
 const Bill = () => {
     let url = process.env.REACT_APP_BASE_URL;
@@ -31,9 +32,13 @@ const Bill = () => {
     const [paymentStatus, setPaymentStatus] = useState({});
     const [dineinTabs, setDineinTabs] = useState({});
     const [arrow, setArrow] = useState(false);
+
     const toggleArrow = () => {
+        console.log("before", arrow)
         setArrow(!arrow)
+        console.log("after", arrow)
     }
+
     let start = startDate.toISOString().slice(0, 10)
     let end = endDate.toISOString().slice(0, 10)
     let navigate = useNavigate();
@@ -45,12 +50,7 @@ const Bill = () => {
         } else {
             setToken(localStorage.getItem("token"))
         }
-        // let outletCheck = localStorage.getItem("outlet");
-        // if (!outletCheck) {
-        //     return
-        // } else {
-        //     setSelectedOutlet(localStorage.getItem("outlet"))
-        // }
+
         setSelectedOutlet(localStorage.getItem("outlet"))
     }, [])
 
@@ -108,6 +108,7 @@ const Bill = () => {
     const [startBillNum, setStartBillNumber] = useState("");
     const [endBillNum, setEndBillNumber] = useState("");
     const billNum = [];
+
     useEffect(() => {
         order.forEach((item) => {
             {
@@ -124,12 +125,11 @@ const Bill = () => {
         <div>
             <Navbar />
             <div className='sidebar-container'>
-                <div className={arrow?'sidebar':"sidebar-less"}>
+                    <ReactSidebar dineinTabs={dineinTabs} paymentStatus={paymentStatus} toggleArrow={toggleArrow} arrow={arrow} startBillNum={startBillNum} endBillNum={endBillNum} FoodBeverageSum={FoodBeverageSum} />
+                {/* <div className={arrow ? 'sidebar' : "sidebar-less"}>
                     <Dine dineinTabs={dineinTabs} paymentStatus={paymentStatus} toggleArrow={toggleArrow} arrow={arrow} startBillNum={startBillNum} endBillNum={endBillNum} FoodBeverageSum={FoodBeverageSum}/>
-                    <button onClick={toggleArrow} className="btn-side" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop" >
-                        {arrow ? <AiOutlineArrowLeft className='icon-arrow' /> : <AiOutlineArrowRight className='icon-arrow' />}</button>
-                </div>
-                <div className={'main-content'}>
+                </div> */}
+                <div className='main-content'>
                     <div className='select-options '>
                         <div className="date-picker-outlet">
                             <div>

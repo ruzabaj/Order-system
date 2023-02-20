@@ -1,5 +1,100 @@
 @import "./config";
+.sidebar-container{
+    display: flex;
+}
+.sidebar{
+    flex: 1;
+}
+.sidebar-less{
+    flex: 0;
+}
+.main-content{
+    flex: 2;
+}
+// .main-content-less{
+//     flex: 1;
+// }
+.dine-tabs-info-open{
+    width: 370px;
+    .offcanvas-header {
+        background-color: $btn-seen;
+        height: 163px;
+    }
+    .dine-tabs-list {
+        margin: 30px 10px;
+        // width: 100%;
+    
+        .hr-line {
+            border: 1px dotted black;
+            margin: 10px 20px;
+        }
+    
+        .total-info {
+            padding: 10px 0px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+    
+            label {
+                font-size: 20px;
+            }
+    
+            span {
+                font-weight: 600;
+            }
+    
+            .info {
+                padding: 10px 0px;
+                margin-left: 10px;
+            }
+        }
+    
+    }
+}
+.dine-tabs-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    width: 1px;
 
+    .offcanvas-header {
+        background-color: $btn-seen;
+        height: 163px;
+    }
+    .dine-tabs-list {
+        margin: 30px 10px;
+        // width: 100%;
+    
+        .hr-line {
+            border: 1px dotted black;
+            margin: 10px 20px;
+        }
+    
+        .total-info {
+            padding: 10px 0px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+    
+            label {
+                font-size: 20px;
+            }
+    
+            span {
+                font-weight: 600;
+            }
+    
+            .info {
+                padding: 10px 0px;
+                margin-left: 10px;
+            }
+        }
+    
+    }
+}
 .export {
     background-color: $add-on;
     border: 2px solid $secondary-color;
@@ -90,51 +185,8 @@
 
 }
 
-.dine-tabs-info {
-    // flex: 1;
-    // height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
 
-    .offcanvas-header {
-        background-color: #372791;
-        height: 90px;
-    }
-}
 
-.dine-tabs-list {
-    margin: 30px 10px;
-    // width: 100%;
-
-    .hr-line {
-        border: 1px dotted black;
-        margin: 10px 20px;
-    }
-
-    .total-info {
-        padding: 10px 0px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-
-        label {
-            font-size: 20px;
-        }
-
-        span {
-            font-weight: 600;
-        }
-
-        .info {
-            padding: 10px 0px;
-            margin-left: 10px;
-        }
-    }
-
-}
 
 .dine-tabs-paymemnt-status,
 .bill-no {

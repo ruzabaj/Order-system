@@ -2,14 +2,14 @@ import React from 'react';
 import Piechart from '../Charts/Piechart';
 import { AiOutlineArrowRight, AiOutlineArrowLeft } from "react-icons/ai";
 
-const Dine = ({ dineinTabs, paymentStatus, arrow, toggleArrow, endBillNum, startBillNum, FoodBeverageSum }) => {
+const Dine = ({ dineinTabs, paymentStatus, arrow, toggleArrow, endBillNum, startBillNum, FoodBeverageSum}) => {
     const netTotalSale = dineinTabs.netTOTALSALES;
     const numGuest = dineinTabs.TotalGuests;
 
     let revenuePerGuest = netTotalSale / numGuest
     return (
-        <section className='dine-tabs-info'>
-            <div className="offcanvas offcanvas-start show" data-bs-scroll="true" tabIndex="0" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+    <section className={arrow?'dine-tabs-info-open':"dine-tabs-info"}>
+            <div className="offcanvas offcanvas-start show" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel">
                 <div className="offcanvas-header">
                 </div>
                 <div className="offcanvas-body">
@@ -59,7 +59,7 @@ const Dine = ({ dineinTabs, paymentStatus, arrow, toggleArrow, endBillNum, start
                             </div>
                         </div>
                         <hr className="hr-line" />
-                        <button className="btn-side-info" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions" onClick={toggleArrow}>{arrow ? <AiOutlineArrowLeft className='icon-arrow' /> : <AiOutlineArrowRight className='icon-arrow' />}</button>
+                        <button className="btn-side-info" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop" onClick={toggleArrow}>{arrow ? <AiOutlineArrowLeft className='icon-arrow' /> : <AiOutlineArrowRight className='icon-arrow' />}</button>
                         <div className='total-info'>
                             <label> <span>Total Service Charge : </span>{dineinTabs.TotalServiceCharge}</label>
                             <div className='info'>

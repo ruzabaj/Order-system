@@ -36,7 +36,6 @@ const Navbar = () => {
             </Link>
             <Link to="/home" >
                 <div className='navbar-icons'>
-                    {/* <TbZoomMoney  /> */}
                     <TbToolsKitchen className='nav-icon'/>
                     <label>Kitchen</label>
                 </div>

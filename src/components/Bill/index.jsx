@@ -30,7 +30,10 @@ const Bill = () => {
     const [show, setShow] = useState(false);
     const [paymentStatus, setPaymentStatus] = useState({});
     const [dineinTabs, setDineinTabs] = useState({});
-
+    const [arrow, setArrow] = useState(false);
+    const toggleArrow = () => {
+        setArrow(!arrow)
+    }
     let start = startDate.toISOString().slice(0, 10)
     let end = endDate.toISOString().slice(0, 10)
     let navigate = useNavigate();
@@ -100,10 +103,7 @@ const Bill = () => {
                 console.log(error)
             })
     }
-    const [arrow, setArrow] = useState(true);
-    const toggleArrow = () => {
-        setArrow(!arrow)
-    }
+
     const [billNumber, setBillNumber] = useState([]);
     const [startBillNum, setStartBillNumber] = useState("");
     const [endBillNum, setEndBillNumber] = useState("");
@@ -123,81 +123,82 @@ const Bill = () => {
     return (
         <div>
             <Navbar />
-            <div>
-                <Dine dineinTabs={dineinTabs} paymentStatus={paymentStatus} toggleArrow={toggleArrow} arrow={arrow} startBillNum={startBillNum} endBillNum={endBillNum} FoodBeverageSum={FoodBeverageSum} />
-                <button onClick={toggleArrow} className="btn-side" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions" >
-                    {arrow ? <AiOutlineArrowLeft className='icon-arrow' /> : <AiOutlineArrowRight className='icon-arrow' />}</button>
-            </div>
+            <div className='sidebar-container'>
+                <div className={arrow?'sidebar':"sidebar-less"}>
+                    <Dine dineinTabs={dineinTabs} paymentStatus={paymentStatus} toggleArrow={toggleArrow} arrow={arrow} startBillNum={startBillNum} endBillNum={endBillNum} FoodBeverageSum={FoodBeverageSum}/>
+                    <button onClick={toggleArrow} className="btn-side" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop" >
+                        {arrow ? <AiOutlineArrowLeft className='icon-arrow' /> : <AiOutlineArrowRight className='icon-arrow' />}</button>
+                </div>
+                <div className={'main-content'}>
+                    <div className='select-options '>
+                        <div className="date-picker-outlet">
+                            <div>
+                                <label className="">Start Date:</label>
+                                <DatePicker selected={startDate} dateFromat='YYYY-MM-DD' onChange={(date) => setStartDate(date)} className='date-picker' />
+                            </div>
+                            <div>
+                                <div>
+                                    <h3>{selectedOutlet}</h3>
+                                    <SelectSearch
+                                        defaultValue={selectedOutlet}
+                                        search
+                                        placeholder="Select Outlet Name"
+                                        onChange={(event) => setSelectedOutlet(event)}
+                                        options={listOutlet}
+                                    />
+                                </div>
+                            </div>
+                            <div>
+                                <label className="">End Date:</label>
+                                <DatePicker selected={endDate} dateFromat='yyyy-mm-dd' onChange={(date) => setEndDate(date)} className='date-picker' />
+                            </div>
+                        </div>
 
-            <div className='container'>
-                <div className='select-options '>
-                    <div className="date-picker-outlet">
-                        <div>
+                        <div className="date-picker-outlet-sm">
+                            <div>
+                                <div>
+                                    <h3>{selectedOutlet}</h3>
+                                    <SelectSearch
+                                        defaultValue={selectedOutlet}
+                                        search
+                                        placeholder="Select Outlet Name"
+                                        onChange={(event) => setSelectedOutlet(event)}
+                                        options={listOutlet}
+                                    />
+                                </div>
+                            </div>
                             <label className="">Start Date:</label>
-                            <DatePicker selected={startDate} dateFromat='YYYY-MM-DD' onChange={(date) => setStartDate(date)} className='date-picker' />
-                        </div>
-                        <div>
-                            <div>
-                                <h3>{selectedOutlet}</h3>
-                                <SelectSearch
-                                    defaultValue={selectedOutlet}
-                                    search
-                                    placeholder="Select Outlet Name"
-                                    onChange={(event) => setSelectedOutlet(event)}
-                                    options={listOutlet}
-                                />
+                            <div className='start-date'>
+                                <DatePicker selected={startDate} dateFromat='YYYY-MM-DD' onChange={(date) => setStartDate(date)} className='date-picker' />
                             </div>
-                        </div>
-                        <div>
                             <label className="">End Date:</label>
-                            <DatePicker selected={endDate} dateFromat='yyyy-mm-dd' onChange={(date) => setEndDate(date)} className='date-picker' />
+                            <div className='end-date'>
+                                <DatePicker selected={endDate} dateFromat='yyyy-mm-dd' onChange={(date) => setEndDate(date)} className='date-picker' />
+                            </div>
                         </div>
-                    </div>
 
-                    <div className="date-picker-outlet-sm">
-                        <div>
+                        <div className='btn-search-view'>
+                            <button
+                                onClick={viewBill}
+                                className="btn-search">
+                                View
+                            </button>
+                        </div>
+                        {show &&
                             <div>
-                                <h3>{selectedOutlet}</h3>
-                                <SelectSearch
-                                    defaultValue={selectedOutlet}
-                                    search
-                                    placeholder="Select Outlet Name"
-                                    onChange={(event) => setSelectedOutlet(event)}
-                                    options={listOutlet}
-                                />
+                                <BillTable order={order} totalInfo={totalInfo} />
+                                <div className='food-beverage-table'>
+                                    <Foodtable food={food} foodGroup={foodGroup} />
+                                    <BeverageTable beverage={beverage} beverageGroup={beverageGroup} />
+                                </div>
                             </div>
-                        </div>
-                        <label className="">Start Date:</label>
-                        <div className='start-date'>
-                            <DatePicker selected={startDate} dateFromat='YYYY-MM-DD' onChange={(date) => setStartDate(date)} className='date-picker' />
-                        </div>
-                        <label className="">End Date:</label>
-                        <div className='end-date'>
-                            <DatePicker selected={endDate} dateFromat='yyyy-mm-dd' onChange={(date) => setEndDate(date)} className='date-picker' />
-                        </div>
-                    </div>
-
-                    <div className='btn-search-view'>
-                        <button
-                            onClick={viewBill}
-                            className="btn-search">
-                            View
-                        </button>
-                    </div>
-                    {show &&
-                        <div>
-                            <BillTable order={order} totalInfo={totalInfo} />
-                            <div className='food-beverage-table'>
-                                <Foodtable food={food} foodGroup={foodGroup} />
-                                <BeverageTable beverage={beverage} beverageGroup={beverageGroup} />
+                        }
+                        {error &&
+                            <div>
+                                <p>An error occured!!</p>
                             </div>
-                        </div>
-                    }
-                    {error &&
-                        <div>
-                            <p>An error occured!!</p>
-                        </div>
-                    }
+                        }
+                    </div>
                 </div>
             </div>
         </div>

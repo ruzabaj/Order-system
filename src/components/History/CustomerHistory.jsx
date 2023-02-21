@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import BillDetail from '../Modal/BillDetail';
 import DateFormat from './DateFormat';
 import { useEffect } from 'react';
@@ -9,7 +9,7 @@ const CustomerHistory = ({ customerHistory, discountTotal, totalSum, selectedOut
     let url = process.env.REACT_APP_BASE_URL;
     let navigate = useNavigate();
     const [token, setToken] = useState("");
-    const [billInfo, setBillInfo]= useState({});
+    const [billInfo, setBillInfo] = useState({});
     const [billInfoList, setBillInfoList] = useState([])
 
     useEffect(() => {
@@ -23,40 +23,42 @@ const CustomerHistory = ({ customerHistory, discountTotal, totalSum, selectedOut
 
     const handleBillInfo = (bill, date) => {
         const convertDate = new Date(date).toISOString().substring(0, 10);
-        axios.post(`${url}/billinfo`,{
+        axios.post(`${url}/billinfo`, {
             bill_no: `${bill}`,
             Date: `${convertDate}`,
             Outlet_Name: `${selectedOutlet}`,
             token: `${token}`
         })
-        .then((response)=>{
-            if(response?.data){
-                console.log(response?.data)
-                setBillInfoList(response.data.details)
-                setBillInfo(response.data)
-            }
-        })
-        .catch((error)=>{
-            console.log(error)
-        })
+            .then((response) => {
+                if (response?.data) {
+                    console.log(response?.data)
+                    setBillInfoList(response.data.details)
+                    setBillInfo(response.data)
+                }
+            })
+            .catch((error) => {
+                console.log(error)
+            })
     }
     return (
-        <div className="table-responsive-food">
+        <div className="table-customer-history">
             <div className=''>
-                <h4 className=''>Customer History</h4>
+                <h6 className=''>Customer History</h6>
             </div>
-            <div className="table-responsive">
-                <table className="table-food">
-                    <tr>
-                        <th>Bill</th>
-                        <th>Customer</th>
-                        <th>Date</th>
-                        <th>Discount Amount</th>
-                        <th>Discount Type</th>
-                        <th>Mode</th>
-                        <th>Outlet</th>
-                        <th>Total</th>
-                    </tr>
+            <div className="table-history-responsive">
+                <table className="table-customer">
+                    <thead>
+                        <tr className='position-sticky'>
+                            <th>Bill</th>
+                            <th>Customer</th>
+                            <th className=''>Date</th>
+                            <th>Discount Amount</th>
+                            <th>Discount Type</th>
+                            <th>Mode</th>
+                            <th>Outlet</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
                     {customerHistory.map((item) => (
                         <tr>
                             <td ><button type="button" className="btn " data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => handleBillInfo(item.Bill, item.Date)}>{item.Bill}</button></td>
@@ -83,7 +85,7 @@ const CustomerHistory = ({ customerHistory, discountTotal, totalSum, selectedOut
                     </tr>
                 </table>
             </div>
-            <BillDetail billInfo={billInfo} billInfoList={billInfoList} selectedOutlet={selectedOutlet}/>
+            <BillDetail billInfo={billInfo} billInfoList={billInfoList} selectedOutlet={selectedOutlet} />
         </div>
     )
 }

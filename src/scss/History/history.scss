@@ -12,21 +12,21 @@
         display: flex;
         justify-content: space-around;
         align-items: center;
-        border: 2px solid black;
         margin: 20px 05px;
         padding: 20px;
     }
 
-    .handle-date-input-btn-sm{
+    .handle-date-input-btn-sm {
         display: none !important;
     }
 }
 
 @media screen and (max-width:768px) {
-    .handle-date-input-btn{
+    .handle-date-input-btn {
         display: none !important;
     }
-    .handle-date-input-btn-sm{
+
+    .handle-date-input-btn-sm {
         margin: 20px 05px;
         padding: 20px;
     }
@@ -34,10 +34,48 @@
 
 .customer-complimentary-history {
     display: flex;
-    .table-responsive-food{
-        width: calc(100% - 20px);
+
+    .table-customer-history {
+        margin: 15px 5px;
+
+        .table-history-responsive {
+            height: 600px;
+            overflow-x: auto;
+
+            .table-customer {
+                text-align: center;
+
+                td,
+                th {
+                    border: 1px solid black;
+                }
+            }
+            .table-complementary{
+                font-family: 'Source Sans Pro', sans-serif;
+                font-size: 18px;
+                font-weight: 300 ;
+            }
+            .table-complementary thead {
+                .position-sticky {
+                    position: sticky;
+                    top: 0;
+                    background-color: $btn-search;
+                    color: $secondary-color;
+                }
+            }
+        }
     }
 }
+
+.table-customer thead {
+    .position-sticky {
+        position: sticky;
+        top: 0;
+        background-color: $btn-seen;
+        color: $secondary-color;
+    }
+}
+
 .customer-history {
     display: flex;
     flex-direction: column;

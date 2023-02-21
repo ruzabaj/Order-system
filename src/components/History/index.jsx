@@ -108,7 +108,7 @@ const History = () => {
         </div>
         <div className="btn-search-style">
           <div className='select-search'>
-            <h3>{selectedOutlet}</h3>
+            <h5>{selectedOutlet}</h5>
             <SelectSearch
               defaultValue={selectedOutlet}
               search
@@ -130,7 +130,7 @@ const History = () => {
       <div className='handle-date-input-btn-sm'>
         <div className="btn-search-style">
           <div className='select-search'>
-            <h3>{selectedOutlet}</h3>
+            <h6>{selectedOutlet}</h6>
             <SelectSearch
               defaultValue={selectedOutlet}
               search

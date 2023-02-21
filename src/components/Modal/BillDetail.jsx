@@ -1,72 +1,87 @@
 import React from 'react'
 import "../../scss/bill.scss";
+import "../../scss/History/modal.scss";
 
-const BillDetail = ({ billInfoList, billInfo }) => {
+const BillDetail = ({ billInfoList, billInfo, selectedOutlet }) => {
     return (
         <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog">
                 <div className="modal-content">
                     <div className="modal-header">
-                        <div style={{ display: 'flex' }} className="modal-p-span">
-                            <h5 className="modal-title" id="exampleModalLabel"> <p><span>Bill No</span>{billInfo.bill_no}</p></h5>
-                            <p><span>Start Time</span>{billInfo.Start_Time}</p>
-                            <p><span>End Time</span>{billInfo.End_Time}</p>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-
+                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h5 className="modal-title" id="exampleModalLabel">{selectedOutlet}</h5>
                     </div>
                     <div className="modal-body">
-                        <table >
+                        <table className='modal-bill-info-table'>
                             <thead>
+                                <div className="modal-detail">
+                                    <h6>invoice</h6>
+                                    <div className='report-info'>
+                                        <label>Bill No</label>
+                                        <span>{billInfo.bill_no}</span>
+                                    </div>
+                                    <div className='report-info'>
+                                        <label>Start Time</label>
+                                        <span>{billInfo.Start_Time}</span>
+                                    </div>
+                                    <div className='report-info'>
+                                        <label>End Time</label>
+                                        <span>{billInfo.End_Time}</span>
+                                    </div>
 
-                                <div style={{ display: 'flex' }} className="modal-p-span">
-                                    <p>Payment Mode:<span>{billInfo.PaymentMode}</span></p>
-                                    <p>Type: <span>{billInfo.Type}</span></p>
-                                </div>
-                                <div style={{ display: 'flex' }} className="modal-p-span"> 
-                                    <p>Table No: <span>{billInfo.Table_No} </span></p>
-                                    <p>Employee:<span>{billInfo.employee}</span></p>
+                                    <div className='report-info'>
+                                        <label>Type:</label>
+                                        <span>{billInfo.Type}</span>
+                                    </div>
+                                    <div className='report-info'>
+                                        <label>Table No:</label>
+                                        <span>{billInfo.Table_No}</span>
+                                    </div>
+                                    <div className='report-info'>
+                                        <label>Employee:</label>
+                                        <span>{billInfo.employee}</span>
+                                    </div>
+                                    <div className='report-info'>
+                                        <label>Payment Mode:</label>
+                                        <span>{billInfo.PaymentMode}</span>
+                                    </div>
                                 </div>
                             </thead>
-                            <hr className="hr-line" />
-                            <div className='bill-info-details'>
-                                <tbody>
-                                    <tr>
-                                        <th>Item Type</th>
-                                        <th>Quantity</th>
-                                        <th>Item Name</th>
-                                        <th>Item Rate</th>
-                                        <th>Total</th>
-                                    </tr>
-                                    {billInfoList.map((item, index) => (
-                                        <tr key={index}>
-                                            <td>{item?.ItemType}</td>
-                                            <td>{item?.Quantity}</td>
-                                            <td>{item.itemName}</td>
-                                            <td>{item.itemrate}</td>
-                                            <td>{item.total}</td>
+                            <tbody>
+                                <div className='bill-info-details'>
+                                        <tr className='position-sticky'>
+                                            <th>Item Name</th>
+                                            <th>Item Rate</th>
+                                            <th>Quantity</th>
+                                            <th>Total</th>
                                         </tr>
-                                    ))}
-                                </tbody>
-                            </div>
-
-                            <hr className="hr-line" />
-                            <tfood>
-                                <div style={{ display: 'flex' }} className="modal-p-span">
-                                    <p>Food Count:<span> {billInfo.foodCount}</span></p>
-                                    <p>Beverage Count:<span>{billInfo.beverageCount}</span></p>
-                                    <p>Service Charge: <span>{billInfo.serviceCharge}</span></p>
+                                        {billInfoList.map((item, index) => (
+                                            <tr key={index}>
+                                                <td>{item.itemName}</td>
+                                                <td>{item.itemrate}</td>
+                                                <td>{item?.Quantity}</td>
+                                                <td>{item.total}</td>
+                                            </tr>
+                                        ))}
+                                        <tr>
+                                            <td>Total: </td>
+                                            <td></td>
+                                            <td>{billInfo.foodCount}</td>
+                                            <td></td>
+                                        </tr>
                                 </div>
-                                <div style={{ display: 'flex' }} className="modal-p-span">
-                                    <p><span>Total</span>{billInfo.total}</p>
+                            </tbody>
+                            <tfoot>
+                                <div className="modal-amount">
+                                    <p><span>Service Charge: </span>{billInfo.serviceCharge}</p>
                                     <p><span>VAT</span>{billInfo.vat}</p>
+                                    <p><span>Total</span>{billInfo.total}</p>
                                 </div>
-                            </tfood>
+                            </tfoot>
                         </table>
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn" data-bs-dismiss="modal">Close</button>
-                        {/* <button type="button" className="btn ">Save changes</button> */}
                     </div>
                 </div>
             </div>

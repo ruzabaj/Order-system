@@ -10,9 +10,7 @@ const SidebarPro = ({dineinTabs, paymentStatus, startBillNum, endBillNum, FoodBe
 
     let revenuePerGuest = netTotalSale / numGuest;
     const { collapseSidebar } = useProSidebar();
-    // var nf = new Intl.NumberFormat();
-    // nf.format("12344555.2344");
-    // console.log(nf.format(number))
+
     return (
         <div className='sidebar'>
             <main>
@@ -36,20 +34,19 @@ const SidebarPro = ({dineinTabs, paymentStatus, startBillNum, endBillNum, FoodBe
                         </div>
                         <hr className="hr-line" />
                         <div className='total-info'>
-                            <label> <span>Total Sales : </span>{dineinTabs.TOTALSALES}</label>
-                            {/* {console.log("123445.1234".toLocaleString(undefined, {maximumFractionDigits:2}))} */}
+                            <label> <span>Total Sales : </span>{parseInt(dineinTabs.TOTALSALES).toLocaleString(undefined, {maximumFractionDigits:3})}</label>
                             <div className='info'>
-                                <label><span>Dine-In : </span>{dineinTabs.DineInSALES = dineinTabs.DineInSALES ?? "0"}</label>
+                                <label><span>Dine-In : </span>{parseInt(dineinTabs.DineInSALES).toLocaleString(undefined, {maximumFractionDigits:3})}</label>
                             </div>
                             <div className='info'>
-                                <label><span>Tabs : </span>{(dineinTabs.TabSALES === null) ? "0" : dineinTabs.TabSALES}</label>
+                                <label><span>Tabs : </span>{(dineinTabs.TabSALES === null) ? "0" : parseInt(dineinTabs.TabSALES).toLocaleString(undefined, {maximumFractionDigits:3})}</label>
                             </div>
                         </div>
                         <hr className="hr-line" />
                         <div className='total-info'>
-                            <label> <span>Total Net Sales : </span>{dineinTabs.netTOTALSALES}</label>
+                            <label> <span>Total Net Sales : </span>{parseInt(dineinTabs.netTOTALSALES).toLocaleString(undefined, {maximumFractionDigits:3})}</label>
                             <div className='info'>
-                                <label><span>Dine-In : </span>{dineinTabs.netDineInSALES}</label>
+                                <label><span>Dine-In : </span>{parseInt(dineinTabs.netDineInSALES).toLocaleString(undefined, {maximumFractionDigits:3})}</label>
                             </div>
                             <div className='info'>
                                 <label><span>Tabs : </span>{(dineinTabs.netTabSALES === null) ? "0" : dineinTabs.netTabSALES}</label>
@@ -57,20 +54,19 @@ const SidebarPro = ({dineinTabs, paymentStatus, startBillNum, endBillNum, FoodBe
                         </div>
                         <hr className="hr-line" />
                         <div className='total-info'>
-                            <label> <span>VAT: </span>{dineinTabs.TotalVat}</label>
+                            <label> <span>VAT: </span>{parseInt(dineinTabs.TotalVat).toLocaleString(undefined, {maximumFractionDigits:3})}</label>
                             <div className='info'>
-                                <label><span>Dine-In : </span>{dineinTabs.DineInVAT}</label>
+                                <label><span>Dine-In : </span>{parseInt(dineinTabs.DineInVAT).toLocaleString(undefined, {maximumFractionDigits:3})}</label>
                             </div>
                             <div className='info'>
                                 <label><span>Tabs : </span>{dineinTabs.TabVAT = dineinTabs.TabVAT ?? "0"}</label>
                             </div>
                         </div>
                         <hr className="hr-line" />
-                        {/* <button className="btn-side-info" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions" onClick={toggleArrow}>{arrow ? <AiOutlineArrowLeft className='icon-arrow' /> : <AiOutlineArrowRight className='icon-arrow' />}</button> */}
                         <div className='total-info'>
-                            <label> <span>Total Service Charge : </span>{dineinTabs.TotalServiceCharge}</label>
+                            <label> <span>Total Service Charge : </span>{parseInt(dineinTabs.TotalServiceCharge).toLocaleString(undefined, {maximumFractionDigits:3})}</label>
                             <div className='info'>
-                                <label><span>Dine-In : </span>{dineinTabs.DineInServiceCharge}</label>
+                                <label><span>Dine-In : </span>{parseInt(dineinTabs.DineInServiceCharge).toLocaleString(undefined, {maximumFractionDigits:3})}</label>
                             </div>
                             <div className='info'>
                                 <label><span>Tabs : </span>{dineinTabs.TabServiceCharge = dineinTabs.TabServiceCharge ?? "0"}</label>
@@ -80,9 +76,9 @@ const SidebarPro = ({dineinTabs, paymentStatus, startBillNum, endBillNum, FoodBe
                         <Piechart  FoodBeverageSum={FoodBeverageSum} dineinTabs={dineinTabs} />
 
                         <div className='total-info'>
-                            <label> <span>Food Sale : </span>{dineinTabs.FoodSale}</label>
+                            <label> <span>Food Sale : </span>{parseInt(dineinTabs.FoodSale).toLocaleString(undefined, {maximumFractionDigits:3})}</label>
                             <div>
-                                <label><span>Beverage Sale : </span>{dineinTabs.BeverageSale}</label>
+                                <label><span>Beverage Sale : </span>{parseInt(dineinTabs.BeverageSale).toLocaleString(undefined, {maximumFractionDigits:3})}</label>
                             </div>
                             <div>
                                 <label><span>Others : </span>{(dineinTabs.OtherSale === null) ? "0:00" : dineinTabs.OtherSale}</label>
@@ -93,25 +89,25 @@ const SidebarPro = ({dineinTabs, paymentStatus, startBillNum, endBillNum, FoodBe
                     </div>
                     <div className='dine-tabs-paymemnt-status'>
                         <div>
-                            <label><span>Credit Card : </span>{paymentStatus.CreditCard}</label>
+                            <label><span>Credit Card : </span>{parseInt(paymentStatus.CreditCard).toLocaleString(undefined, {maximumFractionDigits:3})}</label>
                         </div>
                         <div>
-                            <label><span>Cash : </span>{paymentStatus.Cash}</label>
+                            <label><span>Cash : </span>{parseInt(paymentStatus.Cash).toLocaleString(undefined, {maximumFractionDigits:3})}</label>
                         </div>
                         <div>
-                            <label><span> Mobile Payment : </span>{paymentStatus.MobilePayment}</label>
+                            <label><span> Mobile Payment : </span>{parseInt(paymentStatus.MobilePayment).toLocaleString(undefined, {maximumFractionDigits:3})}</label>
                         </div>
                         <div>
-                            <label> <span>Credit Sale: </span>{paymentStatus.Credit}</label>
+                            <label> <span>Credit Sale: </span>{parseInt(paymentStatus.Credit).toLocaleString(undefined, {maximumFractionDigits:3})}</label>
                         </div>
                         <div>
-                            <label><span>Complimentary : </span>{paymentStatus.Complimentary}</label>
+                            <label><span>Complimentary : </span>{parseInt(paymentStatus.Complimentary).toLocaleString(undefined, {maximumFractionDigits:3})}</label>
                         </div>
                         <div>
-                            <label><span> Split : </span>{paymentStatus.Split}</label>
+                            <label><span> Split : </span>{parseInt(paymentStatus.Split).toLocaleString(undefined, {maximumFractionDigits:3})}</label>
                         </div>
                         <div>
-                            <label><span> Discount Amount : </span>{dineinTabs.DiscountAmountSum}</label>
+                            <label><span> Discount Amount : </span>{parseInt(dineinTabs.DiscountAmountSum).toLocaleString(undefined, {maximumFractionDigits:3})}</label>
                         </div>
                     </div>
                     <hr className="hr-line" />

@@ -161,7 +161,7 @@ const History = () => {
 
       <div className={show ? 'customer-complimentary-history' : 'customer-history'}>
         {showCustomerHistory &&
-          <CustomerHistory customerHistory={customerHistory} discountTotal={discountTotal} totalSum={totalSum} />
+          <CustomerHistory customerHistory={customerHistory} discountTotal={discountTotal} totalSum={totalSum} selectedOutlet={selectedOutlet}/>
         }
         {show &&
           <ComplimentaryTable complimentary={complimentary} complimentaryTotal={complimentaryTotal} />

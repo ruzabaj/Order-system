@@ -96,6 +96,7 @@ const Bill = () => {
             "token": token
         })
             .then((response) => {
+                console.log(response)
                 setDineinTabs(response.data)
                 setPaymentStatus(response.data.paymentStats)
             })

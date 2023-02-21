@@ -5,11 +5,10 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const CustomerHistory = ({ customerHistory, discountTotal, totalSum }) => {
+const CustomerHistory = ({ customerHistory, discountTotal, totalSum, selectedOutlet }) => {
     let url = process.env.REACT_APP_BASE_URL;
     let navigate = useNavigate();
     const [token, setToken] = useState("");
-    const [selectedOutlet, setSelectedOutlet] = useState("");
     const [billInfo, setBillInfo]= useState({});
     const [billInfoList, setBillInfoList] = useState([])
 
@@ -20,8 +19,6 @@ const CustomerHistory = ({ customerHistory, discountTotal, totalSum }) => {
         } else {
             setToken(localStorage.getItem("token"))
         }
-      
-        setSelectedOutlet(localStorage.getItem("outlet"))
     }, [])
 
     const handleBillInfo = (bill, date) => {
@@ -34,6 +31,7 @@ const CustomerHistory = ({ customerHistory, discountTotal, totalSum }) => {
         })
         .then((response)=>{
             if(response?.data){
+                console.log(response?.data)
                 setBillInfoList(response.data.details)
                 setBillInfo(response.data)
             }
@@ -53,8 +51,8 @@ const CustomerHistory = ({ customerHistory, discountTotal, totalSum }) => {
                         <th>Bill</th>
                         <th>Customer</th>
                         <th>Date</th>
-                        <th>DiscountType</th>
-                        <th>DiscountType</th>
+                        <th>Discount Amount</th>
+                        <th>Discount Type</th>
                         <th>Mode</th>
                         <th>Outlet</th>
                         <th>Total</th>
@@ -85,7 +83,7 @@ const CustomerHistory = ({ customerHistory, discountTotal, totalSum }) => {
                     </tr>
                 </table>
             </div>
-            <BillDetail billInfo={billInfo} billInfoList={billInfoList}/>
+            <BillDetail billInfo={billInfo} billInfoList={billInfoList} selectedOutlet={selectedOutlet}/>
         </div>
     )
 }

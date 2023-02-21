@@ -11,6 +11,9 @@
     .handle-date-input-btn {
         display: flex;
         justify-content: space-around;
+        // border: 2px solid $primary-color;
+        // border: 2px solid $btn-seen-hover;
+        background-color: $bg-filter;
         align-items: center;
         margin: 20px 05px;
         padding: 20px;

@@ -1,0 +1,18 @@
+.date-picker-style{
+    display: flex;
+    flex-direction: column;
+    .date-picker-label{
+        font-size: 20px;
+        font-weight: 800px;
+    }
+    .date-picker{
+        border: 1px solid #dce0e8;
+        width: 300px;
+        height: 50px;
+    }
+}
+.input-customer{
+    border: 1px solid #dce0e8;
+    width: 300px;
+    height: 50px;
+}

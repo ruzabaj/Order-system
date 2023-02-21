@@ -10,7 +10,9 @@ const SidebarPro = ({dineinTabs, paymentStatus, startBillNum, endBillNum, FoodBe
 
     let revenuePerGuest = netTotalSale / numGuest;
     const { collapseSidebar } = useProSidebar();
-
+    // var nf = new Intl.NumberFormat();
+    // nf.format("12344555.2344");
+    // console.log(nf.format(number))
     return (
         <div className='sidebar'>
             <main>
@@ -35,6 +37,7 @@ const SidebarPro = ({dineinTabs, paymentStatus, startBillNum, endBillNum, FoodBe
                         <hr className="hr-line" />
                         <div className='total-info'>
                             <label> <span>Total Sales : </span>{dineinTabs.TOTALSALES}</label>
+                            {/* {console.log("123445.1234".toLocaleString(undefined, {maximumFractionDigits:2}))} */}
                             <div className='info'>
                                 <label><span>Dine-In : </span>{dineinTabs.DineInSALES = dineinTabs.DineInSALES ?? "0"}</label>
                             </div>

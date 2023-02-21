@@ -1,11 +1,17 @@
 @import "./config";
-
+.btn-search-style{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 25px;
+}
 .handle-date-input-btn{
     display: flex;
     justify-content: space-around;
+    align-items: center;
     border: 2px solid black;
+    margin: 20px 05px;
     padding: 20px;
-    margin: 20px 0px;
 }
 .customer-complimentary-history{
     display: flex;

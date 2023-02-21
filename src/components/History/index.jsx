@@ -7,6 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from 'react-router-dom';
 import CustomerHistory from './CustomerHistory';
 import "../../scss/history.scss";
+import "../../scss/datepicker.scss";
 import SelectSearch from 'react-select-search';
 
 const History = () => {
@@ -88,29 +89,34 @@ const History = () => {
     <div>
       <Navbar />
       <div className='handle-date-input-btn'>
-        <div className='date-picker-start'>
-          <label className="">Start Date:</label>
-          <DatePicker selected={startDate} dateFromat='YYYY-MM-DD' onChange={(date) => setStartDate(date)} className='date-picker' />
+        <div className='date-picker-style'>
+          <div className='date-picker-start'>
+            <label className="date-picker-label">Start Date:</label>
+            <DatePicker selected={startDate} dateFromat='YYYY-MM-DD' onChange={(date) => setStartDate(date)} className='date-picker' />
+          </div>
+          <div className='date-picker-end'>
+            <label className="date-picker-label">End Date:</label>
+            <DatePicker selected={endDate} dateFromat='YYYY-MM-DD' onChange={(date) => setEndDate(date)} className='date-picker' />
+          </div>
+        </div>
+        <div className="btn-search-style">
+          <div className='select-search'>
+            <h3>{selectedOutlet}</h3>
+            <SelectSearch
+              defaultValue={selectedOutlet}
+              search
+              placeholder="Select Outlet Name"
+              onChange={(event) => setSelectedOutlet(event)}
+              options={listOutlet}
+            />
+          </div>
+          <button onClick={showComplimentary} className="btn-show">Show</button>
         </div>
         <div className='input-customer-name'>
-          <input type="text" placeholder="Customer Name" onChange={handleInputChange} value={inputChange} />
+          <input type="text" placeholder="Customer Name" onChange={handleInputChange} value={inputChange} className="input-customer" />
         </div>
-        <div className='select-search'>
-          <h3>{selectedOutlet}</h3>
-          <SelectSearch
-            defaultValue={selectedOutlet}
-            search
-            placeholder="Select Outlet Name"
-            onChange={(event) => setSelectedOutlet(event)}
-            options={listOutlet}
-          />
-        </div>
-        <div className='date-picker-end'>
-          <label className="">End Date:</label>
-          <DatePicker selected={endDate} dateFromat='YYYY-MM-DD' onChange={(date) => setEndDate(date)} className='date-picker' />
-        </div>
-        <button onClick={showComplimentary} className="btn-show">Show</button>
       </div>
+
       <div className='customer-complimentary-history'>
         <CustomerHistory customerHistory={customerHistory} discountTotal={discountTotal} totalSum={totalSum} />
         <ComplimentaryTable complimentary={complimentary} complimentaryTotal={complimentaryTotal} />

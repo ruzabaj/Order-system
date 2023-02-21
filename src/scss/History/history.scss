@@ -1,0 +1,71 @@
+@import "../config";
+
+.btn-search-style {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 25px;
+}
+
+@media screen and (min-width:769px) {
+    .handle-date-input-btn {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        border: 2px solid black;
+        margin: 20px 05px;
+        padding: 20px;
+    }
+
+    .handle-date-input-btn-sm{
+        display: none !important;
+    }
+}
+
+@media screen and (max-width:768px) {
+    .handle-date-input-btn{
+        display: none !important;
+    }
+    .handle-date-input-btn-sm{
+        margin: 20px 05px;
+        padding: 20px;
+    }
+}
+
+.customer-complimentary-history {
+    display: flex;
+    .table-responsive-food{
+        width: calc(100% - 20px);
+    }
+}
+.customer-history {
+    display: flex;
+    flex-direction: column;
+}
+
+.btn-show {
+    width: 120px;
+    height: 50px;
+    border: 1px solid $btn-search;
+    background-color: $btn-search;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    margin-right: 5px;
+
+    &:hover {
+        background-color: $btn-search-hover;
+    }
+}
+
+@media screen and (max-width:700px) {
+    .customer-complimentary-history {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .handle-date-input-btn {
+        display: flex;
+        flex-direction: column;
+    }
+}

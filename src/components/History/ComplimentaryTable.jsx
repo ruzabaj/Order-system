@@ -5,7 +5,7 @@ const ComplimentaryTable = ({ complimentary, complimentaryTotal }) => {
     return (
         <div className="table-responsive-food">
             <div className=''>
-                <h4 className=''>Complimentary Outlet</h4>
+                <h4 className=''>Complimentary</h4>
             </div>
             <div className="table-responsive">
                 <table className="table-food">

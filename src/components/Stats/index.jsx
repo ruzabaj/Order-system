@@ -138,7 +138,7 @@ const Stats = () => {
                                 </div>
                             }
                             {selectDate &&
-                                <div style={{ display: "flex" }}>
+                                <div className='start-end-date'>
                                     <div className='range-type'>
                                         <p>{startDate}</p>
                                     </div>

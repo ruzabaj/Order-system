@@ -1,10 +1,10 @@
 @import "./config";
 
-@media screen and (max-width: 1000px){
-    .rs-anim-fade.rs-anim-in{
-        left: 900px !important;
-    }
-}
+// @media screen and (max-width: 1000px){
+//     .rs-anim-fade.rs-anim-in{
+//         left: 900px !important;
+//     }
+// }
 .select-search-select{
     z-index:100 !important
 }
@@ -64,20 +64,38 @@
     }
 }
 
-.stats-chart {
-    display: flex;
-    justify-content: center;
-}
-
 .line-chart-stats {
-    width: calc(100% - 150px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     height: 500px;
+    margin: 10px 20px;
     .line-chart{
+        background-color: $bg-filter;
         width: 100%;
         border-radius: 8px;
-        background-color: $bg-filter;
     }
 }
-@media screen and (max-width:715px){
-    
+.start-end-date{
+    display: flex;
+}
+//less than 700px 
+
+@media screen and (max-width:700px){
+    .line-chart-stats{
+        height: auto !important;
+    }
+    .filter-sideways .selected-options{
+        gap: 10px !important;
+    }
+    .range-type,
+    .selected-outlet-type {
+        padding: 5px 10px !important;
+    }
+}
+@media screen and (max-width:458px){
+    .filter-sideways .selected-options{
+        flex-direction: column !important;
+        align-items: start !important;
+    }
 }

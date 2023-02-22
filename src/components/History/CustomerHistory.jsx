@@ -51,7 +51,7 @@ const CustomerHistory = ({ customerHistory, discountTotal, totalSum, selectedOut
                         <tr className='position-sticky'>
                             <th>Bill</th>
                             <th>Customer</th>
-                            <th className=''>Date</th>
+                            <th className='handle-date'>Date</th>
                             <th>Discount Amount</th>
                             <th>Discount Type</th>
                             <th>Mode</th>
@@ -63,7 +63,7 @@ const CustomerHistory = ({ customerHistory, discountTotal, totalSum, selectedOut
                         <tr>
                             <td ><button type="button" className="btn " data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => handleBillInfo(item.Bill, item.Date)}>{item.Bill}</button></td>
                             <td>{item.Customer}</td>
-                            <td>
+                            <td className='handle-date'>
                                 <DateFormat date={item.Date} /></td>
                             <td>{item.DiscountAmt}</td>
                             <td>{item.DiscountType}</td>

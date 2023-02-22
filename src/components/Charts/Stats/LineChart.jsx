@@ -6,6 +6,7 @@ const LineChart = ({ labels, Total,Title, labelTitle }) => {
     <div className='line-chart-stats'>
       <h4>{Title}</h4>
       <Line
+      className='line-chart'
         datasetIdKey='id'
         data={{
           labels: labels,

@@ -1,21 +1,17 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import Navbar from '../Navbar'
 import axios from "axios";
 import subDays from 'date-fns/subDays';
 import 'rsuite/dist/rsuite.min.css';
 import { DateRangePicker } from 'rsuite';
-import SelectSearch from 'react-select-search';
 import "../../scss/stats.scss";
 import LineChart from '../Charts/Stats/LineChart';
-// import SelectRange from './SelectRange';
-import Performance from './../Performance/index';
+import SelectSearchInput from './../SelectSearch/index';
+import HandleRange from './HandleRange';
 
 const Stats = () => {
     let url = process.env.REACT_APP_BASE_URL;
-    let navigate = useNavigate();
-
     const ranges = [
         {
             label: 'today',
@@ -26,42 +22,41 @@ const Stats = () => {
             value: [subDays(new Date(), 1), subDays(new Date(), 1)]
         }
     ];
-    const [monthly, setmonthly] = useState(false)
-    const [weekly, setWeekly] = useState(false)
-    const [freely, setFreely] = useState(true)
+    const [handleRange, setHandleRange] = useState(false)
+    const [selectDate, setSelectDate] = useState(false)
+    const [choseOutlet, setOutlet] = useState(false)
     const [token, setToken] = useState("");
     const [selectedOutlet, setSelectedOutlet] = useState("");
-    const [listOutlet, setListOutlet] = useState([]);
     const [Total, setTotal] = useState([]);
     const [labels, setLabels] = useState([]);
     const [rangeType, setRangeType] = useState("")
+    const [startDate, setstartDate] = useState("")
+    const [endDate, setEndDate] = useState("")
 
     const handleMonthly = () => {
-        setmonthly(true)
-        setWeekly(false)
-        setFreely(false)
         setRangeType("monthly")
+        setHandleRange(true)
+        setOutlet(true)
     }
     const handleWeekly = () => {
-        setmonthly(false)
-        setWeekly(true)
-        setFreely(false)
+        setHandleRange(true)
         setRangeType("weekly")
+        setOutlet(true)
     }
     const handleFreely = () => {
-        setmonthly(false)
-        setWeekly(false)
-        setFreely(true)
+        setHandleRange(true)
         setRangeType("Free range")
+        setOutlet(true)
     }
 
     const handleDate = (e) => {
-        console.log("here")
+        setSelectDate(true)
         let newStartdate = new Date(e[0])
         let newEnddate = new Date(e[1])
         let start = newStartdate.toISOString().slice(0, 10)
+        setstartDate(start)
         let end = newEnddate.toISOString().slice(0, 10)
-        console.log(start, end)
+        setEndDate(end)
         if (rangeType === "Free Range") {
             axios.post(`${url}/datestats`, {
                 Outlet_Name: `${selectedOutlet}`,
@@ -118,86 +113,49 @@ const Stats = () => {
                 })
         }
     }
-    useEffect(() => {
-        let tokenCheck = localStorage.getItem("token");
-        if (!tokenCheck) {
-            navigate('/')
-        } else {
-            setToken(localStorage.getItem("token"))
-        }
-    }, [])
 
-    useEffect(() => {
-        axios.post(`${url}/outlets`, {
-            token: token
-        })
-            .then((response) => {
-                console.log('to get outlet name', response)
-                setListOutlet(response.data)
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-    }, [token])
     return (
         <div>
             <Navbar />
-            <div className='stats-chart'>
-                <div className="datepicker-select-search-radio">
-                    <div>
-                        <p>Please select your favorite Web language:</p>
-                        <div className='select-range'>
-                            <input type="radio" id="Monthly" name="fav_language" value="Monthly" onClick={handleMonthly} />
-                            <label for="Monthly">Monthly</label>
+            <div className='stats-chart-width'>
+                <div className='filter-sideways'>
+                    <div className='filter-margin'>
+                        <div className="select-search-radio">
+                            <HandleRange handleMonthly={handleMonthly} handleWeekly={handleWeekly} handleFreely={handleFreely} />
+                            <SelectSearchInput setOutlet={setOutlet} token={token} setToken={setToken} setSelectedOutlet={setSelectedOutlet} selectedOutlet={selectedOutlet} />
                         </div>
-                        <div className='select-range'>
-                            <input type="radio" id="Weekly" name="fav_language" value="Weekly" onClick={handleWeekly} />
-                            <label for="Weekly">Weekly</label>
+                        <DateRangePicker onOk={(e) => handleDate(e)} className="date-range-picker-margin" />
+                        <div className='selected-options'>
+                            <p className='filtered'>Filtered :</p>
+                            {handleRange &&
+                                <div className='range-type'>
+                                    <p>{rangeType}</p>
+                                </div>
+                            }
+                            {choseOutlet &&
+                                <div className='selected-outlet-type'>
+                                    <p>{selectedOutlet}</p>
+                                </div>
+                            }
+                            {selectDate &&
+                                <div style={{ display: "flex" }}>
+                                    <div className='range-type'>
+                                        <p>{startDate}</p>
+                                    </div>
+                                    <div className='range-type'>
+                                        <p>{endDate}</p>
+                                    </div>
+                                </div>
+                            }
                         </div>
-                        <input type="radio" id="Free" name="fav_language" value="Free" onClick={handleFreely} />
-                        <label for="Free">Free Range</label>
-                    </div>
-                    <div className='select-search'>
-                        <h3>{selectedOutlet}</h3>
-                        <SelectSearch
-                            defaultValue={selectedOutlet}
-                            search
-                            placeholder="Select Outlet Name"
-                            onChange={(event) => setSelectedOutlet(event)}
-                            options={listOutlet}
-                        />
-                    </div>
-
-                    <div className='calendar-month-week'>
                     </div>
                 </div>
-                {monthly &&
-                    <div className='calendar-month'>
-                        <p>Select Single Month</p>
-                        <DateRangePicker ranges={[]} onOk={(e) => handleDate(e)} />
-                    </div>
-                }
-                {weekly &&
-                    <div className='calendar-week'>
-                        <p>Select Single Week</p>
-                        <DateRangePicker ranges={[]} onOk={(e) => handleDate(e)} />
-                    </div>
-                }
 
-                <div className='stats-chart'>
-                    {freely &&
-                        <div className='calendar'>
-                            <DateRangePicker onOk={(e) => handleDate(e)} />
-                        </div>
-                    }
-                    {Total && Total.length > 0 && labels && labels.length > 0 &&
-                        <div className='stats-chart'>
-                            <div>
-                                <LineChart labels={labels} Total={Total} labelTitle={rangeType} Title={"Stats"} />
-                            </div>
-                        </div>
-                    }
-                </div>
+                {Total && Total.length > 0 && labels && labels.length > 0 &&
+                    <div className='stats-chart'>
+                        <LineChart labels={labels} Total={Total} labelTitle={rangeType} Title={"Stats"} />
+                    </div>
+                }
             </div>
         </div>
     )

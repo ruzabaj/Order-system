@@ -15,7 +15,6 @@
         justify-content: space-around;
         background-color: $bg-filter;
         align-items: center;
-        margin: 0px 0px 20px 0px  ;
         padding: 20px 25px;
     }
 
@@ -30,7 +29,7 @@
     }
 
     .handle-date-input-btn-sm {
-        margin: 20px 05px;
+        margin: 0px 05px;
         padding: 20px;
     }
 }
@@ -76,7 +75,10 @@
         color: $secondary-color;
     }
 }
+.bg-history{
+    background-color: rgb(238,239,243);
 
+}
 .customer-history {
     display: flex;
     flex-direction: column;

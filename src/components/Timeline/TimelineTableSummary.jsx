@@ -20,7 +20,7 @@ const TimelineTable = ({ tableSumamry }) => {
                         <th>Total</th>
                         <th>Payment Mode</th>
                         <th>Rev. Per Guest</th>
-                        <th>Items</th>
+                        <th >Items</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -39,8 +39,8 @@ const TimelineTable = ({ tableSumamry }) => {
                             <td>{info.Total}</td>
                             <td>{info.PaymentMode}</td>
                             <td>{info.revperguest}</td>
-                            <td className='table-summary-item'>
-                                <p>{info.items}</p></td>
+                            <td className='table-item'>
+                               {info.items}</td>
                         </tr>
                     ))}
                 </tbody>

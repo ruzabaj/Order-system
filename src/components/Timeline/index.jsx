@@ -67,12 +67,17 @@ const Timeline = () => {
             <div className='timeline'>
                 <div className='left-timeline'>
                     <h4>{selectedOutlet}</h4 >
+                    <div className='hl-line'></div>
                     <TotalSale totalSaleSummary={totalSaleSummary} />
+                    <div className='hl-line'></div>
                     <TimeStats timeStats={timeStats} />
-                    <TimeSales elevenThree={elevenThree} sixTen={sixTen} threeSix={threeSix} />
+                    <div className='hl-line'></div>
                 </div>
                 <div className='right-timeline-table'>
                     <TimelineTable tableSumamry={tableSumamry} />
+                </div>
+                <div className='right-timeline'>
+                    <TimeSales elevenThree={elevenThree} sixTen={sixTen} threeSix={threeSix} />
                 </div>
             </div>
         </div>

@@ -84,32 +84,8 @@ const History = () => {
   return (
     <div>
       <Navbar />
-      <div className='handle-date-input-btn'>
-        <div className='date-picker-style'>
-          <div className='date-picker-start'>
-            <label className="date-picker-label">Start Date:</label>
-            <DatePicker selected={startDate} dateFromat='YYYY-MM-DD' onChange={(date) => setStartDate(date)} className='date-picker' />
-          </div>
-          <div className='date-picker-end'>
-            <label className="date-picker-label">End Date:</label>
-            <DatePicker selected={endDate} dateFromat='YYYY-MM-DD' onChange={(date) => setEndDate(date)} className='date-picker' />
-          </div>
-        </div>
-        <div className="btn-search-style">
-          <SelectSearchInput token={token} setToken={setToken} setSelectedOutlet={setSelectedOutlet} selectedOutlet={selectedOutlet} />
-          <button onClick={showComplimentary} className="btn-show">Show</button>
-        </div>
-        <div className='input-customer-name'>
-          <label>Select Customer:</label>
-          <div>
-            <input type="text" placeholder="Customer Name" onChange={handleInputChange} value={inputChange} className="input-customer" />
-          </div>
-        </div>
-      </div>
 
-      <div className='handle-date-input-btn-sm'>
-        <div className="btn-search-style">
-          <SelectSearchInput token={token} setToken={setToken} setSelectedOutlet={setSelectedOutlet} selectedOutlet={selectedOutlet} />
+        <div className='handle-date-input-btn'>
           <div className='date-picker-style'>
             <div className='date-picker-start'>
               <label className="date-picker-label">Start Date:</label>
@@ -120,27 +96,54 @@ const History = () => {
               <DatePicker selected={endDate} dateFromat='YYYY-MM-DD' onChange={(date) => setEndDate(date)} className='date-picker' />
             </div>
           </div>
+          <div className="btn-search-style">
+            <SelectSearchInput token={token} setToken={setToken} setSelectedOutlet={setSelectedOutlet} selectedOutlet={selectedOutlet} />
+            <button onClick={showComplimentary} className="btn-show">Show</button>
+          </div>
           <div className='input-customer-name'>
             <label>Select Customer:</label>
             <div>
               <input type="text" placeholder="Customer Name" onChange={handleInputChange} value={inputChange} className="input-customer" />
             </div>
           </div>
-          <button onClick={showComplimentary} className="btn-show">Show</button>
+        </div>
+
+        <div className='handle-date-input-btn-sm'>
+          <div className="btn-search-style">
+            <SelectSearchInput token={token} setToken={setToken} setSelectedOutlet={setSelectedOutlet} selectedOutlet={selectedOutlet} />
+            <div className='date-picker-style'>
+              <div className='date-picker-start'>
+                <label className="date-picker-label">Start Date:</label>
+                <DatePicker selected={startDate} dateFromat='YYYY-MM-DD' onChange={(date) => setStartDate(date)} className='date-picker' />
+              </div>
+              <div className='date-picker-end'>
+                <label className="date-picker-label">End Date:</label>
+                <DatePicker selected={endDate} dateFromat='YYYY-MM-DD' onChange={(date) => setEndDate(date)} className='date-picker' />
+              </div>
+            </div>
+            <div className='input-customer-name'>
+              <label>Select Customer:</label>
+              <div>
+                <input type="text" placeholder="Customer Name" onChange={handleInputChange} value={inputChange} className="input-customer" />
+              </div>
+            </div>
+            <button onClick={showComplimentary} className="btn-show">Show</button>
+          </div>
+        </div>
+        
+        <div className='bg-history'>
+          <h6>{selectedOutlet}</h6>
+          <div className={show ? 'customer-complimentary-history' : 'customer-history'}>
+            {showCustomerHistory &&
+              <CustomerHistory customerHistory={customerHistory} discountTotal={discountTotal} totalSum={totalSum} selectedOutlet={selectedOutlet} />
+            }
+            {show &&
+              <ComplimentaryTable complimentary={complimentary} complimentaryTotal={complimentaryTotal} />
+            }
+          </div>
         </div>
       </div>
-
-      <h6>{selectedOutlet}</h6>
-      <div className={show ? 'customer-complimentary-history' : 'customer-history'}>
-        {showCustomerHistory &&
-          <CustomerHistory customerHistory={customerHistory} discountTotal={discountTotal} totalSum={totalSum} selectedOutlet={selectedOutlet} />
-        }
-        {show &&
-          <ComplimentaryTable complimentary={complimentary} complimentaryTotal={complimentaryTotal} />
-        }
-      </div>
-    </div>
-  )
+      )
 }
 
-export default History
+      export default History

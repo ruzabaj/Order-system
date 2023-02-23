@@ -118,42 +118,42 @@ const Stats = () => {
         <div>
             <Navbar />
             <div className='stats-chart-width'>
-                <div className='filter-sideways'>
-                    <div className='filter-margin'>
-                        <div className="select-search-radio">
-                            <HandleRange handleMonthly={handleMonthly} handleWeekly={handleWeekly} handleFreely={handleFreely} />
-                            <SelectSearchInput setOutlet={setOutlet} token={token} setToken={setToken} setSelectedOutlet={setSelectedOutlet} selectedOutlet={selectedOutlet} />
-                        </div>
+                <div className='filter-margin'>
+                    <div className="select-search-radio">
+                        <HandleRange handleMonthly={handleMonthly} handleWeekly={handleWeekly} handleFreely={handleFreely} />
+                        <SelectSearchInput setOutlet={setOutlet} token={token} setToken={setToken} setSelectedOutlet={setSelectedOutlet} selectedOutlet={selectedOutlet} />
                         <DateRangePicker onOk={(e) => handleDate(e)} className="date-range-picker-margin" />
-                        <div className='selected-options'>
-                            <p className='filtered'>Filtered :</p>
-                            {handleRange &&
+                    </div>
+                    <div className='selected-options'>
+                        <p className='filtered'>Filtered :</p>
+                        {handleRange &&
+                            <div className='range-type'>
+                                <p>{rangeType}</p>
+                            </div>
+                        }
+                        {choseOutlet &&
+                            <div className='selected-outlet-type'>
+                                <p>{selectedOutlet}</p>
+                            </div>
+                        }
+                        {selectDate &&
+                            <div className='start-end-date'>
                                 <div className='range-type'>
-                                    <p>{rangeType}</p>
+                                    <p>{startDate}</p>
                                 </div>
-                            }
-                            {choseOutlet &&
-                                <div className='selected-outlet-type'>
-                                    <p>{selectedOutlet}</p>
+                                <div className='range-type'>
+                                    <p>{endDate}</p>
                                 </div>
-                            }
-                            {selectDate &&
-                                <div className='start-end-date'>
-                                    <div className='range-type'>
-                                        <p>{startDate}</p>
-                                    </div>
-                                    <div className='range-type'>
-                                        <p>{endDate}</p>
-                                    </div>
-                                </div>
-                            }
-                        </div>
+                            </div>
+                        }
                     </div>
                 </div>
 
                 {Total && Total.length > 0 && labels && labels.length > 0 &&
                     <div className='stats-chart'>
-                        <LineChart labels={labels} Total={Total} labelTitle={rangeType} Title={"Stats"} />
+                        <div className='line-chart-stats'>
+                            <LineChart labels={labels} Total={Total} labelTitle={rangeType} Title={"Stats"} />
+                        </div>
                     </div>
                 }
             </div>

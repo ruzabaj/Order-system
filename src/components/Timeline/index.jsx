@@ -61,18 +61,18 @@ const Timeline = () => {
     return (
         <div>
             <Navbar />
-            <div>
-                <Filter startDate={startDate} setStartDate={setStartDate} selectedOutlet={selectedOutlet} setSelectedOutlet={setSelectedOutlet} endDate={endDate} setEndDate={setEndDate} />
-                <button onClick={viewTimeline}>Timeline</button>
+            <div className='filter-timeline'>
+                <Filter startDate={startDate} setStartDate={setStartDate} selectedOutlet={selectedOutlet} setSelectedOutlet={setSelectedOutlet} endDate={endDate} setEndDate={setEndDate} view={viewTimeline} btn={"Timeline"} />
             </div>
             <div className='timeline'>
                 <div className='left-timeline'>
+                    <h4>{selectedOutlet}</h4 >
                     <TotalSale totalSaleSummary={totalSaleSummary} />
                     <TimeStats timeStats={timeStats} />
                     <TimeSales elevenThree={elevenThree} sixTen={sixTen} threeSix={threeSix} />
                 </div>
                 <div className='right-timeline-table'>
-                    <TimelineTable tableSumamry={tableSumamry}/>
+                    <TimelineTable tableSumamry={tableSumamry} />
                 </div>
             </div>
         </div>

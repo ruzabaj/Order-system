@@ -6,11 +6,12 @@ import Navbar from '../Navbar';
 import LineChart from './../Charts/Stats/LineChart';
 import "../../scss/performance.scss";
 import "../../scss/button.scss";
+import SelectSearchInput from '../SelectSearch';
 
 const Performance = () => {
     let url = process.env.REACT_APP_BASE_URL;
     let navigate = useNavigate();
-    const [listOutlet, setListOutlet] = useState([]);
+
     const [token, setToken] = useState("");
     const [selectedOutlet, setSelectedOutlet] = useState("");
     const [listYear, setListYear] = useState([]);
@@ -29,20 +30,6 @@ const Performance = () => {
             setToken(localStorage.getItem("token"))
         }
     }, [])
-
-    useEffect(() => {
-        if (token) {
-            axios.post(`${url}/outlets`, {
-                token: token
-            })
-                .then((response) => {
-                    setListOutlet(response.data)
-                })
-                .catch((error) => {
-                    console.log(error)
-                })
-        }
-    }, [token])
 
     useEffect(() => {
         if (selectedOutlet) {
@@ -64,47 +51,40 @@ const Performance = () => {
         setshowChart(true)
     }
 
-    
+
     useEffect(() => {
-      if(selectedYear){
-        axios.post(`${url}/chartsummary`, {
-            outlet: `${selectedOutlet}`,
-            date: `${selectedYear}`,
-            type: "yearly",
-            token: `${token}`
-        })
-            .then((res) => {
-                if (res?.data) {
-                    setDailyLabel(res.data?.dailylabel)
-                    setDailyTotal(res.data?.dailytotal)
-                    setMonthlyLabel(res.data?.monthlylabel)
-                    setMonthlyTotal(res.data?.monthlytotal)
-                    
-                }
+        if (selectedYear) {
+            axios.post(`${url}/chartsummary`, {
+                outlet: `${selectedOutlet}`,
+                date: `${selectedYear}`,
+                type: "yearly",
+                token: `${token}`
             })
-            .catch((error) => {
-                console.log(error)
-            })
-      }
-      return () => {
-        setshowChart(false)
-      }
+                .then((res) => {
+                    if (res?.data) {
+                        setDailyLabel(res.data?.dailylabel)
+                        setDailyTotal(res.data?.dailytotal)
+                        setMonthlyLabel(res.data?.monthlylabel)
+                        setMonthlyTotal(res.data?.monthlytotal)
+
+                    }
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        }
+        return () => {
+            setshowChart(false)
+        }
     }, [selectedYear])
-    
+
 
     return (
         <div>
             <Navbar />
             <div className='search-select-year-outlet'>
                 <div className='select-outlet-year'>
-                    <h3>{selectedOutlet}</h3>
-                    <SelectSearch
-                        defaultValue={selectedOutlet}
-                        search
-                        placeholder="Select Outlet Name"
-                        onChange={(event) => setSelectedOutlet(event)}
-                        options={listOutlet}
-                    />
+                    <SelectSearchInput token={token} setToken={setToken} selectedOutlet={selectedOutlet} setSelectedOutlet={setSelectedOutlet} />
                 </div>
                 <div className='select-outlet-year'>
                     <SelectSearch
@@ -122,10 +102,14 @@ const Performance = () => {
             </div>
             <div className='performance-chart'>
                 {chartShow && monthlyLabel && monthlyTotal && monthlyLabel.length > 0 && monthlyTotal.length > 0 &&
-                    <LineChart labels={monthlyLabel} Total={monthlyTotal} labelTitle={"Month"} Title={"Monthly Performance"} />
+                    <div className='performance-chart-stats'>
+                        <LineChart labels={monthlyLabel} Total={monthlyTotal} labelTitle={"Month"} Title={"Monthly Performance"} />
+                    </div>
                 }
                 {chartShow && dailyTotal && dailyLabel && dailyTotal.length > 0 && dailyLabel.length > 0 &&
-                    <LineChart Total={dailyTotal} labels={dailyLabel} labelTitle={"WeekDay"} Title={"Yearly Weekday Performance"} />
+                    <div className='performance-chart-stats'>
+                        <LineChart Total={dailyTotal} labels={dailyLabel} labelTitle={"WeekDay"} Title={"Yearly Weekday Performance"} />
+                    </div>
                 }
 
             </div>

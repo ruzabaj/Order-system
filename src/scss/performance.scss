@@ -1,22 +1,32 @@
-    .performance-chart{
+    .performance-chart {
         display: flex;
         justify-content: center;
         align-items: center;
         margin: 10px 20px;
     }
-    @media screen and (max-width:1080px){
-        .performance-chart{
+
+    @media screen and (min-width:768px) {
+        .performance-chart-stats {
+            width: 600px;
+            height: 450px;
+        }
+    }
+
+    @media screen and (max-width:768px) {
+        .performance-chart {
             display: flex;
             flex-direction: column;
         }
     }
-    .search-select-year-outlet{
+
+    .search-select-year-outlet {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        align-items: center ;
+        align-items: center;
         margin: 20px 0px;
-        .select-outlet-year{
+
+        .select-outlet-year {
             margin: 10px 0px;
         }
     }

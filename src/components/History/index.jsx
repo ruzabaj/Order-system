@@ -9,6 +9,7 @@ import CustomerHistory from './CustomerHistory';
 import "../../scss/History/history.scss";
 import "../../scss/History/datepicker.scss";
 import SelectSearch from 'react-select-search';
+import SelectSearchInput from './../SelectSearch/index';
 
 const History = () => {
   let url = process.env.REACT_APP_BASE_URL;
@@ -22,7 +23,6 @@ const History = () => {
   const [token, setToken] = useState("");
   const [selectedOutlet, setSelectedOutlet] = useState("");
   const [inputChange, setInputChange] = useState("");
-  const [listOutlet, setListOutlet] = useState([]);
 
   let start = startDate.toISOString().slice(0, 10)
   let end = endDate.toISOString().slice(0, 10)
@@ -41,17 +41,6 @@ const History = () => {
     }
   }, [])
 
-  useEffect(() => {
-    axios.post(`${url}/outlets`, {
-      token: token
-    })
-      .then((response) => {
-        setListOutlet(response.data)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  }, [token])
   const showComplimentary = () => {
     axios.post(`${url}/customersaleshistory`, {
       start_date: start,
@@ -107,16 +96,7 @@ const History = () => {
           </div>
         </div>
         <div className="btn-search-style">
-          <div className='select-search'>
-            <h5>{selectedOutlet}</h5>
-            <SelectSearch
-              defaultValue={selectedOutlet}
-              search
-              placeholder="Select Outlet Name"
-              onChange={(event) => setSelectedOutlet(event)}
-              options={listOutlet}
-            />
-          </div>
+          <SelectSearchInput token={token} setToken={setToken} setSelectedOutlet={setSelectedOutlet} selectedOutlet={selectedOutlet} />
           <button onClick={showComplimentary} className="btn-show">Show</button>
         </div>
         <div className='input-customer-name'>
@@ -129,16 +109,7 @@ const History = () => {
 
       <div className='handle-date-input-btn-sm'>
         <div className="btn-search-style">
-          <div className='select-search'>
-            <h6>{selectedOutlet}</h6>
-            <SelectSearch
-              defaultValue={selectedOutlet}
-              search
-              placeholder="Select Outlet Name"
-              onChange={(event) => setSelectedOutlet(event)}
-              options={listOutlet}
-            />
-          </div>
+          <SelectSearchInput token={token} setToken={setToken} setSelectedOutlet={setSelectedOutlet} selectedOutlet={selectedOutlet} />
           <div className='date-picker-style'>
             <div className='date-picker-start'>
               <label className="date-picker-label">Start Date:</label>
@@ -159,9 +130,10 @@ const History = () => {
         </div>
       </div>
 
+      <h6>{selectedOutlet}</h6>
       <div className={show ? 'customer-complimentary-history' : 'customer-history'}>
         {showCustomerHistory &&
-          <CustomerHistory customerHistory={customerHistory} discountTotal={discountTotal} totalSum={totalSum} selectedOutlet={selectedOutlet}/>
+          <CustomerHistory customerHistory={customerHistory} discountTotal={discountTotal} totalSum={totalSum} selectedOutlet={selectedOutlet} />
         }
         {show &&
           <ComplimentaryTable complimentary={complimentary} complimentaryTotal={complimentaryTotal} />

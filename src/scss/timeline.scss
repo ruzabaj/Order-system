@@ -1,5 +1,22 @@
 @import "./config";
 
-.timeline{
+.timeline {
     display: flex;
+}
+
+.filter-timeline {
+    border: 2px solid $btn-seen;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    .end-date {
+        margin-left: 7%;
+    }
+}
+
+@media screen and (max-width:425px) {
+    .filter-timeline {
+        flex-direction: column;
+    }
 }

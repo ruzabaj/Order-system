@@ -1,17 +1,23 @@
 @import "./config";
 
-.timeline {
-    display: flex;
-}
-
 .filter-timeline {
     border: 2px solid $btn-seen;
+    background-color: $bg-filter;
     display: flex;
     justify-content: space-around;
     align-items: center;
 
     .end-date {
         margin-left: 7%;
+    }
+    .btn-search{
+        background-color: $btn-seen !important;
+    }
+}
+.timeline {
+    display: flex;
+    .left-timeline{
+        border: 2px solid $table-num;
     }
 }
 

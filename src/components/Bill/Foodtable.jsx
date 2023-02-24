@@ -1,9 +1,7 @@
 import React from 'react'
-// import GroupTable from './Table/GroupTable';
 
-const Foodtable = ({ food, foodGroup }) => {
+const Foodtable = ({ food}) => {
     return (
-        <div>
             <div className="table-responsive-food">
                 <div className='bg-heading-food'>
                     <h4 className='food-heading'>Food</h4>
@@ -31,10 +29,6 @@ const Foodtable = ({ food, foodGroup }) => {
                     </table>
                 </div>
             </div>
-            {/* <FoodGroupTable foodGroup={foodGroup} /> */}
-            {/* <GroupTable Group={foodGroup}/> */}
-
-        </div>
     )
 }
 

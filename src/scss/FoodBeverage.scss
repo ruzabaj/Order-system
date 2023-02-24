@@ -9,19 +9,18 @@
         border-top: 1px solid black;
         font-weight: 800;
         padding: 05px;
-        font-size: 22px;
+        font-size: 20px;
     }
     
     td {
         padding: 10px;
         font-weight: 400;
-        font-size: 18px;
+        font-size: 17px;
     }
 }
-.food-beverage-table-width{
-    max-width: calc(100% - 250px);
-
-}
+// .food-beverage-table-width{
+//     max-width: calc(100% - 250px);
+// }
 
 .food-beverage-table {
     display: flex;
@@ -50,9 +49,9 @@
     position: sticky;
     top: 0;
 }
-.table-responsive-beverage>table .table-responsive-food>table {
-    width: 100%;
-}
+// .table-responsive-beverage>table .table-responsive-food>table {
+//     width: 100%;
+// }
 .table-responsive-beverage,
 .table-responsive-food {
     font-size: 21px;

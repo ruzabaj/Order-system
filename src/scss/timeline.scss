@@ -1,13 +1,13 @@
 @import "./config";
 
 .filter-timeline {
-    // border: 2px solid $btn-seen;
+    border: 2px solid $btn-seen;
     background-color: $bg-filter;
     display: flex;
     justify-content: space-around;
     align-items: center;
 
-    .end-date {
+    .start-date, .end-date {
         margin-left: 7%;
     }
     .btn-search{
@@ -17,12 +17,25 @@
 .timeline {
     background-color: rgb(238,239,243);
     display: flex;
-    .left-timeline, .right-timeline{
-        width: 250px;
+    .left-timeline{
+        // width: 250px !important;
+        flex: 1;
         height: auto;
         margin: 0px 10px;
         white-space: normal;
     }
+    .right-timeline-table{
+        flex: 5;
+    }
+}
+@media screen and (max-width:768px){
+.timeline {
+    flex-direction: column;
+    .md-flex{
+        display: flex;
+        justify-content: space-evenly ;
+    }
+}
 }
 .hl-line{
     width: 100%;

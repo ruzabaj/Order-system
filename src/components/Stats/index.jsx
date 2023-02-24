@@ -125,7 +125,7 @@ const Stats = () => {
                         <DateRangePicker onOk={(e) => handleDate(e)} className="date-range-picker-margin" />
                     </div>
                     <div className='selected-options'>
-                        <p className='filtered'>Filtered :</p>
+                        <p className='filtered'>Filtered</p>
                         {handleRange &&
                             <div className='range-type'>
                                 <p>{rangeType}</p>

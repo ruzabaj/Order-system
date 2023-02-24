@@ -57,6 +57,13 @@ const FIlter = ({ view, btn, startDate, setStartDate, endDate, setEndDate, selec
                     <label className="">End Date:</label>
                     <DatePicker selected={endDate} dateFromat='yyyy-mm-dd' onChange={(date) => setEndDate(date)} className='date-picker' />
                 </div>
+                <div className='btn-search-view'>
+                    <button
+                        onClick={view}
+                        className="btn-search">
+                        {btn}
+                    </button>
+                </div>
             </div>
         </div>
     )

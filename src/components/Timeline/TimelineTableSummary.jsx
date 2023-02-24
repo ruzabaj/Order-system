@@ -3,13 +3,13 @@ import "../../scss/TimelineTable.scss"
 
 const TimelineTable = ({ tableSumamry }) => {
     return (
-        <div className="timeline-table-wrapper">
-            <table className="fl-table">
+        <div className="table-timeline-responsive">
+            <table className="table-timeline">
                 <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Table No</th>
-                        <th>PAX</th>
+                    <tr className='position-sticky'>
+                        <th className='no-wrap'>Date</th>
+                        <th className='no-wrap'>Table No</th>
+                        <th className='no-wrap'>PAX</th>
                         <th>Start Time</th>
                         <th>Bill Print Time</th>
                         <th>End Time</th>
@@ -20,27 +20,30 @@ const TimelineTable = ({ tableSumamry }) => {
                         <th>Total</th>
                         <th>Payment Mode</th>
                         <th>Rev. Per Guest</th>
-                        <th >Items</th>
+                        <th className='timeline-item'>Items</th>
                     </tr>
                 </thead>
                 <tbody>
                     {tableSumamry.map((info, index) => (
                         <tr key={index}>
-                            <td>{info.Date}</td>
-                            <td>{info.Table_No}</td>
-                            <td>{info.NoOfGuests}</td>
-                            <td>{info.Start_Time}</td>
-                            <td>{info.billPrintTime}</td>
-                            <td>{info.End_Time}</td>
-                            <td>{info.duration}</td>
-                            <td>{info.Type}</td>
-                            <td>{info.server}</td>
-                            <td>{info.bill_no}</td>
-                            <td>{info.Total}</td>
-                            <td>{info.PaymentMode}</td>
-                            <td>{info.revperguest}</td>
-                            <td className='table-item'>
-                               {info.items}</td>
+                            <td className='no-wrap'>{info.Date}</td>
+                            <td className='no-wrap'>{info.Table_No}</td>
+                            <td className='no-wrap'>{info.NoOfGuests}</td>
+                            <td className='no-wrap'>{info.Start_Time}</td>
+                            <td className='no-wrap'>{info.billPrintTime}</td>
+                            <td className='no-wrap'>{info.End_Time}</td>
+                            <td className='no-wrap'>{info.duration}</td>
+                            <td className='no-wrap'>{info.Type}</td>
+                            <td className='no-wrap'>{info.server}</td>
+                            <td className='no-wrap'>{info.bill_no}</td>
+                            <td className='no-wrap'>{info.Total}</td>
+                            <td className='no-wrap'>{info.PaymentMode}</td>
+                            <td className='no-wrap'>{info.revperguest}</td>
+                            <td >
+                                <div className='timeline-item-td'>
+                                {info.items}
+                                </div>
+                                </td>
                         </tr>
                     ))}
                 </tbody>

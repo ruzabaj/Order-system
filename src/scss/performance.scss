@@ -7,12 +7,12 @@
 
     @media screen and (min-width:768px) {
         .performance-chart-stats {
-            width: 600px;
+            width: 650px;
             height: 450px;
         }
     }
 
-    @media screen and (max-width:768px) {
+    @media screen and (max-width:990px) {
         .performance-chart {
             display: flex;
             flex-direction: column;

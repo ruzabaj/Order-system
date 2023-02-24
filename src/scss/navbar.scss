@@ -36,19 +36,29 @@ nav {
     background-color: $table-num;
     color: white;
 }
+
 @media screen and (max-width:768px) {
     nav {
         width: 100vw;
         display: flex;
         align-items: center;
-        // justify-content: space-around;
 
+        // justify-content: space-around;
         .navbar-icons {
             margin: 5px 0px;
+
             .nav-icon {
                 width: 20px;
                 height: 20px;
             }
+        }
+    }
+}
+
+@media screen and (max-width:465px) {
+    nav {
+        label {
+            margin: 0px 4px;
         }
     }
 }

@@ -53,6 +53,44 @@ const Bill = () => {
 
         setSelectedOutlet(localStorage.getItem("outlet"))
     }, [])
+    useEffect(() => {
+        axios.post(`${url}/saleshistory`, {
+            "outlet": `${selectedOutlet}`,
+            "dateStart": start,
+            "dateEnd": end,
+            "token": token
+        })
+            .then((response) => {
+                setError(false)
+                setTotalInfo(response.data)
+                setOrder(response.data.orderDetails)
+                setFood(response.data.itemDetails.food)
+                setBeverage(response.data.itemDetails.beverage)
+                setFoodBeverageSum(response.data.itemDetails.itemSum)
+                setBeverageGroup(response.data.itemDetails.beverageGroup)
+                setFoodGroup(response.data.itemDetails.foodGroup)
+                setShow(true)
+            })
+            .catch((error) => {
+                console.log(error)
+                setError(true)
+            })
+
+        axios.post(`${url}/summaryreport`, {
+            "outlet": `${selectedOutlet}`,
+            "dateStart": start,
+            "dateEnd": end,
+            "token": token
+        })
+            .then((response) => {
+                console.log(response)
+                setDineinTabs(response.data)
+                setPaymentStatus(response.data.paymentStats)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }, [selectedOutlet])
 
     const viewBill = () => {
         axios.post(`${url}/saleshistory`, {
@@ -115,7 +153,7 @@ const Bill = () => {
             <Navbar />
             <div className='sidebar-container'>
                 <ReactSidebar dineinTabs={dineinTabs} paymentStatus={paymentStatus} toggleArrow={toggleArrow} arrow={arrow} startBillNum={startBillNum} endBillNum={endBillNum} FoodBeverageSum={FoodBeverageSum} />
-                <div className='container main-content'>
+                <div className={'container main-content'}>
                     <div className='select-options '>
                         <div className="date-picker-outlet">
                             <div>

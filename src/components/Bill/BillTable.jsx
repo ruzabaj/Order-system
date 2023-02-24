@@ -57,7 +57,7 @@ const BillTable = ({ order, totalInfo }) => {
             <div class="table-responsive-bill" ref={tableRef}>
                 <table class="table-bill" >
                     <tr>
-                        <th>Date</th>
+                        <th className='no-wrap'>Date</th>
                         <th>Bill no:</th>
                         <th>Discount: (Rs)</th>
                         <th>Sub Total: (Rs)</th>
@@ -70,7 +70,7 @@ const BillTable = ({ order, totalInfo }) => {
 
                     {order.map((item, index) => (
                         <tr key={index}>
-                            <td><ConvertDate date={item.Date} /></td>
+                            <td className='no-wrap'><ConvertDate date={item.Date} /></td>
                             <td>{item.bill_no}</td>
                             <td>{item.DiscountAmt}</td>
                             <td> {isChecked ? item.Subtotal : showSubTotal[index]}</td>

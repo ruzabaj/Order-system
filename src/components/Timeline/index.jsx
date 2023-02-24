@@ -21,6 +21,7 @@ const Timeline = () => {
     const [sixTen, setsixTen] = useState({});
     const [threeSix, setThreeSix] = useState({});
     const [tableSumamry, setTableSumamry] = useState([]);
+    const [showTimeline, setShowTimeline] = useState(false);
 
 
     let start = startDate.toISOString().slice(0, 10)
@@ -45,7 +46,9 @@ const Timeline = () => {
             token: `${token}`
         })
             .then((response) => {
-                console.log(response)
+                console.log(response.data.Time_sales.six_ten)
+                console.log(response.data)
+                setShowTimeline(true)
                 console.log(response.data.Timestats)
                 setTimeStats(response.data.Timestats)
                 setTotalSaleSummary(response.data.TotalSalesSummary)
@@ -64,22 +67,24 @@ const Timeline = () => {
             <div className='filter-timeline'>
                 <Filter startDate={startDate} setStartDate={setStartDate} selectedOutlet={selectedOutlet} setSelectedOutlet={setSelectedOutlet} endDate={endDate} setEndDate={setEndDate} view={viewTimeline} btn={"Timeline"} />
             </div>
-            <div className='timeline'>
-                <div className='left-timeline'>
-                    <h4>{selectedOutlet}</h4 >
-                    <div className='hl-line'></div>
-                    <div className='md-flex'>
-                        <TotalSale totalSaleSummary={totalSaleSummary} />
+            {showTimeline &&
+                <div className='timeline'>
+                    <div className='left-timeline'>
+                        <h4>{selectedOutlet}</h4 >
                         <div className='hl-line'></div>
-                        <TimeStats timeStats={timeStats} />
+                        <div className='md-flex'>
+                            <TotalSale totalSaleSummary={totalSaleSummary} />
+                            <div className='hl-line'></div>
+                            <TimeStats timeStats={timeStats} />
+                        </div>
+                        <div className='hl-line'></div>
+                        <TimeSales elevenThree={elevenThree} sixTen={sixTen} threeSix={threeSix} />
                     </div>
-                    <div className='hl-line'></div>
-                    <TimeSales elevenThree={elevenThree} sixTen={sixTen} threeSix={threeSix} />
+                    <div className='right-timeline-table'>
+                        <TimelineTable tableSumamry={tableSumamry} />
+                    </div>
                 </div>
-                <div className='right-timeline-table'>
-                    <TimelineTable tableSumamry={tableSumamry} />
-                </div>
-            </div>
+            }
         </div>
     )
 }

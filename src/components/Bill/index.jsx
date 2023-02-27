@@ -208,7 +208,7 @@ const Bill = () => {
                                         <BeverageTable beverage={beverage} beverageGroup={beverageGroup} />
                                     </div>
                                 </div>
-                                <div>
+                                <div className='group-table-width'>
                                     <GroupTable Group={foodGroup} title={"Food"} />
                                     <GroupTable Group={beverageGroup} title={"Beverage"} />
                                 </div>

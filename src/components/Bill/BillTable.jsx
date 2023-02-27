@@ -57,7 +57,7 @@ const BillTable = ({ order, totalInfo }) => {
             <div class="table-responsive-bill" ref={tableRef}>
                 <table class="table-bill" >
                     <tr>
-                        <th className='no-wrap'>Date</th>
+                        <th>Date</th>
                         <th>Bill no:</th>
                         <th>Discount: (Rs)</th>
                         <th>Sub Total: (Rs)</th>
@@ -77,7 +77,7 @@ const BillTable = ({ order, totalInfo }) => {
                             <td> {isChecked ? item.serviceCharge : showServiceCharge[index]}</td>
                             <td>{item.VAT}</td>
                             <td>{item.Total}</td>
-                            <td>{item.PaymentMode}</td>
+                            <td className='no-wrap'>{item.PaymentMode}</td>
                             <td>{item.GuestName}</td>
                         </tr>
                     ))}

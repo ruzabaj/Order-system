@@ -66,6 +66,19 @@
         }
     }
 }
+.customer-history {
+    display: flex;
+    flex-direction: column;
+    .table-history-responsive {
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+        td,
+        th {
+            border: 1px solid black;
+        }
+    }
+}
 
 .table-customer thead {
     .position-sticky {
@@ -77,14 +90,11 @@
 }
 .bg-history{
     background-color: rgb(238,239,243);
+    min-height: 90vh !important;
     h6{
         text-align: center;
     }
 
-}
-.customer-history {
-    display: flex;
-    flex-direction: column;
 }
 
 .btn-show {

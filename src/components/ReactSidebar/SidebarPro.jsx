@@ -7,15 +7,17 @@ import Piechart from '../Charts/Piechart';
 const SidebarPro = ({ dineinTabs, paymentStatus, startBillNum, endBillNum, FoodBeverageSum, toggleArrow }) => {
     const netTotalSale = dineinTabs.netTOTALSALES;
     const numGuest = dineinTabs.TotalGuests;
-    console.log(dineinTabs, "dine in tabs")
     let revenuePerGuest = netTotalSale / numGuest;
     const { collapseSidebar } = useProSidebar();
-    console.log(dineinTabs.TOTALSALES?.TOTALSALES, "optional chaining")
-    console.log(parseInt(dineinTabs.TOTALSALES?.TOTALSALES).toLocaleString(undefined, { maximumFractionDigits: 3 }), "i am here 1 2 3")
-    console.log(isNaN(parseInt(dineinTabs.TOTALSALES).toLocaleString(undefined, { maximumFractionDigits: 3 })) ? "hi" : "bye")
 
-    if(!dineinTabs){
-        return null
+    const checkNan= (sales)=>{
+        if(sales){
+            let value = parseInt(sales).toLocaleString(undefined, { maximumFractionDigits: 3 });
+            return value
+        }
+        else{
+            return ""
+        }
     }
     return (
         <div className='sidebar'>
@@ -40,29 +42,29 @@ const SidebarPro = ({ dineinTabs, paymentStatus, startBillNum, endBillNum, FoodB
                     </div>
                     <hr className="hr-line" />
                     <div className='total-info'>
-                        <label> <span>Total Sales : </span> {parseInt(dineinTabs.TOTALSALES).toLocaleString(undefined, { maximumFractionDigits: 3 })}</label>
+                        <label> <span>Total Sales : </span> {checkNan(dineinTabs.TOTALSALES)}</label>
                         <div className='info'>
-                            <label><span>Dine-In : </span>{parseInt(dineinTabs.DineInSALES).toLocaleString(undefined, { maximumFractionDigits: 3 })}</label>
+                            <label><span>Dine-In : </span>{checkNan(dineinTabs.DineInSALES)}</label>
                         </div>
                         <div className='info'>
-                            <label><span>Tabs : </span>{(dineinTabs.TabSALES === null) ? "0" : parseInt(dineinTabs.TabSALES).toLocaleString(undefined, { maximumFractionDigits: 3 })}</label>
-                        </div>
-                    </div>
-                    <hr className="hr-line" />
-                    <div className='total-info'>
-                        <label> <span>Total Net Sales : </span>{parseInt(dineinTabs.netTOTALSALES).toLocaleString(undefined, { maximumFractionDigits: 3 })}</label>
-                        <div className='info'>
-                            <label><span>Dine-In : </span>{parseInt(dineinTabs.netDineInSALES).toLocaleString(undefined, { maximumFractionDigits: 3 })}</label>
-                        </div>
-                        <div className='info'>
-                            <label><span>Tabs : </span>{(dineinTabs.netTabSALES === null) ? "0" : dineinTabs.netTabSALES}</label>
+                            <label><span>Tabs : </span>{!dineinTabs.TabSALES ? "0" : checkNan(dineinTabs.TabSALES)}</label>
                         </div>
                     </div>
                     <hr className="hr-line" />
                     <div className='total-info'>
-                        <label> <span>Total VAT: </span>{parseInt(dineinTabs.TotalVat).toLocaleString(undefined, { maximumFractionDigits: 3 })}</label>
+                        <label> <span>Total Net Sales : </span>{checkNan(dineinTabs.netTOTALSALES)}</label>
                         <div className='info'>
-                            <label><span>Dine-In : </span>{parseInt(dineinTabs.DineInVAT).toLocaleString(undefined, { maximumFractionDigits: 3 })}</label>
+                            <label><span>Dine-In : </span>{checkNan(dineinTabs.netDineInSALES)}</label>
+                        </div>
+                        <div className='info'>
+                            <label><span>Tabs : </span>{!dineinTabs.netTabSALES  ? "0" : dineinTabs.netTabSALES}</label>
+                        </div>
+                    </div>
+                    <hr className="hr-line" />
+                    <div className='total-info'>
+                        <label> <span>Total VAT: </span>{checkNan(dineinTabs.TotalVat)}</label>
+                        <div className='info'>
+                            <label><span>Dine-In : </span>{checkNan(dineinTabs.DineInVAT)}</label>
                         </div>
                         <div className='info'>
                             <label><span>Tabs : </span>{dineinTabs.TabVAT = dineinTabs.TabVAT ?? "0"}</label>
@@ -70,9 +72,9 @@ const SidebarPro = ({ dineinTabs, paymentStatus, startBillNum, endBillNum, FoodB
                     </div>
                     <hr className="hr-line" />
                     <div className='total-info'>
-                        <label> <span>Total Service Charge : </span>{parseInt(dineinTabs.TotalServiceCharge).toLocaleString(undefined, { maximumFractionDigits: 3 })}</label>
+                        <label> <span>Total Service Charge : </span>{checkNan(dineinTabs.TotalServiceCharge)}</label>
                         <div className='info'>
-                            <label><span>Dine-In : </span>{parseInt(dineinTabs.DineInServiceCharge).toLocaleString(undefined, { maximumFractionDigits: 3 })}</label>
+                            <label><span>Dine-In : </span>{checkNan(dineinTabs.DineInServiceCharge)}</label>
                         </div>
                         <div className='info'>
                             <label><span>Tabs : </span>{dineinTabs.TabServiceCharge = dineinTabs.TabServiceCharge ?? "0"}</label>
@@ -82,12 +84,12 @@ const SidebarPro = ({ dineinTabs, paymentStatus, startBillNum, endBillNum, FoodB
                     <Piechart FoodBeverageSum={FoodBeverageSum} dineinTabs={dineinTabs} />
 
                     <div className='total-info'>
-                        <label> <span>Food Sale : </span>{parseInt(dineinTabs.FoodSale).toLocaleString(undefined, { maximumFractionDigits: 3 })}</label>
+                        <label> <span>Food Sale : </span>{checkNan(dineinTabs.FoodSale)}</label>
                         <div>
-                            <label><span>Beverage Sale : </span>{parseInt(dineinTabs.BeverageSale).toLocaleString(undefined, { maximumFractionDigits: 3 })}</label>
+                            <label><span>Beverage Sale : </span>{checkNan(dineinTabs.BeverageSale)}</label>
                         </div>
                         <div>
-                            <label><span>Others : </span>{(dineinTabs.OtherSale === null) ? "0:00" : dineinTabs.OtherSale}</label>
+                            <label><span>Others : </span>{ !dineinTabs.OtherSale ? "0:00" : dineinTabs.OtherSale}</label>
                         </div>
                     </div>
                     <hr className="hr-line" />
@@ -95,25 +97,25 @@ const SidebarPro = ({ dineinTabs, paymentStatus, startBillNum, endBillNum, FoodB
                 </div>
                 <div className='dine-tabs-paymemnt-status'>
                     <div>
-                        <label><span>Credit Card : </span>{parseInt(paymentStatus.CreditCard).toLocaleString(undefined, { maximumFractionDigits: 3 })}</label>
+                        <label><span>Credit Card : </span>{checkNan(paymentStatus.CreditCard)}</label>
                     </div>
                     <div>
-                        <label><span>Cash : </span>{parseInt(paymentStatus.Cash).toLocaleString(undefined, { maximumFractionDigits: 3 })}</label>
+                        <label><span>Cash : </span>{checkNan(paymentStatus.Cash)}</label>
                     </div>
                     <div>
-                        <label><span> Mobile Payment : </span>{parseInt(paymentStatus.MobilePayment).toLocaleString(undefined, { maximumFractionDigits: 3 })}</label>
+                        <label><span> Mobile Payment : </span>{checkNan(paymentStatus.MobilePayment)}</label>
                     </div>
                     <div>
-                        <label> <span>Credit Sale: </span>{parseInt(paymentStatus.Credit).toLocaleString(undefined, { maximumFractionDigits: 3 })}</label>
+                        <label> <span>Credit Sale: </span>{checkNan(paymentStatus.Credit)}</label>
                     </div>
                     <div>
-                        <label><span>Complimentary : </span>{parseInt(paymentStatus.Complimentary).toLocaleString(undefined, { maximumFractionDigits: 3 })}</label>
+                        <label><span>Complimentary : </span>{checkNan(paymentStatus.Complimentary)}</label>
                     </div>
                     <div>
-                        <label><span> Split : </span>{parseInt(paymentStatus.Split).toLocaleString(undefined, { maximumFractionDigits: 3 })}</label>
+                        <label><span> Split : </span>{checkNan(paymentStatus.Split)}</label>
                     </div>
                     <div>
-                        <label><span> Discount Amount : </span>{parseInt(dineinTabs.DiscountAmountSum).toLocaleString(undefined, { maximumFractionDigits: 3 })}</label>
+                        <label><span> Discount Amount : </span>{checkNan(dineinTabs.DiscountAmountSum)}</label>
                     </div>
                 </div>
                 <hr className="hr-line" />

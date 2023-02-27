@@ -66,7 +66,7 @@ const BillDetail = ({ billInfoList, billInfo, selectedOutlet }) => {
                                         <tr>
                                             <td>Total: </td>
                                             <td></td>
-                                            <td>{billInfo.foodCount}</td>
+                                            <td>{billInfo.TotalCount}</td>
                                             <td></td>
                                         </tr>
                                 </div>
@@ -76,6 +76,7 @@ const BillDetail = ({ billInfoList, billInfo, selectedOutlet }) => {
                                     <p><span>Service Charge: </span>{billInfo.serviceCharge}</p>
                                     <p><span>VAT</span>{billInfo.vat}</p>
                                     <p><span>Total</span>{billInfo.total}</p>
+                                    <small>(After discount)</small>
                                 </div>
                             </tfoot>
                         </table>

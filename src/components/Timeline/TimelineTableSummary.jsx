@@ -1,9 +1,11 @@
 import React from 'react'
 import "../../scss/TimelineTable.scss"
+import ConvertTime from './ConvertTime'
 
 const TimelineTable = ({ tableSumamry }) => {
     return (
         <div className="table-timeline-responsive">
+            <ConvertTime/>
             <table className="table-timeline">
                 <thead>
                     <tr className='position-sticky'>
@@ -29,9 +31,9 @@ const TimelineTable = ({ tableSumamry }) => {
                             <td className='no-wrap'>{info.Date}</td>
                             <td className='no-wrap'>{info.Table_No}</td>
                             <td className='no-wrap'>{info.NoOfGuests}</td>
-                            <td className='no-wrap'>{info.Start_Time}</td>
+                            <td className='no-wrap'><ConvertTime time={info.Start_Time}/></td>
                             <td className='no-wrap'>{info.billPrintTime}</td>
-                            <td className='no-wrap'>{info.End_Time}</td>
+                            <td className='no-wrap'><ConvertTime time={info.End_Time}/></td>
                             <td className='no-wrap'>{info.duration}</td>
                             <td className='no-wrap'>{info.Type}</td>
                             <td className='no-wrap'>{info.server}</td>

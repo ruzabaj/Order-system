@@ -1,3 +1,5 @@
+@import "../config";
+
 .date-picker-style{
     display: flex;
     flex-direction: column;
@@ -17,8 +19,14 @@
 .input-customer, .select-search-value{
     border: 1px solid #dce0e8;
     border-radius: 2px;
-    width: 255px;
+    width: 370px;
     height: 35px;
+    .select-search-input {
+        background-color: $secondary-color !important;
+        color: $primary-color;
+        width: 370px !important;
+        height: 36px !important;
+    }
 }
 .select-search-select{
     z-index:100 !important

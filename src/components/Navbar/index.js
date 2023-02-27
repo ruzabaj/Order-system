@@ -11,7 +11,7 @@ import { FiRefreshCcw } from "react-icons/fi";
 import { IoPeopleOutline } from "react-icons/io5";
 import { TbReportSearch, TbZoomMoney, TbTimeline,TbToolsKitchen, TbCalendarTime } from "react-icons/tb";
 import { ImStatsDots } from "react-icons/im";
-import { GrPerformance } from "react-icons/gr";
+import { MdOutlineInventory } from "react-icons/md";
 const Navbar = () => {
     let navigate = useNavigate();
 
@@ -28,7 +28,7 @@ const Navbar = () => {
                     <label>Home</label>
                 </div>
             </Link>
-            {/* <Link to="/report">
+            <Link to="/report">
                 <div className='navbar-icons'>
                     <TbReportSearch className='nav-icon' />
                     <label>Report</label>
@@ -39,7 +39,7 @@ const Navbar = () => {
                     <TbToolsKitchen className='nav-icon'/>
                     <label>Kitchen</label>
                 </div>
-            </Link> */}
+            </Link>
             <Link to="/history">
                 <div className='navbar-icons'>
                     <AiOutlineHistory className='nav-icon' />
@@ -62,6 +62,12 @@ const Navbar = () => {
                 <div className='navbar-icons'>
                     <TbCalendarTime className='nav-icon'/>
                     <label>Performance</label>
+                </div>
+            </Link>
+            <Link to="/inventory">
+                <div className='navbar-icons'>
+                    <MdOutlineInventory className='nav-icon'/>
+                    <label>Inventory</label>
                 </div>
             </Link>
             <div className='navbar-icons' onClick={() => window.location.reload(false)}>

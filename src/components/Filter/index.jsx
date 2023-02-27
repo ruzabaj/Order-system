@@ -28,9 +28,7 @@ const FIlter = ({ view, btn, startDate, setStartDate, endDate, setEndDate, selec
                     <label className="">Start Date:</label>
                     <DatePicker selected={startDate} dateFromat='YYYY-MM-DD' onChange={(date) => setStartDate(date)} className='date-picker' />
                 </div>
-                <div>
-                    <SelectSearchInput token={token} setToken={setToken} setSelectedOutlet={setSelectedOutlet} selectedOutlet={selectedOutlet} />
-                </div>
+                <SelectSearchInput token={token} setToken={setToken} setSelectedOutlet={setSelectedOutlet} selectedOutlet={selectedOutlet} />
                 <div className='end-date'>
                     <label className="">End Date:</label>
                     <DatePicker selected={endDate} dateFromat='yyyy-mm-dd' onChange={(date) => setEndDate(date)} className='date-picker' />

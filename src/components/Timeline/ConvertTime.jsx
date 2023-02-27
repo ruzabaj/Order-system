@@ -3,7 +3,7 @@ import React from 'react'
 const ConvertTime = ({ time }) => {
     const timeString12hr = new Date('1970-01-01T' + time + 'Z')
         .toLocaleTimeString('en-US',
-            { timeZone: 'Asia/Kathmandu', hour12: true, hour: 'numeric', minute: 'numeric' }
+            { timeZone: 'UTC', hour12: true, hour: 'numeric', minute: 'numeric' }
         )
         // console.log(timeString12hr)
     // function tConvert(time) {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SelectSearch from 'react-select-search';
 import axios from 'axios';
@@ -22,6 +22,10 @@ const Performance = () => {
     const [monthlyTotal, setMonthlyTotal] = useState([])
     const [chartShow, setshowChart] = useState(false)
 
+    let monthTotal= useRef(monthlyLabel)
+    console.log("Month Total",monthTotal)
+    console.log("Month Total Current",monthTotal.current)
+
     useEffect(() => {
         let tokenCheck = localStorage.getItem("token");
         if (!tokenCheck) {
@@ -39,7 +43,6 @@ const Performance = () => {
             })
                 .then((response) => {
                     setListYear(response.data)
-                    console.log(response.data, "list year")
                 })
                 .catch((error) => {
                     console.log(error)
@@ -49,11 +52,8 @@ const Performance = () => {
 
     const showChart = () => {
         setshowChart(true)
-    }
-
-
-    useEffect(() => {
-        if (selectedYear) {
+        if (selectedOutlet) {
+            console.log("inside year")
             axios.post(`${url}/chartsummary`, {
                 outlet: `${selectedOutlet}`,
                 date: `${selectedYear}`,
@@ -66,18 +66,13 @@ const Performance = () => {
                         setDailyTotal(res.data?.dailytotal)
                         setMonthlyLabel(res.data?.monthlylabel)
                         setMonthlyTotal(res.data?.monthlytotal)
-
                     }
                 })
                 .catch((error) => {
                     console.log(error)
                 })
         }
-        return () => {
-            setshowChart(false)
-        }
-    }, [selectedYear])
-
+    }
 
     return (
         <div>
@@ -93,7 +88,6 @@ const Performance = () => {
                         placeholder="Select Year"
                         onChange={(event) => setSelectedYear(event)}
                         options={listYear}
-                        disabled={selectedOutlet ? false : true}
                     />
                 </div>
                 <div className='btn-search-view '>

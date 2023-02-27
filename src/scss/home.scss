@@ -13,17 +13,19 @@
     margin: 25px 0px 25px -50px;
 
     .select-search-value {
-        width: 400px;
+        border: 2px solid blue;
+        width: 400px !important;
         height: 40px;
         border: 1px solid $primary-color;
         border-radius: 05px;
         background-color: $secondary-color !important;
         color: $primary-color;
-
+        
         .select-search-input {
+            border: 2px solid green;
             background-color: $secondary-color !important;
             color: $primary-color;
-            width: 100% !important;
+            width: 400px !important;
             height: 36px !important;
         }
     }
@@ -328,5 +330,11 @@
         margin-left: 0px;
         background-color: $secondary-color !important;
         color: $primary-color;
+        .select-search-input {
+            background-color: $secondary-color !important;
+            color: $primary-color;
+            width: 600px !important;
+            height: 36px !important;
+        }
     }
 }

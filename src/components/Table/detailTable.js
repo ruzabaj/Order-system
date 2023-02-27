@@ -2,14 +2,14 @@ import React from 'react'
 import { useNavigate } from "react-router-dom";
 import Charts from '../Charts/Chart';
 import BarChart from '../Charts/Barchart';
-import { useDispatch, useSelector } from 'react-redux';
+// import { useDispatch, useSelector } from 'react-redux';
 // import { showChartAction } from '../../actions';
 // import { Line } from "react-chartjs-2";
 // import Chart from "chart.js/auto";
 
 const Detailtable = ({ list, outletName }) => {
   let navigate = useNavigate();
-  let dispatch = useDispatch();
+  // let dispatch = useDispatch();
   // let state = useSelector(state => state.Chart);
   // console.log(state.data
   //   ,'state')

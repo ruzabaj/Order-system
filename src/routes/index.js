@@ -11,8 +11,8 @@ import Stats from "../components/Stats";
 import Timeline from './../components/Timeline/index';
 import Performance from './../components/Performance/index';
 import Front from "../components/Inventory";
-import Detail from './../components/Inventory/Detail.js';
 import CombineChart from './../components/Charts/combineChart';
+import Detail from "../components/Inventory/Detail";
 
 const MainRoutes = () => {
     const [userName, setUserName] = useState("");
@@ -20,7 +20,6 @@ const MainRoutes = () => {
 
     useEffect(() => {
         if (userName.length > 0) {
-            console.log(userName, "updated")
         }
     }, [userName]);
     return (

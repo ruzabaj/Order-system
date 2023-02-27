@@ -3,7 +3,15 @@
 .outlet-name {
     font-family: "Open Sans";
 }
+.select-search-container {
+    background-color: white !important;
+    color: black;
 
+    .select-search-input {
+        background-color: white !important;
+        color: black;
+    }
+}
 .info-side-bar {
     display: flex;
 
@@ -14,8 +22,6 @@
 
     .info-bar-report {
         flex: 1;
-        // background-color: rgb(37, 42, 56);
-        // color: white;
         height: 100vh;
         display: flex;
         flex-direction: column;
@@ -94,15 +100,7 @@
     }
 }
 
-.select-search-container {
-    background-color: white !important;
-    color: black;
 
-    .select-search-input {
-        background-color: white !important;
-        color: black;
-    }
-}
 
 .btn-bar {
     border-radius: 50%;
@@ -130,43 +128,44 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid black;
+    border: 1px solid blue;
     height: auto;
-
-    .control-dates-flex {
-        display: flex;
-        justify-content: space-between;
-
-        label {
-            font-size: 20px;
-            font-weight: 500;
-        }
+    .control-dates-width{
+        width: 90%;
     }
+    // .control-dates-flex {
+    //     display: flex;
+    //     justify-content: space-between;
 
-    .date-picker {
-        display: flex;
-        margin-left: 10px;
-    }
+    //     label {
+    //         font-size: 20px;
+    //         font-weight: 500;
+    //     }
+    // }
 
-    .input-style {
-        width: 300px !important;
-    }
+    // .date-picker {
+    //     display: flex;
+    //     margin-left: 10px;
+    // }
 
-    .datepicker-style,
-    .select-search-input {
-        height: 45px;
-        outline: none;
-        border: none;
-        padding: 0px 15px;
-        box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-    }
+    // .input-style {
+    //     width: 300px !important;
+    // }
+
+    // .datepicker-style,
+    // .select-search-input {
+    //     height: 45px;
+    //     outline: none;
+    //     border: none;
+    //     padding: 0px 15px;
+    //     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    // }
 
     .btn-report {
-        width: 230px;
+        width: 60px;
         margin-top: 10px;
         text-align: center;
         display: flex;
-
         .btn-generate-report {
             height: calc(100% - 20px);
             width: calc(100% - 10px);

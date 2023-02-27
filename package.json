@@ -68,6 +68,7 @@
     ]
   },
   "devDependencies": {
+    "tailwindcss": "^3.2.7",
     "timediff": "^1.1.1"
   }
 }

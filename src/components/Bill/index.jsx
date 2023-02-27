@@ -201,7 +201,7 @@ const Bill = () => {
 
                         {show &&
                             <div>
-                                <BillTable order={order} totalInfo={totalInfo} />
+                                <BillTable order={order} totalInfo={totalInfo} selected={selectedOutlet} token={token}/>
                                 <div className='food-beverage-table-width'>
                                     <div className='food-beverage-table'>
                                         <Foodtable food={food} foodGroup={foodGroup} />

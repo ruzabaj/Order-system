@@ -7,13 +7,13 @@
     z-index:100 !important
 }
 
+//importatnt for live kitchen
 .input-outlet {
     display: flex;
     justify-content: center;
     margin: 25px 0px 25px -50px;
 
     .select-search-value {
-        border: 2px solid blue;
         width: 400px !important;
         height: 40px;
         border: 1px solid $primary-color;
@@ -22,44 +22,12 @@
         color: $primary-color;
         
         .select-search-input {
-            border: 2px solid green;
             background-color: $secondary-color !important;
             color: $primary-color;
             width: 400px !important;
             height: 36px !important;
         }
     }
-
-    // .btn-enter-icon {
-    //     border: 0;
-    //     background: transparent;
-    //     margin-left: -25px;
-    // }
-
-    // .search {
-    //     border: 1px solid $primary-color;
-    //     width: calc(100% - 70px);
-    //     height: 40px;
-    //     border-radius: 05px;
-    //     outline: 0;
-
-    //     .select-search-value {
-    //         margin-left: 10px;
-    //         border: 1px solid $primary-color;
-    //         height: 40px;
-    //         border-radius: 05px;
-    //         background-color: $secondary-color !important;
-    //         color: $primary-color;
-    //         width: 400px;
-
-    //         .select-search-input {
-    //             background-color: $secondary-color !important;
-    //             color: $primary-color;
-    //             width: 100% !important;
-    //             height: 36px !important;
-    //         }
-    //     }
-    // }
 
 }
 
@@ -85,6 +53,24 @@
     }
 }
 
+@media (max-width:420px) {
+    .input-outlet {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .select-search-value {
+        margin-left: 0px;
+        background-color: $secondary-color !important;
+        color: $primary-color;
+        .select-search-input {
+            background-color: $secondary-color !important;
+            color: $primary-color;
+            width: 600px !important;
+            height: 36px !important;
+        }
+    }
+}
 .check-icon {
     margin: 5px;
     background-color: $secondary-color;
@@ -320,21 +306,3 @@
     }
 }
 
-@media (max-width:420px) {
-    .input-outlet {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .select-search-value {
-        margin-left: 0px;
-        background-color: $secondary-color !important;
-        color: $primary-color;
-        .select-search-input {
-            background-color: $secondary-color !important;
-            color: $primary-color;
-            width: 600px !important;
-            height: 36px !important;
-        }
-    }
-}

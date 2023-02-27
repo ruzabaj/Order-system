@@ -16,15 +16,18 @@
 .select-search-container{
     width: 250px;
 }
+
+
 .input-customer, .select-search-value{
     border: 1px solid #dce0e8;
     border-radius: 2px;
-    width: 370px;
+    width: 300px;
     height: 35px;
     .select-search-input {
+        font-size: 12px;
         background-color: $secondary-color !important;
         color: $primary-color;
-        width: 370px !important;
+        width: 300px !important;
         height: 36px !important;
     }
 }

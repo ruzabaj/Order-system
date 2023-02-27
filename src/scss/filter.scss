@@ -21,6 +21,7 @@
         align-items: center;
         justify-content: space-between;
         gap: 15px;
+
         .date-picker {
             width: 300px;
             border: 1px solid $date-picker-border;
@@ -49,13 +50,18 @@
         }
     }
 }
+
 @media screen and (min-width:780px) {
     .date-picker-outlet-sm {
         display: none !important;
     }
 }
+
 @media screen and (max-width: 780px) {
     .date-picker-outlet {
         display: none !important;
+    }
+    .select-search{
+        margin-left: -24%;
     }
 }

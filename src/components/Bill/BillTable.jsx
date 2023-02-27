@@ -1,15 +1,20 @@
 import React, { useState, useEffect, useRef } from 'react'
 import ConvertDate from './convertDate';
-import CalculateTotal from '../Charts/Piechart';
+// import CalculateTotal from '../Charts/Piechart';
 import { DownloadTableExcel } from 'react-export-table-to-excel';
+import axios from 'axios';
+import BillDetail from '../Modal/BillDetail';
 
-const BillTable = ({ order, totalInfo }) => {
+const BillTable = ({ order, totalInfo, selected, token }) => {
+    let url = process.env.REACT_APP_BASE_URL;
     const [isChecked, setIsChecked] = useState(true);
     const [totalSubUnit, setTotalSubUnit] = useState("");
     const [ServiceSum, setServiceSum] = useState("");
     const [showSubTotal, setShowSubTotal] = useState([]);
     const [showServiceCharge, setServiceCharge] = useState([]);
     const tableRef = useRef(null);
+    const [billInfo, setBillInfo] = useState({});
+    const [billInfoList, setBillInfoList] = useState([])
 
     const handleCheckbox = () => {
         console.log("handle check box", isChecked)
@@ -45,6 +50,25 @@ const BillTable = ({ order, totalInfo }) => {
         })
     }, [order])
 
+    const handleBillInfo = (bill, date) => {
+        const convertDate = new Date(date).toISOString().substring(0, 10);
+        axios.post(`${url}/billinfo`, {
+            bill_no: `${bill}`,
+            Date: `${convertDate}`,
+            Outlet_Name: `${selected}`,
+            token: `${token}`
+        })
+            .then((response) => {
+                if (response?.data) {
+                    console.log(response?.data)
+                    setBillInfoList(response.data.details)
+                    setBillInfo(response.data)
+                }
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
     return (
         <div>
             <DownloadTableExcel
@@ -71,7 +95,7 @@ const BillTable = ({ order, totalInfo }) => {
                     {order.map((item, index) => (
                         <tr key={index}>
                             <td className='no-wrap'><ConvertDate date={item.Date} /></td>
-                            <td>{item.bill_no}</td>
+                            <td><button type="button" className="btn " data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => handleBillInfo(item.bill_no, item.Date)}>{item.bill_no}</button></td>
                             <td>{item.DiscountAmt}</td>
                             <td> {isChecked ? item.Subtotal : showSubTotal[index]}</td>
                             <td> {isChecked ? item.serviceCharge : showServiceCharge[index]}</td>
@@ -92,6 +116,7 @@ const BillTable = ({ order, totalInfo }) => {
                     </tr>
                 </table>
             </div>
+            <BillDetail billInfo={billInfo} billInfoList={billInfoList} selectedOutlet={selected}/>
         </div>
     )
 }

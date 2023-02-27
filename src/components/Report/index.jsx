@@ -12,7 +12,6 @@ import { useNavigate } from 'react-router-dom';
 
 const Report = () => {
     const [outletName, setOutletName] = useState("")
-    const [outlet, setOutlet] = useState([]);
     const [information, setInformation] = useState({});
     const [orders, setOrders] = useState([]);
     const [error, setError] = useState(true);
@@ -26,6 +25,7 @@ const Report = () => {
     const [categories, setCategories] = useState({})
     const [categoryVoid, setCategorieVoid] = useState({})
     const [token, setToken] = useState("")
+    const [Outlet, setOutlet] = useState("");
 
     let url = process.env.REACT_APP_BASE_URL;
     let navigate = useNavigate();
@@ -42,17 +42,7 @@ const Report = () => {
             setToken(localStorage.getItem("token"))
         }
     }, [])
-    useEffect(() => {
-        axios.post(`${url}/outlets`, {
-            token: `${token}`
-        })
-            .then((response) => {
-                setOutlet(response.data)
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-    }, [token])
+   
 
     useEffect(() => {
         let initialDate = startDate
@@ -154,7 +144,9 @@ const Report = () => {
                 <div className='info-report-container'>
                     <ControlDate setStartDate={setStartDate} startDate={startDate} endDate={endDate} setEndDate={setEndDate}
                         handleChange={handleChange}
-                        handleGenerateReport={handleGenerateReport} outlet={outlet}
+                        handleGenerateReport={handleGenerateReport} 
+                        Outlet={Outlet}
+                        setOutlet={setOutlet}
                         handleSidebar={handleSidebar}
                         categories={categories}
                         categoryVoid={categoryVoid}

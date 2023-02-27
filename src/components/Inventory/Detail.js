@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Detailtable from "../Table/detailTable";
-
-const baseUrl = process.env.REACT_APP_BASE_URL;
+import Detailtable from "../Table/detailTable"
 
 const Detail = () => {
+  const baseUrl = process.env.REACT_APP_BASE_URL;
   const [list, setList] = useState([]);
   const [id, setID] = useState('');
   const [date, setDate] = useState("");
@@ -86,7 +85,7 @@ const Detail = () => {
         </div>
       </div>
 
-      <Detailtable list={list} outletName={outletName} />
+      <Detailtable list={list} outletName={outletName}/>
 
       <div className="flex justify-between items-center w-full">
         <div className="text-lg font-bold">

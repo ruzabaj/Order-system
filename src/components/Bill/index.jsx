@@ -6,12 +6,13 @@ import "../../scss/bill.scss";
 import "../../scss/FoodBeverage.scss";
 import "../../scss/filter.scss";
 import axios from 'axios';
-import BillTable from './BillTable';
-import BeverageTable from './BeverageTable';
-import Foodtable from './Foodtable';
+import BillShowTable from "./Table/BillShowTable";
 import ReactSidebar from './../ReactSidebar/index';
-import GroupTable from './Table/GroupTable';
 import Filter from '../Filter';
+// import BillTable from './BillTable';
+// import BeverageTable from './BeverageTable';
+// import Foodtable from './Foodtable';
+// import GroupTable from './Table/GroupTable';
 // import DatePicker from "react-datepicker";
 // import SelectSearchInput from "../SelectSearch";
 
@@ -62,6 +63,7 @@ const Bill = () => {
             "token": token
         })
             .then((response) => {
+                setShow(true)
                 setError(false)
                 setTotalInfo(response.data)
                 setOrder(response.data.orderDetails)
@@ -70,7 +72,6 @@ const Bill = () => {
                 setFoodBeverageSum(response.data.itemDetails.itemSum)
                 setBeverageGroup(response.data.itemDetails.beverageGroup)
                 setFoodGroup(response.data.itemDetails.foodGroup)
-                setShow(true)
             })
             .catch((error) => {
                 setError(true)
@@ -203,19 +204,7 @@ const Bill = () => {
                     <Filter startDate={startDate} setStartDate={setStartDate} selectedOutlet={selectedOutlet} setSelectedOutlet={setSelectedOutlet} endDate={endDate} setEndDate={setEndDate} view={viewBill} btn={"View"} />
 
                     {show &&
-                        <div className='bill-tables'>
-                            <BillTable order={order} totalInfo={totalInfo} selected={selectedOutlet} token={token} />
-                            <div className='food-beverage-table-width'>
-                                <div className='food-beverage-table'>
-                                    <Foodtable food={food} foodGroup={foodGroup} />
-                                    <BeverageTable beverage={beverage} beverageGroup={beverageGroup} />
-                                </div>
-                            </div>
-                            <div className='group-table-width'>
-                                <GroupTable Group={foodGroup} title={"Food"} />
-                                <GroupTable Group={beverageGroup} title={"Beverage"} />
-                            </div>
-                        </div>
+                        <BillShowTable order={order} totalInfo={totalInfo} selected={selectedOutlet} token={token} food={food} foodGroup={foodGroup} beverage={beverage} beverageGroup={beverageGroup} />
                     }
                     {error &&
                         <div>

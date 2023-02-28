@@ -1,5 +1,11 @@
 @import "./config";
-
+.select-search-select{
+    width: 300px !important;
+    // .select-search-options 
+    .select-search-row{
+        font-size: 9px !important;
+    }
+}
 .select-options {
     flex-direction: column;
     margin: 30px;

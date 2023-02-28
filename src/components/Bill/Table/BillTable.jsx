@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
-import ConvertDate from './convertDate';
-// import CalculateTotal from '../Charts/Piechart';
+import ConvertDate from '../convertDate';
 import { DownloadTableExcel } from 'react-export-table-to-excel';
 import axios from 'axios';
-import BillDetail from '../Modal/BillDetail';
+import BillDetail from '../../Modal/BillDetail';
 
 const BillTable = ({ order, totalInfo, selected, token }) => {
     let url = process.env.REACT_APP_BASE_URL;

@@ -8,7 +8,6 @@ import "../../scss/filter.scss";
 import axios from 'axios';
 import BillShowTable from "./Table/BillShowTable";
 import ReactSidebar from './../ReactSidebar/index';
-import Filter from '../Filter';
 // import BillTable from './BillTable';
 // import BeverageTable from './BeverageTable';
 // import Foodtable from './Foodtable';
@@ -219,7 +218,6 @@ const Bill = () => {
                                     <SelectSearchInput token={token} setToken={setToken} setSelectedOutlet={setSelectedOutlet} selectedOutlet={selectedOutlet} />
                                 </div>
                                 <div >
-                                    {/* <label>Bill No:</label> */}
                                     <input type="number" placeholder='Search by bill no.' className='bill-number' onChange={handleBillNumber} />
                                 </div>
                             </div>
@@ -241,12 +239,7 @@ const Bill = () => {
                                 <h6>{selectedOutlet}</h6>
                                 <SelectSearchInput token={token} setToken={setToken} setSelectedOutlet={setSelectedOutlet} selectedOutlet={selectedOutlet} />
                             </div>
-                            <div >
-                                <label>Bill No:</label>
-                                <div>
-                                    <input type="number" placeholder='Search by bill no.' className='bill-number' onChange={handleBillNumber} />
-                                </div>
-                            </div>
+
                             <div className='start-date'>
                                 <label className="">Start Date:</label>
                                 <DatePicker selected={startDate} dateFromat='YYYY-MM-DD' onChange={(date) => setStartDate(date)} className='date-picker' />
@@ -254,6 +247,12 @@ const Bill = () => {
                             <div className='end-date'>
                                 <label className="">End Date:</label>
                                 <DatePicker selected={endDate} dateFromat='yyyy-mm-dd' onChange={(date) => setEndDate(date)} className='date-picker' />
+                            </div>
+                            <div >
+                                <label>Bill No:</label>
+                                <div>
+                                    <input type="number" placeholder='Search by bill no.' className='bill-number' onChange={handleBillNumber} />
+                                </div>
                             </div>
                             <div className='btn-search-view'>
                                 <button
@@ -264,10 +263,9 @@ const Bill = () => {
                             </div>
                         </div>
                     </div>
-                    {/* <Filter startDate={startDate} setStartDate={setStartDate} selectedOutlet={selectedOutlet} setSelectedOutlet={setSelectedOutlet} endDate={endDate} setEndDate={setEndDate} view={viewBill} btn={"View"} /> */}
 
                     {show &&
-                        <BillShowTable order={order} totalInfo={totalInfo} selected={selectedOutlet} token={token} food={food} foodGroup={foodGroup} beverage={beverage} beverageGroup={beverageGroup} />
+                        <BillShowTable order={order} totalInfo={totalInfo} selectedOutlet={selectedOutlet} token={token} food={food} foodGroup={foodGroup} beverage={beverage} beverageGroup={beverageGroup} />
                     }
                     {error &&
                         <div>

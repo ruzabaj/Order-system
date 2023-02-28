@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import SelectSearch from 'react-select-search';
 import axios from "axios";
 
-const SelectSearchInput = ({ token, setToken, selectedOutlet, setSelectedOutlet, setOutlet }) => {
+const SelectSearchInput = ({ token, setToken, selectedOutlet, setSelectedOutlet}) => {
     let navigate = useNavigate();
     let url = process.env.REACT_APP_BASE_URL;
     const [listOutlet, setListOutlet] = useState([]);
@@ -18,15 +18,17 @@ const SelectSearchInput = ({ token, setToken, selectedOutlet, setSelectedOutlet,
     }, [])
 
     useEffect(() => {
-        axios.post(`${url}/outlets`, {
-            token: token
-        })
-            .then((response) => {
-                setListOutlet(response.data)
+        if (token) {
+            axios.post(`${url}/outlets`, {
+                token: token
             })
-            .catch((error) => {
-                console.log(error)
-            })
+                .then((response) => {
+                    setListOutlet(response.data)
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        }
     }, [token])
     return (
         <div className='select-search'>

@@ -12,15 +12,6 @@ const GroupTable = ({ Group, title }) => {
                         <th>Group :</th>
                         <th>Total:</th>
                     </tr>
-
-                    {/* {Group.map((food, index) => (
-                        <th>{food.groupName}</th>
-                    ))}
-                    <tbody>
-                        {Group.map((food, index) => (
-                            <th>{food.groupTotal}</th>
-                        ))}
-                    </tbody> */}
                     {Group.map((food, index) => (
                         <tr key={index}>
                             <td>{food.groupName}</td>

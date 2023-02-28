@@ -57,81 +57,86 @@ const Bill = () => {
         setSelectedOutlet(localStorage.getItem("outlet"))
     }, [])
     useEffect(() => {
-        axios.post(`${url}/saleshistory`, {
-            "outlet": `${selectedOutlet}`,
-            "dateStart": start,
-            "dateEnd": end,
-            "token": token
-        })
-            .then((response) => {
-                setShow(true)
-                setError(false)
-                setTotalInfo(response.data)
-                setOrder(response.data.orderDetails)
-                setFood(response.data.itemDetails.food)
-                setBeverage(response.data.itemDetails.beverage)
-                setFoodBeverageSum(response.data.itemDetails.itemSum)
-                setBeverageGroup(response.data.itemDetails.beverageGroup)
-                setFoodGroup(response.data.itemDetails.foodGroup)
+        if (selectedOutlet) {
+            axios.post(`${url}/saleshistory`, {
+                "outlet": `${selectedOutlet}`,
+                "dateStart": start,
+                "dateEnd": end,
+                "token": token
             })
-            .catch((error) => {
-                setError(true)
-                console.log(error)
+                .then((response) => {
+                    setShow(true)
+                    setError(false)
+                    setTotalInfo(response.data)
+                    setOrder(response.data.orderDetails)
+                    setFood(response.data.itemDetails.food)
+                    setBeverage(response.data.itemDetails.beverage)
+                    setFoodBeverageSum(response.data.itemDetails.itemSum)
+                    setBeverageGroup(response.data.itemDetails.beverageGroup)
+                    setFoodGroup(response.data.itemDetails.foodGroup)
+                })
+                .catch((error) => {
+                    setError(true)
+                    console.log(error)
+                })
+        }
+        if (selectedOutlet) {
+            axios.post(`${url}/summaryreport`, {
+                "outlet": `${selectedOutlet}`,
+                "dateStart": start,
+                "dateEnd": end,
+                "token": token
             })
-
-        axios.post(`${url}/summaryreport`, {
-            "outlet": `${selectedOutlet}`,
-            "dateStart": start,
-            "dateEnd": end,
-            "token": token
-        })
-            .then((response) => {
-                console.log(response)
-                setDineinTabs(response.data)
-                setPaymentStatus(response.data.paymentStats)
-            })
-            .catch((error) => {
-                console.log(error)
-            })
+                .then((response) => {
+                    console.log(response)
+                    setDineinTabs(response.data)
+                    setPaymentStatus(response.data.paymentStats)
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        }
     }, [selectedOutlet])
 
     const viewBill = () => {
-        axios.post(`${url}/saleshistory`, {
-            "outlet": `${selectedOutlet}`,
-            "dateStart": start,
-            "dateEnd": end,
-            "token": token
-        })
-            .then((response) => {
-                setError(false)
-                setTotalInfo(response.data)
-                setOrder(response.data.orderDetails)
-                setFood(response.data.itemDetails.food)
-                setBeverage(response.data.itemDetails.beverage)
-                setFoodBeverageSum(response.data.itemDetails.itemSum)
-                setBeverageGroup(response.data.itemDetails.beverageGroup)
-                setFoodGroup(response.data.itemDetails.foodGroup)
-                setShow(true)
-            })
-            .catch((error) => {
-                console.log(error)
-                setError(true)
-            })
 
-        axios.post(`${url}/summaryreport`, {
-            "outlet": `${selectedOutlet}`,
-            "dateStart": start,
-            "dateEnd": end,
-            "token": token
-        })
-            .then((response) => {
-                console.log(response)
-                setDineinTabs(response.data)
-                setPaymentStatus(response.data.paymentStats)
+        if (selectedOutlet) {
+            axios.post(`${url}/saleshistory`, {
+                "outlet": `${selectedOutlet}`,
+                "dateStart": start,
+                "dateEnd": end,
+                "token": token
             })
-            .catch((error) => {
-                console.log(error)
+                .then((response) => {
+                    setError(false)
+                    setTotalInfo(response.data)
+                    setOrder(response.data.orderDetails)
+                    setFood(response.data.itemDetails.food)
+                    setBeverage(response.data.itemDetails.beverage)
+                    setFoodBeverageSum(response.data.itemDetails.itemSum)
+                    setBeverageGroup(response.data.itemDetails.beverageGroup)
+                    setFoodGroup(response.data.itemDetails.foodGroup)
+                    setShow(true)
+                })
+                .catch((error) => {
+                    console.log(error)
+                    setError(true)
+                })
+
+            axios.post(`${url}/summaryreport`, {
+                "outlet": `${selectedOutlet}`,
+                "dateStart": start,
+                "dateEnd": end,
+                "token": token
             })
+                .then((response) => {
+                    setDineinTabs(response.data)
+                    setPaymentStatus(response.data.paymentStats)
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        }
     }
 
     const [billNumber, setBillNumber] = useState([]);
@@ -153,23 +158,47 @@ const Bill = () => {
 
     const handleBillNumber = (e) => {
         setBillno(e.target.value)
-        console.log(billno)
     }
     console.log("outside", typeof billno)
 
     useEffect(() => {
-        axios.post(`${url}/billsearch`, {
-            "outlet": `${selectedOutlet}`,
-            "billno": `${billno}`,
-            "token": token
-        })
-            .then((response) => {
-                setOrder(response.data)
-                console.log(response.data, "bill search")
+        if (billno === "") {
+            axios.post(`${url}/saleshistory`, {
+                "outlet": `${selectedOutlet}`,
+                "dateStart": start,
+                "dateEnd": end,
+                "token": token
             })
-            .catch((error) => {
-                console.log(error)
+                .then((response) => {
+                    setShow(true)
+                    setError(false)
+                    setTotalInfo(response.data)
+                    setOrder(response.data.orderDetails)
+                    setFood(response.data.itemDetails.food)
+                    setBeverage(response.data.itemDetails.beverage)
+                    setFoodBeverageSum(response.data.itemDetails.itemSum)
+                    setBeverageGroup(response.data.itemDetails.beverageGroup)
+                    setFoodGroup(response.data.itemDetails.foodGroup)
+                })
+                .catch((error) => {
+                    setError(true)
+                    console.log(error)
+                })
+        }
+        if (billno) {
+            axios.post(`${url}/billsearch`, {
+                "outlet": `${selectedOutlet}`,
+                "billno": `${billno}`,
+                "token": token
             })
+                .then((response) => {
+                    setOrder(response.data)
+                    console.log(response.data, "bill search")
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        }
     }, [billno])
 
     return (
@@ -191,7 +220,7 @@ const Bill = () => {
                                 </div>
                                 <div >
                                     {/* <label>Bill No:</label> */}
-                                    <input type="number" placeholder=' Bill No.' className='bill-number' onChange={handleBillNumber} />
+                                    <input type="number" placeholder='Search by bill no.' className='bill-number' onChange={handleBillNumber} />
                                 </div>
                             </div>
                             <div>
@@ -215,7 +244,7 @@ const Bill = () => {
                             <div >
                                 <label>Bill No:</label>
                                 <div>
-                                    <input type="number" placeholder=' Bill No.' className='bill-number' onChange={handleBillNumber} />
+                                    <input type="number" placeholder='Search by bill no.' className='bill-number' onChange={handleBillNumber} />
                                 </div>
                             </div>
                             <div className='start-date'>

@@ -10,8 +10,16 @@
     // border: 2px solid black;
     // width: calc(100% - 260px);
 }
-.content{
-    border: 1px solid rgb(0, 0, 0);
+.enter-bil-no{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.bill-number{
+    border: 1px solid #ccc;
+    height: 32px;
+    width: 300px;
+    outline: none;
 }
 .bill-tables{
     // border: 2px solid brown;
@@ -26,8 +34,9 @@
     overflow-x: auto;
     overflow-y: auto;
     margin: 30px 10px;
-
+    
     .table-bill {
+        width: 100%;
         td,
         tr,
         th {

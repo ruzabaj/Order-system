@@ -4,7 +4,6 @@ const ConvertDate = ({date}) => {
   const convertDate = new Date(date).toISOString().substring(0,10)
   return (
     <div key={date}> 
-    {console.log(convertDate, "cd")}
         {convertDate}
     </div>
   )

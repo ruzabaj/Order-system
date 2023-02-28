@@ -13,8 +13,8 @@ import Filter from '../Filter';
 // import BeverageTable from './BeverageTable';
 // import Foodtable from './Foodtable';
 // import GroupTable from './Table/GroupTable';
-// import DatePicker from "react-datepicker";
-// import SelectSearchInput from "../SelectSearch";
+import DatePicker from "react-datepicker";
+import SelectSearchInput from "../SelectSearch";
 
 const Bill = () => {
     let url = process.env.REACT_APP_BASE_URL;
@@ -35,6 +35,7 @@ const Bill = () => {
     const [paymentStatus, setPaymentStatus] = useState({});
     const [dineinTabs, setDineinTabs] = useState({});
     const [arrow, setArrow] = useState(false);
+    const [billno, setBillno] = useState("");
 
     const toggleArrow = () => {
         setArrow(!arrow)
@@ -150,21 +151,48 @@ const Bill = () => {
         })
     }, [order])
 
+    const handleBillNumber = (e) => {
+        setBillno(e.target.value)
+        console.log(billno)
+    }
+    console.log("outside", typeof billno)
+
+    useEffect(() => {
+        axios.post(`${url}/billsearch`, {
+            "outlet": `${selectedOutlet}`,
+            "billno": `${billno}`,
+            "token": token
+        })
+            .then((response) => {
+                setOrder(response.data)
+                console.log(response.data, "bill search")
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }, [billno])
+
     return (
         <div>
             <NavbarHome arrow={arrow} />
             <div className='sidebar-container'>
                 <ReactSidebar dineinTabs={dineinTabs} paymentStatus={paymentStatus} toggleArrow={toggleArrow} arrow={arrow} startBillNum={startBillNum} endBillNum={endBillNum} FoodBeverageSum={FoodBeverageSum} />
                 <div className={'container main-content'}>
-                    {/* <div className='select-options '>
+                    <div className='select-options '>
                         <div className="date-picker-outlet">
                             <div>
                                 <label className="">Start Date:</label>
                                 <DatePicker selected={startDate} dateFromat='YYYY-MM-DD' onChange={(date) => setStartDate(date)} className='date-picker' />
                             </div>
-                            <div>
-                                <h6>{selectedOutlet}</h6>
-                                <SelectSearchInput token={token} setToken={setToken} setSelectedOutlet={setSelectedOutlet} selectedOutlet={selectedOutlet} />
+                            <div className='enter-bil-no'>
+                                <div>
+                                    <h6>{selectedOutlet}</h6>
+                                    <SelectSearchInput token={token} setToken={setToken} setSelectedOutlet={setSelectedOutlet} selectedOutlet={selectedOutlet} />
+                                </div>
+                                <div >
+                                    {/* <label>Bill No:</label> */}
+                                    <input type="number" placeholder=' Bill No.' className='bill-number' onChange={handleBillNumber} />
+                                </div>
                             </div>
                             <div>
                                 <label className="">End Date:</label>
@@ -184,6 +212,12 @@ const Bill = () => {
                                 <h6>{selectedOutlet}</h6>
                                 <SelectSearchInput token={token} setToken={setToken} setSelectedOutlet={setSelectedOutlet} selectedOutlet={selectedOutlet} />
                             </div>
+                            <div >
+                                <label>Bill No:</label>
+                                <div>
+                                    <input type="number" placeholder=' Bill No.' className='bill-number' onChange={handleBillNumber} />
+                                </div>
+                            </div>
                             <div className='start-date'>
                                 <label className="">Start Date:</label>
                                 <DatePicker selected={startDate} dateFromat='YYYY-MM-DD' onChange={(date) => setStartDate(date)} className='date-picker' />
@@ -200,8 +234,8 @@ const Bill = () => {
                                 </button>
                             </div>
                         </div>
-                    </div> */}
-                    <Filter startDate={startDate} setStartDate={setStartDate} selectedOutlet={selectedOutlet} setSelectedOutlet={setSelectedOutlet} endDate={endDate} setEndDate={setEndDate} view={viewBill} btn={"View"} />
+                    </div>
+                    {/* <Filter startDate={startDate} setStartDate={setStartDate} selectedOutlet={selectedOutlet} setSelectedOutlet={setSelectedOutlet} endDate={endDate} setEndDate={setEndDate} view={viewBill} btn={"View"} /> */}
 
                     {show &&
                         <BillShowTable order={order} totalInfo={totalInfo} selected={selectedOutlet} token={token} food={food} foodGroup={foodGroup} beverage={beverage} beverageGroup={beverageGroup} />

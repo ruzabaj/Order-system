@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../Navbar'
-import DatePicker from "react-datepicker";
+import NavbarHome from '../Navbar/NavbarHome'
 import "react-datepicker/dist/react-datepicker.css";
 import "../../scss/bill.scss";
 import "../../scss/FoodBeverage.scss";
@@ -12,7 +11,9 @@ import BeverageTable from './BeverageTable';
 import Foodtable from './Foodtable';
 import ReactSidebar from './../ReactSidebar/index';
 import GroupTable from './Table/GroupTable';
-import SelectSearchInput from "../SelectSearch";
+import Filter from '../Filter';
+// import DatePicker from "react-datepicker";
+// import SelectSearchInput from "../SelectSearch";
 
 const Bill = () => {
     let url = process.env.REACT_APP_BASE_URL;
@@ -20,6 +21,7 @@ const Bill = () => {
     const [endDate, setEndDate] = useState(new Date());
     const [selectedOutlet, setSelectedOutlet] = useState("");
     const [token, setToken] = useState("");
+
     const [order, setOrder] = useState([]);
     const [food, setFood] = useState([]);
     const [beverage, setBeverage] = useState([]);
@@ -34,7 +36,6 @@ const Bill = () => {
     const [arrow, setArrow] = useState(false);
 
     const toggleArrow = () => {
-        console.log("before", arrow)
         setArrow(!arrow)
         console.log("after", arrow)
     }
@@ -72,8 +73,8 @@ const Bill = () => {
                 setShow(true)
             })
             .catch((error) => {
-                console.log(error)
                 setError(true)
+                console.log(error)
             })
 
         axios.post(`${url}/summaryreport`, {
@@ -150,18 +151,18 @@ const Bill = () => {
 
     return (
         <div>
-            <Navbar />
+            <NavbarHome arrow={arrow} />
             <div className='sidebar-container'>
                 <ReactSidebar dineinTabs={dineinTabs} paymentStatus={paymentStatus} toggleArrow={toggleArrow} arrow={arrow} startBillNum={startBillNum} endBillNum={endBillNum} FoodBeverageSum={FoodBeverageSum} />
                 <div className={'container main-content'}>
-                    <div className='select-options '>
+                    {/* <div className='select-options '>
                         <div className="date-picker-outlet">
                             <div>
                                 <label className="">Start Date:</label>
                                 <DatePicker selected={startDate} dateFromat='YYYY-MM-DD' onChange={(date) => setStartDate(date)} className='date-picker' />
                             </div>
                             <div>
-                                <h3>{selectedOutlet}</h3>
+                                <h6>{selectedOutlet}</h6>
                                 <SelectSearchInput token={token} setToken={setToken} setSelectedOutlet={setSelectedOutlet} selectedOutlet={selectedOutlet} />
                             </div>
                             <div>
@@ -179,7 +180,7 @@ const Bill = () => {
 
                         <div className="date-picker-outlet-sm">
                             <div>
-                                <h3>{selectedOutlet}</h3>
+                                <h6>{selectedOutlet}</h6>
                                 <SelectSearchInput token={token} setToken={setToken} setSelectedOutlet={setSelectedOutlet} selectedOutlet={selectedOutlet} />
                             </div>
                             <div className='start-date'>
@@ -198,28 +199,29 @@ const Bill = () => {
                                 </button>
                             </div>
                         </div>
+                    </div> */}
+                    <Filter startDate={startDate} setStartDate={setStartDate} selectedOutlet={selectedOutlet} setSelectedOutlet={setSelectedOutlet} endDate={endDate} setEndDate={setEndDate} view={viewBill} btn={"View"} />
 
-                        {show &&
-                            <div>
-                                <BillTable order={order} totalInfo={totalInfo} selected={selectedOutlet} token={token}/>
-                                <div className='food-beverage-table-width'>
-                                    <div className='food-beverage-table'>
-                                        <Foodtable food={food} foodGroup={foodGroup} />
-                                        <BeverageTable beverage={beverage} beverageGroup={beverageGroup} />
-                                    </div>
-                                </div>
-                                <div className='group-table-width'>
-                                    <GroupTable Group={foodGroup} title={"Food"} />
-                                    <GroupTable Group={beverageGroup} title={"Beverage"} />
+                    {show &&
+                        <div className='bill-tables'>
+                            <BillTable order={order} totalInfo={totalInfo} selected={selectedOutlet} token={token} />
+                            <div className='food-beverage-table-width'>
+                                <div className='food-beverage-table'>
+                                    <Foodtable food={food} foodGroup={foodGroup} />
+                                    <BeverageTable beverage={beverage} beverageGroup={beverageGroup} />
                                 </div>
                             </div>
-                        }
-                        {error &&
-                            <div>
-                                <p>An error occured!!</p>
+                            <div className='group-table-width'>
+                                <GroupTable Group={foodGroup} title={"Food"} />
+                                <GroupTable Group={beverageGroup} title={"Beverage"} />
                             </div>
-                        }
-                    </div>
+                        </div>
+                    }
+                    {error &&
+                        <div>
+                            <p>An error occured!!</p>
+                        </div>
+                    }
                 </div>
             </div>
         </div>

@@ -17,9 +17,7 @@ const BillTable = ({ order, totalInfo, selected, token }) => {
     const [billInfoList, setBillInfoList] = useState([])
 
     const handleCheckbox = () => {
-        console.log("handle check box", isChecked)
         setIsChecked(!isChecked)
-        console.log(isChecked)
     }
 
     let SubTotal = [];

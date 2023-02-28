@@ -1,18 +1,44 @@
 @import "./config";
 
+.navbar {
+    height: auto;
+    background-color: $btn-seen;
+    // width: calc(100vw + 250px);
+    // border: 2px solid green;
+}
+
+.navbar-new {
+    height: auto;
+    background-color: $btn-seen;
+    width: 100%
+}
+
+.navbar-open {
+    width: calc(100vw + 12%) !important;
+    height: auto;
+    background-color: $btn-seen;
+    // border: 2px solid red;
+}
+
 nav {
+    padding: 10px;
+    height: 100%;
     display: flex;
+    width: 100%;
     align-items: center;
     justify-content: center;
-    background-color: $btn-seen;
-    height: 90px;
+
+    .top,
+    .bottom {
+        display: flex;
+    }
 
     .navbar-icons {
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin: 5px 30px;
-        padding-left: -5px;
+        margin: 5px 20px;
+        // padding-left: -5px;
 
         .nav-icon {
             width: 30px;
@@ -37,21 +63,47 @@ nav {
     color: white;
 }
 
-@media screen and (max-width:768px) {
-    nav {
-        width: 100vw;
-        display: flex;
-        align-items: center;
+@media screen and (max-width:989px) {
 
-        // justify-content: space-around;
+    .navbar-icons {
+        margin: 5px 10px !important;
+
+        label {
+            margin: 0px 0px !important;
+            color: $secondary-color;
+        }
+    }
+}
+
+@media screen and (min-width:986px) {
+    .navbar-open {
+        width: 100% !important;
+        // border: 2px solid yellow;
+    }
+
+    .nav-icon {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+@media screen and (max-width:768px) {
+    .navbar {
+        width: calc(100vw + 250px);
+    }
+
+    nav {
+        flex-direction: column;
+
         .navbar-icons {
             margin: 5px 0px;
 
-            .nav-icon {
-                width: 20px;
-                height: 20px;
-            }
         }
+    }
+
+    .nav-icon {
+        width: 20px;
+        height: 20px;
     }
 }
 

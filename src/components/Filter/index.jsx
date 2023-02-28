@@ -44,7 +44,7 @@ const FIlter = ({ view, btn, startDate, setStartDate, endDate, setEndDate, selec
 
             <div className="date-picker-outlet-sm">
                 <div>
-                    <h3>{selectedOutlet}</h3>
+                    <h6>{selectedOutlet}</h6>
                     <SelectSearchInput token={token} setToken={setToken} setSelectedOutlet={setSelectedOutlet} selectedOutlet={selectedOutlet} />
                 </div>
                 <div className='start-date'>

@@ -12,7 +12,8 @@ import { IoPeopleOutline } from "react-icons/io5";
 import { TbReportSearch, TbZoomMoney, TbTimeline, TbToolsKitchen, TbCalendarTime } from "react-icons/tb";
 import { ImStatsDots } from "react-icons/im";
 import { MdOutlineInventory } from "react-icons/md";
-const Navbar = ({arrow}) => {
+
+const NavbarHome = ({arrow}) => {
     let navigate = useNavigate();
 
     const logoutUser = () => {
@@ -22,7 +23,7 @@ const Navbar = ({arrow}) => {
     }
     return (
         //close huda false sidebar
-        <div className={'navbar-new'}>
+        <div className={arrow?'navbar-open':'navbar'}>
             <nav>
                 <div className='top'>
                     <Link to="/bill">
@@ -89,4 +90,4 @@ const Navbar = ({arrow}) => {
     )
 }
 
-export default Navbar
+export default NavbarHome

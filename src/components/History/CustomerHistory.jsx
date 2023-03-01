@@ -42,9 +42,7 @@ const CustomerHistory = ({ customerHistory, discountTotal, totalSum, selectedOut
     }
     return (
         <div className="table-customer-history">
-            <div className=''>
                 <h6 className=''>Customer History</h6>
-            </div>
             <div className="table-history-responsive">
                 <table className="table-customer">
                     <thead>

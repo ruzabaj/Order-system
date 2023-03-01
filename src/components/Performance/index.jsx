@@ -22,9 +22,9 @@ const Performance = () => {
     const [monthlyTotal, setMonthlyTotal] = useState([])
     const [chartShow, setshowChart] = useState(false)
 
-    let monthTotal= useRef(monthlyLabel)
-    console.log("Month Total",monthTotal)
-    console.log("Month Total Current",monthTotal.current)
+    // let monthTotal= useRef(monthlyLabel)
+    // console.log("Month Total",monthTotal)
+    // console.log("Month Total Current",monthTotal.current)
 
     useEffect(() => {
         let tokenCheck = localStorage.getItem("token");
@@ -53,7 +53,6 @@ const Performance = () => {
     const showChart = () => {
         setshowChart(true)
         if (selectedOutlet) {
-            console.log("inside year")
             axios.post(`${url}/chartsummary`, {
                 outlet: `${selectedOutlet}`,
                 date: `${selectedYear}`,

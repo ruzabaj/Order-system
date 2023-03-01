@@ -12,7 +12,7 @@ const SidebarPro = ({ dineinTabs, paymentStatus, startBillNum, endBillNum, FoodB
 
     const checkNan= (sales)=>{
         if(sales){
-            let value = parseFloat(sales).toLocaleString(undefined, { maximumFractionDigits: 3 });
+            let value = parseInt(sales).toLocaleString(undefined, { maximumFractionDigits: 3 });
             return value
         }
         else{

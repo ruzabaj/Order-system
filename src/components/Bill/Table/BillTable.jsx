@@ -4,7 +4,7 @@ import { DownloadTableExcel } from 'react-export-table-to-excel';
 import axios from 'axios';
 import BillDetail from '../../Modal/BillDetail';
 
-const BillTable = ({ order, totalInfo, selectedOutlet, token }) => {
+const BillTable = ({ order, totalInfo, selected, token }) => {
     let url = process.env.REACT_APP_BASE_URL;
     const [isChecked, setIsChecked] = useState(true);
     const [totalSubUnit, setTotalSubUnit] = useState("");
@@ -52,7 +52,7 @@ const BillTable = ({ order, totalInfo, selectedOutlet, token }) => {
         axios.post(`${url}/billinfo`, {
             bill_no: `${bill}`,
             Date: `${convertDate}`,
-            Outlet_Name: `${selectedOutlet}`,
+            Outlet_Name: `${selected}`,
             token: `${token}`
         })
             .then((response) => {
@@ -113,7 +113,7 @@ const BillTable = ({ order, totalInfo, selectedOutlet, token }) => {
                     </tr>
                 </table>
             </div>
-            <BillDetail billInfo={billInfo} billInfoList={billInfoList} selectedOutlet={selectedOutlet}/>
+            <BillDetail billInfo={billInfo} billInfoList={billInfoList} selected={selected}/>
         </div>
     )
 }

@@ -43,9 +43,6 @@ const ControlDate = ({ startDate, Outlet, setOutlet, categories, endDate, handle
                 <Filter startDate={startDate} setStartDate={setStartDate} selectedOutlet={Outlet} setSelectedOutlet={setOutlet} endDate={endDate} setEndDate={setEndDate} view={handleGenerateReport} btn={"Report"}/>
             </div>
             <div className='btn-report'>
-                {/* <button type='submit' onClick={handleGenerateReport} className="btn-generate-report">
-                    Generate Report
-                </button> */}
                 <Sidebar handleSidebar={handleSidebar} categories={categories} categoryVoid={categoryVoid} />
             </div>
             {/* <Context>

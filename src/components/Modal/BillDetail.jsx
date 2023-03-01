@@ -2,14 +2,14 @@ import React from 'react'
 import "../../scss/bill.scss";
 import "../../scss/History/modal.scss";
 
-const BillDetail = ({ billInfoList, billInfo, selectedOutlet }) => {
+const BillDetail = ({ billInfoList, billInfo, selected }) => {
     return (
         <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog">
                 <div className="modal-content">
                     <div className="modal-header">
                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        <h5 className="modal-title" id="exampleModalLabel">{selectedOutlet}</h5>
+                        <h5 className="modal-title" id="exampleModalLabel">{selected}</h5>
                     </div>
                     <div className="modal-body">
                         <table className='modal-bill-info-table'>

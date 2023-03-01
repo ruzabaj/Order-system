@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import NavbarHome from '../Navbar/NavbarHome'
 import "react-datepicker/dist/react-datepicker.css";
@@ -7,11 +7,13 @@ import "../../scss/FoodBeverage.scss";
 import "../../scss/filter.scss";
 import axios from 'axios';
 import BillShowTable from "./Table/BillShowTable";
-import ReactSidebar from './../ReactSidebar/index';
+import ReactSidebar from '../ReactSidebar';
+import Error from '../Error';
 // import BillTable from './BillTable';
 // import BeverageTable from './BeverageTable';
 // import Foodtable from './Foodtable';
 // import GroupTable from './Table/GroupTable';
+// import FilterLg from './../Filter/FilterLg';
 import DatePicker from "react-datepicker";
 import SelectSearchInput from "../SelectSearch";
 
@@ -52,9 +54,10 @@ const Bill = () => {
         } else {
             setToken(localStorage.getItem("token"))
         }
-
         setSelectedOutlet(localStorage.getItem("outlet"))
     }, [])
+
+    
     useEffect(() => {
         if (selectedOutlet) {
             axios.post(`${url}/saleshistory`, {
@@ -78,8 +81,7 @@ const Bill = () => {
                     setError(true)
                     console.log(error)
                 })
-        }
-        if (selectedOutlet) {
+        
             axios.post(`${url}/summaryreport`, {
                 "outlet": `${selectedOutlet}`,
                 "dateStart": start,
@@ -98,7 +100,6 @@ const Bill = () => {
     }, [selectedOutlet])
 
     const viewBill = () => {
-
         if (selectedOutlet) {
             axios.post(`${url}/saleshistory`, {
                 "outlet": `${selectedOutlet}`,
@@ -158,7 +159,6 @@ const Bill = () => {
     const handleBillNumber = (e) => {
         setBillno(e.target.value)
     }
-    console.log("outside", typeof billno)
 
     useEffect(() => {
         if (billno === "") {
@@ -233,7 +233,7 @@ const Bill = () => {
                                 </button>
                             </div>
                         </div>
-
+                        {/* <FilterLg startDate={startDate} token={token} setToken={setToken} setSelectedOutlet={setSelectedOutlet} selectedOutlet={selectedOutlet} setStartDate={setStartDate} setEndDate={setEndDate} viewBill={viewBill} handleBillNumber={handleBillNumber}/> */}
                         <div className="date-picker-outlet-sm">
                             <div>
                                 <h6>{selectedOutlet}</h6>
@@ -265,12 +265,10 @@ const Bill = () => {
                     </div>
 
                     {show &&
-                        <BillShowTable order={order} totalInfo={totalInfo} selectedOutlet={selectedOutlet} token={token} food={food} foodGroup={foodGroup} beverage={beverage} beverageGroup={beverageGroup} />
+                        <BillShowTable order={order} totalInfo={totalInfo} selected={selectedOutlet} token={token} food={food} foodGroup={foodGroup} beverage={beverage} beverageGroup={beverageGroup} />
                     }
                     {error &&
-                        <div>
-                            <p>An error occured!!</p>
-                        </div>
+                        <Error/>
                     }
                 </div>
             </div>

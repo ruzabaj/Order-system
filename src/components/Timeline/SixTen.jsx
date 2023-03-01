@@ -3,7 +3,7 @@ import React from 'react'
 const SixTen = ({ sixTen }) => {
     return (
         <div className='time-stamp'>
-            <label className='late'>6PM- 10PM</label>
+            <label className='late'>6PM- 10PM <span>&#8594;{sixTen.pct + "%"}</span></label>
             <p>{sixTen.total_count} X <span>{sixTen.total_sales}</span></p>
             <div className='numbers'>
                 <p><span>Dine-In : </span> {sixTen.dinein_sales === 'None' ? "-" : <>{sixTen.dinein_count} X {sixTen.dinein_sales}</>}</p>

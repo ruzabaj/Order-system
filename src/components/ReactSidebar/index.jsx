@@ -1,5 +1,5 @@
 import React from 'react'
-import { ProSidebarProvider } from 'react-pro-sidebar';
+import {ProSidebarProvider} from 'react-pro-sidebar';
 import SidebarPro from './SidebarPro';
 import "../../scss/reactSidebar.scss";
 

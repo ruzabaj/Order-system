@@ -1,6 +1,8 @@
 import React from 'react'
+import { DatePicker } from 'react-datepicker';
+import SelectSearchInput from './../SelectSearch/index';
 
-const FilterLg = () => {
+const FilterLg = ({startDate, endDate, setStartDate, setEndDate, token, setToken, selectedOutlet, setSelectedOutlet, handleBillNumber, viewBill}) => {
     return (
         <div className="date-picker-outlet">
             <div>

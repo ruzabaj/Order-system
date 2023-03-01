@@ -4,10 +4,10 @@ import Foodtable from './Foodtable';
 import BeverageTable from './BeverageTable';
 import GroupTable from './GroupTable';
 
-const BillShowTable = ({food, beverage,     foodGroup, beverageGroup, order,totalInfo, selectedOutlet, token }) => {
+const BillShowTable = ({food, beverage,foodGroup, beverageGroup, order,totalInfo, selected, token }) => {
     return (
         <div className='bill-tables'>
-            <BillTable order={order} totalInfo={totalInfo} selectedOutlet={selectedOutlet} token={token}/>
+            <BillTable order={order} totalInfo={totalInfo} selected={selected} token={token}/>
             <div className='food-beverage-table-width'>
                 <div className='food-beverage-table'>
                     <Foodtable food={food} foodGroup={foodGroup} />

@@ -6,8 +6,10 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import CollapsableButton from "./collapsableButton";
 import Navbar from "../Navbar";
+import SelectSearchInput from "./../SelectSearch/index";
 // import { useDispatch, useSelector } from "react-redux";
 // import { callApi } from "../actions";
+// import SelectSearchInput from './../SelectSearch/index';
 
 export const storeContext = createContext();
 
@@ -16,6 +18,8 @@ const Url = process.env.REACT_APP_BASE_URL;
 const Front = () => {
   // const state = useSelector(state => state.Home)
   // let dispatch = useDispatch();
+  const [token, setToken] = useState("");
+  const [outletSelected, setOutletSelected] = useState("");
 
   const [data, setData] = useState([]);
   const [inputValue, setInputValue] = useState("");
@@ -25,14 +29,19 @@ const Front = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const location = useLocation();
-  const locationHash = location.hash;
-  var str = locationHash.substring(1);
-  let outlet = decodeURI(str)
+  // const locationHash = location.hash;
+  // var str = locationHash.substring(1);
+  // let outlet = decodeURI(str)
 
   useEffect(() => {
-    getHome(dateToday, outlet);
+    setToken(localStorage.getItem("token"))
+  }, [])
+
+  useEffect(() => {
+    getHome(dateToday, outletSelected);
   }, [dateToday])
 
+  console.log(outletSelected, "selected outlet in inventory")
   // const showHome = () => {
   //   dispatch(
   //     callApi()
@@ -41,9 +50,9 @@ const Front = () => {
   let start = startDate.toISOString().slice(0, 10)
   let end = endDate.toISOString().slice(0, 10)
 
-  useEffect(() => {
-    localStorage.setItem('outlet-name', locationHash)
-  }, [start, end])
+  // useEffect(() => {
+  //   localStorage.setItem('outlet-name', locationHash)
+  // }, [start, end])
 
   let navigate = useNavigate();
   let path = '/detail/:start/:end'
@@ -61,9 +70,9 @@ const Front = () => {
         setSearchParams({ firsttime: start, secondtime: end, outletName: searchOutletName })
       }
       else {
-        const result = await axios.get(`${Url}/reqfilterfirst/?secondtime=${end}&firsttime=${start}&outlet_name=${outlet}`)
+        const result = await axios.get(`${Url}/reqfilterfirst/?secondtime=${end}&firsttime=${start}&outlet_name=${outletSelected}`)
         setData(result.data.purchaserequisition)
-        setSearchParams({ firsttime: start, secondtime: end, outletName: outlet })
+        setSearchParams({ firsttime: start, secondtime: end, outletName: outletSelected })
       }
     }
     catch (error) {
@@ -78,14 +87,14 @@ const Front = () => {
   let searchSecondDate = searchParams.get('secondtime')
   let searchOutletName = searchParams.get('outletName')
 
-  const getHome = async (dateToday, outlet) => {
+  const getHome = async (dateToday, outletSelected) => {
     try {
       if (location.search !== '') {
         const result = await axios.get(`${Url}/reqfilterfirst/?secondtime=${searchSecondDate}&firsttime=${searchFirstDate}&outlet_name=${searchOutletName}`)
         setData(result.data.purchaserequisition)
       }
       else {
-        const result = await axios.get(`${Url}/reqfilterfirst/?secondtime=${dateToday}&firsttime=${dateToday}&outlet_name=${outlet}`)
+        const result = await axios.get(`${Url}/reqfilterfirst/?secondtime=${dateToday}&firsttime=${dateToday}&outlet_name=${outletSelected}`)
         setData(result.data.purchaserequisition);
       }
     }
@@ -167,9 +176,13 @@ const Front = () => {
           </h1>
           :
           <h1 className="text-lg text-center font-medium font-poppins md:text-xl">
-            {outlet}
+            {outletSelected}
           </h1>
         }
+        <div className="text-center">
+          <SelectSearchInput token={token} setToken={setToken} selectedOutlet={outletSelected} setSelectedOutlet={setOutletSelected} />
+        </div>
+
         <CollapsableButton DatePicker={DatePicker} dateToday={dateToday} startDate={startDate} setStartDate={setStartDate} endDate={endDate} setEndDate={setEndDate} handleDate={handleDate} inputValue={inputValue} handleInputChange={handleInputChange} viewReport={viewReport} />
         <div className="hidden md:flex border-2 border-slate-500 w-full justify-between my-4 mx-2 ">
           <div className="flex items-center md:flex-row">
@@ -215,7 +228,7 @@ const Front = () => {
             </div>
           </div>
         </div>
-        <Hometable handleChange={handleChange} data={data} props={outlet} />
+        <Hometable handleChange={handleChange} data={data} props={outletSelected} />
         <div className="w-full h-18 my-2">
           <div className="flex w-48 md:w-1/2 justify-between">
             <p className="font-medium font-poppins text-lg px-3">

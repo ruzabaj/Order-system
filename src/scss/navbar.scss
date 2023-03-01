@@ -20,6 +20,16 @@
     // border: 2px solid red;
 }
 
+// .navbar-icons :hover {
+//     color: $bg-timesales;
+// }
+.navbar-icons :focus, .navbar-icons :target .navbar-icons:focus-within , .navbar-icons :visited{
+    color: $add-on !important;
+}
+.navbar-icons :active{
+    color: $add-on !important;
+}
+
 nav {
     padding: 10px;
     height: 100%;
@@ -108,6 +118,7 @@ nav {
             margin: 0px 4px;
         }
     }
+
     .nav-icon {
         width: 15px !important;
         height: 15x !important;

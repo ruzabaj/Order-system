@@ -8,7 +8,7 @@ const TotalSale = ({totalSaleSummary}) => {
     <p><span>Total PAX : </span>{totalSaleSummary.totalPax} </p>
     <p><span>Total Net Sale : </span>{totalSaleSummary.totalNetSales} </p>
     <p><span>Total Dine-In : </span>{totalSaleSummary.TotalDineIn} </p>
-    <p><span>Total Tab : </span>{totalSaleSummary.TotalOrder} </p>
+    <p><span>Total Order : </span>{totalSaleSummary.TotalTab} </p>
     <p><span>Revenue Per Guest : </span>{revenuePerGuest.toFixed(2)} </p>
 </div>
   )

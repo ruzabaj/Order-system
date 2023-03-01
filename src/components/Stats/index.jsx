@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { useEffect } from 'react';
 import Navbar from '../Navbar'
 import axios from "axios";
 import subDays from 'date-fns/subDays';

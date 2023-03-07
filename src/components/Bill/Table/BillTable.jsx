@@ -4,7 +4,7 @@ import { DownloadTableExcel } from 'react-export-table-to-excel';
 import axios from 'axios';
 import BillDetail from '../../Modal/BillDetail';
 
-const BillTable = ({ order, totalInfo, selected, token }) => {
+const BillTable = ({ order, isOrder, totalInfo, selected, token }) => {
     let url = process.env.REACT_APP_BASE_URL;
     const [isChecked, setIsChecked] = useState(true);
     const [totalSubUnit, setTotalSubUnit] = useState("");
@@ -89,32 +89,34 @@ const BillTable = ({ order, totalInfo, selected, token }) => {
                         <th>Guest Name</th>
                     </tr>
 
-                    {!order?.error && 
-                    order.map((item, index) => (
-                        <tr key={index}>
-                            <td className='no-wrap'><ConvertDate date={item.Date} /></td>
-                            <td><button type="button" className="btn " data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => handleBillInfo(item.bill_no, item.Date)}>{item.bill_no}</button></td>
-                            <td>{item.DiscountAmt}</td>
-                            <td> {isChecked ? item.Subtotal : showSubTotal[index]}</td>
-                            <td> {isChecked ? item.serviceCharge : showServiceCharge[index]}</td>
-                            <td>{item.VAT}</td>
-                            <td>{item.Total}</td>
-                            <td className='no-wrap'>{item.PaymentMode}</td>
-                            <td>{item.GuestName}</td>
+                    {!order?.error &&
+                        order.map((item, index) => (
+                            <tr key={index}>
+                                <td className='no-wrap'><ConvertDate date={item.Date} /></td>
+                                <td><button type="button" className="btn " data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => handleBillInfo(item.bill_no, item.Date)}>{item.bill_no}</button></td>
+                                <td>{item.DiscountAmt}</td>
+                                <td> {isChecked ? item.Subtotal : showSubTotal[index]}</td>
+                                <td> {isChecked ? item.serviceCharge : showServiceCharge[index]}</td>
+                                <td>{item.VAT}</td>
+                                <td>{item.Total}</td>
+                                <td className='no-wrap'>{item.PaymentMode}</td>
+                                <td>{item.GuestName}</td>
+                            </tr>
+                        ))}
+                    {isOrder &&
+                        <tr>
+                            <td><span className='detail-info'>Total:</span></td>
+                            <td> <span className='detail-info'>{totalInfo.TotalOrders}</span></td>
+                            <td><span className='detail-info'>{totalInfo.DiscountAmountSum}</span></td>
+                            <td> <span className='detail-info'>{isChecked ? totalInfo.SubtotalAmountSum : totalSubUnit}</span></td>
+                            <td> <span className='detail-info'>{isChecked ? totalInfo.ServiceChargeSum : ServiceSum}</span></td>
+                            <td> <span className='detail-info'>{totalInfo.VatSum}</span></td>
+                            <td><span className='detail-info'>{totalInfo.TotalSum}</span></td>
                         </tr>
-                    ))}
-                    <tr>
-                        <td><span className='detail-info'>Total:</span></td>
-                        <td> <span className='detail-info'>{totalInfo.TotalOrders}</span></td>
-                        <td><span className='detail-info'>{totalInfo.DiscountAmountSum}</span></td>
-                        <td> <span className='detail-info'>{isChecked ? totalInfo.SubtotalAmountSum : totalSubUnit}</span></td>
-                        <td> <span className='detail-info'>{isChecked ? totalInfo.ServiceChargeSum : ServiceSum}</span></td>
-                        <td> <span className='detail-info'>{totalInfo.VatSum}</span></td>
-                        <td><span className='detail-info'>{totalInfo.TotalSum}</span></td>
-                    </tr>
+                    }
                 </table>
             </div>
-            <BillDetail billInfo={billInfo} billInfoList={billInfoList} selected={selected}/>
+            <BillDetail billInfo={billInfo} billInfoList={billInfoList} selected={selected} />
         </div>
     )
 }

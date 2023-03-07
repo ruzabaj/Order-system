@@ -25,6 +25,7 @@ const Bill = () => {
     const [token, setToken] = useState("");
 
     const [order, setOrder] = useState([]);
+    const [isOrder, setIsOrder] = useState(true);
     const [food, setFood] = useState([]);
     const [beverage, setBeverage] = useState([]);
     const [beverageGroup, setBeverageGroup] = useState([]);
@@ -157,6 +158,7 @@ const Bill = () => {
 
     const handleBillNumber = (e) => {
         setBillno(e.target.value)
+        setIsOrder(false)
     }
 
     useEffect(() => {
@@ -190,6 +192,7 @@ const Bill = () => {
                 "token": token
             })
                 .then((response) => {
+                    setIsOrder(false)
                     setOrder(response.data)
                     console.log(response.data, "bill search")
                 })
@@ -264,7 +267,7 @@ const Bill = () => {
                     </div>
 
                     {show &&
-                        <BillShowTable order={order} totalInfo={totalInfo} selected={selectedOutlet} token={token} food={food} foodGroup={foodGroup} beverage={beverage} beverageGroup={beverageGroup} />
+                        <BillShowTable order={order} isOrder={isOrder} totalInfo={totalInfo} selected={selectedOutlet} token={token} food={food} foodGroup={foodGroup} beverage={beverage} beverageGroup={beverageGroup} />
                     }
                     {error &&
                         <Error />

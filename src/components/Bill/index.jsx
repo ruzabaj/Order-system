@@ -37,9 +37,7 @@ const Bill = () => {
     const [dineinTabs, setDineinTabs] = useState({});
     const [arrow, setArrow] = useState(false);
     const [billno, setBillno] = useState("");
-    // const [isError, setIsError]= useState({
 
-    // })
     const toggleArrow = () => {
         setArrow(!arrow)
     }

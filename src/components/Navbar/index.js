@@ -6,6 +6,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import "../../scss/navbar.scss";
 import { AiOutlineHistory } from "react-icons/ai";
+import { BiCreditCardFront } from "react-icons/bi";
 import { Link, useNavigate } from 'react-router-dom';
 import { FiRefreshCcw } from "react-icons/fi";
 import { IoPeopleOutline } from "react-icons/io5";
@@ -67,6 +68,12 @@ const Navbar = ({arrow}) => {
                         <div className='navbar-icons'>
                             <TbCalendarTime className='nav-icon' />
                             <label>Performance</label>
+                        </div>
+                    </Link>
+                    <Link to="/credit">
+                        <div className='navbar-icons'>
+                            <BiCreditCardFront className='nav-icon' />
+                            <label>Credit center</label>
                         </div>
                     </Link>
                     <Link to="/inventory">

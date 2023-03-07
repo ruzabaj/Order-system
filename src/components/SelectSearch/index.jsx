@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import SelectSearch from 'react-select-search';
 import axios from "axios";
 
-const SelectSearchInput = ({ token,setToken, selectedOutlet, setSelectedOutlet}) => {
+const SelectSearchInput = ({ token,setToken, placeholder, selectedOutlet, setSelectedOutlet}) => {
     let navigate = useNavigate();
     let url = process.env.REACT_APP_BASE_URL;
     const [listOutlet, setListOutlet] = useState([]);
@@ -35,7 +35,7 @@ const SelectSearchInput = ({ token,setToken, selectedOutlet, setSelectedOutlet})
             <SelectSearch
                 defaultValue={selectedOutlet}
                 search
-                placeholder="Select Outlet Name"
+                placeholder={placeholder}
                 onChange={(event) => setSelectedOutlet(event)}
                 options={listOutlet}
             />

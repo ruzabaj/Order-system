@@ -84,7 +84,6 @@ const History = () => {
   return (
     <div>
       <Navbar />
-
       <div className='handle-date-input-btn'>
         <div className='date-picker-style'>
           <div className='date-picker-start'>

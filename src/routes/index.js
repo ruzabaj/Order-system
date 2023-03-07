@@ -13,6 +13,7 @@ import Performance from './../components/Performance/index';
 import Front from "../components/Inventory";
 import CombineChart from './../components/Charts/combineChart';
 import Detail from "../components/Inventory/Detail";
+import Credit from './../components/Credit/index';
 
 const MainRoutes = () => {
     const [userName, setUserName] = useState("");
@@ -34,6 +35,7 @@ const MainRoutes = () => {
                 <Route path='/stats' element={<Stats />} />
                 <Route path='/timeline' element={<Timeline />} />
                 <Route path='/performance' element={<Performance />} />
+                <Route path='/credit' element={<Credit/>} />
                 <Route path='/inventory' element={<Front/>} />
                 <Route path="/detail" element={<Detail/>} />
                 <Route path="/show-all-chart" element={<CombineChart/>} />

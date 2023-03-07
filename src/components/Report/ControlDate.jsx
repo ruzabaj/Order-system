@@ -8,7 +8,7 @@ import "../../scss/navbar.scss";
 import Filter from '../Filter';
 // import Context from "../useContext";
 
-const ControlDate = ({ startDate, Outlet, setOutlet, categories, endDate, handleGenerateReport, setStartDate, setEndDate, handleChange, handleSidebar, categoryVoid }) => {
+const ControlDate = ({ startDate, selectedOutlet, setSelectedOutlet, categories, endDate, handleGenerateReport, setStartDate, setEndDate, handleSidebar, categoryVoid }) => {
     return (
         <div className='control-dates'>
             <div className='control-dates-width'>
@@ -40,14 +40,11 @@ const ControlDate = ({ startDate, Outlet, setOutlet, categories, endDate, handle
                         </div>
                     </div>
                 </div> */}
-                <Filter startDate={startDate} setStartDate={setStartDate} selectedOutlet={Outlet} setSelectedOutlet={setOutlet} endDate={endDate} setEndDate={setEndDate} view={handleGenerateReport} btn={"Report"}/>
+                <Filter startDate={startDate} setStartDate={setStartDate} selectedOutlet={selectedOutlet} setSelectedOutlet={setSelectedOutlet} endDate={endDate} setEndDate={setEndDate} view={handleGenerateReport} btn={"Report"}/>
             </div>
             <div className='btn-report'>
                 <Sidebar handleSidebar={handleSidebar} categories={categories} categoryVoid={categoryVoid} />
             </div>
-            {/* <Context>
-                <Sidebar handleSidebar={handleSidebar} categories={categories}/>
-            </Context> */}
         </div>
     )
 }

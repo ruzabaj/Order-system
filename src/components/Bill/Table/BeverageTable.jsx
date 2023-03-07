@@ -19,7 +19,9 @@ const BeverageTable = ({ beverage, beverageGroup }) => {
                             <th>Quantity</th>
                             <th>Total(Rs)</th>
                         </tr>
-                        {beverage.map((item, index) => (
+                        {console.log("bev",beverage.error)}
+                        {!beverage?.error && 
+                        beverage.map((item, index) => (
                             <tr key={index}>
                                 {/* <td>{item.ItemType}</td> */}
                                 <td>{item.Description}</td>

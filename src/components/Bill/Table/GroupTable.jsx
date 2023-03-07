@@ -12,7 +12,8 @@ const GroupTable = ({ Group, title }) => {
                         <th>Group :</th>
                         <th>Total:</th>
                     </tr>
-                    {Group.map((food, index) => (
+                    
+                    {!Group?.error && Group.map((food, index) => (
                         <tr key={index}>
                             <td>{food.groupName}</td>
                             <td>{food.groupTotal}</td>

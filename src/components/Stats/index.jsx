@@ -56,7 +56,7 @@ const Stats = () => {
         setstartDate(start)
         let end = newEnddate.toISOString().slice(0, 10)
         setEndDate(end)
-        if (rangeType === "Free Range") {
+        if (rangeType === "Free range") {
             axios.post(`${url}/datestats`, {
                 Outlet_Name: `${selectedOutlet}`,
                 start_date: `${start}`,
@@ -91,9 +91,9 @@ const Stats = () => {
                 })
         }
 
-        console.log(rangeType)
+        // console.log(rangeType)
         if (rangeType && rangeType === "monthly") {
-            console.log("here monthly")
+            // console.log("here monthly")
             axios.post(`${url}/chartsummary`, {
                 outlet: `${selectedOutlet}`,
                 start_date: `${start}`,

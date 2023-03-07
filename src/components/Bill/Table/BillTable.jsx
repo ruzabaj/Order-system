@@ -89,7 +89,8 @@ const BillTable = ({ order, totalInfo, selected, token }) => {
                         <th>Guest Name</th>
                     </tr>
 
-                    {order.map((item, index) => (
+                    {!order?.error && 
+                    order.map((item, index) => (
                         <tr key={index}>
                             <td className='no-wrap'><ConvertDate date={item.Date} /></td>
                             <td><button type="button" className="btn " data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => handleBillInfo(item.bill_no, item.Date)}>{item.bill_no}</button></td>

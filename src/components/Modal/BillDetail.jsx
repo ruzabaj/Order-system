@@ -55,7 +55,8 @@ const BillDetail = ({ billInfoList, billInfo, selected }) => {
                                             <th>Quantity</th>
                                             <th>Total</th>
                                         </tr>
-                                        {billInfoList.map((item, index) => (
+                                        {!billInfoList?.error && 
+                                        billInfoList.map((item, index) => (
                                             <tr key={index}>
                                                 <td>{item.itemName}</td>
                                                 <td>{item.itemrate}</td>

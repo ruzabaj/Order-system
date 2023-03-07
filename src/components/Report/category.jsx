@@ -10,7 +10,7 @@ const Category = ({ categories, categoryVoid }) => {
         <div className='course-type' key={key}>
           <h5 >{key}</h5>
           <ul>
-            {console.log(value, "value of completed")}
+            {/* {console.log(value, "value of completed")} */}
             {value.map((food, index) => (
               <li key={index}>{food.ItemName}
                 <span className='food-quantity'>{food.quantity}</span>

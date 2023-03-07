@@ -37,10 +37,11 @@ const Bill = () => {
     const [dineinTabs, setDineinTabs] = useState({});
     const [arrow, setArrow] = useState(false);
     const [billno, setBillno] = useState("");
+    // const [isError, setIsError]= useState({
 
+    // })
     const toggleArrow = () => {
         setArrow(!arrow)
-        console.log("after", arrow)
     }
 
     let start = startDate.toISOString().slice(0, 10)
@@ -57,7 +58,7 @@ const Bill = () => {
         setSelectedOutlet(localStorage.getItem("outlet"))
     }, [])
 
-    
+
     useEffect(() => {
         if (selectedOutlet) {
             axios.post(`${url}/saleshistory`, {
@@ -81,7 +82,7 @@ const Bill = () => {
                     setError(true)
                     console.log(error)
                 })
-        
+
             axios.post(`${url}/summaryreport`, {
                 "outlet": `${selectedOutlet}`,
                 "dateStart": start,
@@ -89,7 +90,7 @@ const Bill = () => {
                 "token": token
             })
                 .then((response) => {
-                    console.log(response)
+                    // console.log(response)
                     setDineinTabs(response.data)
                     setPaymentStatus(response.data.paymentStats)
                 })
@@ -268,7 +269,7 @@ const Bill = () => {
                         <BillShowTable order={order} totalInfo={totalInfo} selected={selectedOutlet} token={token} food={food} foodGroup={foodGroup} beverage={beverage} beverageGroup={beverageGroup} />
                     }
                     {error &&
-                        <Error/>
+                        <Error />
                     }
                 </div>
             </div>

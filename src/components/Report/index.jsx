@@ -25,7 +25,8 @@ const Report = () => {
     const [categories, setCategories] = useState({})
     const [categoryVoid, setCategorieVoid] = useState({})
     const [token, setToken] = useState("")
-    const [Outlet, setOutlet] = useState("");
+    // const [Outlet, setOutlet] = useState("");
+    const [selectedOutlet, setSelectedOutlet] = useState("");
 
     let url = process.env.REACT_APP_BASE_URL;
     let navigate = useNavigate();
@@ -42,7 +43,7 @@ const Report = () => {
             setToken(localStorage.getItem("token"))
         }
     }, [])
-   
+
 
     useEffect(() => {
         let initialDate = startDate
@@ -80,7 +81,7 @@ const Report = () => {
         axios.post(`${url}/report`, {
             "start_date": firstDate,
             "end_date": secondDate,
-            "outlet_name": outletName,
+            "outlet_name": selectedOutlet,
             "page_no": 1,
             "token": token
         })
@@ -99,7 +100,7 @@ const Report = () => {
         axios.post(`${url}/report`, {
             "start_date": firstDate,
             "end_date": secondDate,
-            "outlet_name": outletName,
+            "outlet_name": selectedOutlet,
             "page_no": page,
             "token": token
         })
@@ -115,7 +116,7 @@ const Report = () => {
         axios.post(`${url}/itemstats`, {
             "start_date": firstDate,
             "end_date": secondDate,
-            "outlet_name": outletName,
+            "outlet_name": selectedOutlet,
             "token": token
         })
             .then((response) => {
@@ -128,9 +129,9 @@ const Report = () => {
             })
     }
 
-    const handleChange = (e) => {
-        setOutletName(e)
-    }
+    // const handleChange = (e) => {
+    //     setOutletName(e)
+    // }
 
     return (
         <div>
@@ -142,11 +143,14 @@ const Report = () => {
                     </div>
                 </div>
                 <div className='info-report-container'>
-                    <ControlDate setStartDate={setStartDate} startDate={startDate} endDate={endDate} setEndDate={setEndDate}
-                        handleChange={handleChange}
-                        handleGenerateReport={handleGenerateReport} 
-                        Outlet={Outlet}
-                        setOutlet={setOutlet}
+                    <ControlDate
+                        startDate={startDate}
+                        setStartDate={setStartDate}
+                        endDate={endDate}
+                        setEndDate={setEndDate}
+                        selectedOutlet={selectedOutlet}
+                        setSelectedOutlet={setSelectedOutlet}
+                        handleGenerateReport={handleGenerateReport}
                         handleSidebar={handleSidebar}
                         categories={categories}
                         categoryVoid={categoryVoid}

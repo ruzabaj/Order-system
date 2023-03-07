@@ -1,7 +1,81 @@
+@import "../config";
 .handle-select-search-input{
     display: flex;
+    margin: 10px 0px;
+    .handle-width{
+        display: flex;
+        justify-content: center;
+        width: calc(100% - 150px);
+    }
 }
-.bg-credit{
-    background-color: rgb(238,239,243);
+
+.credit-info{
+    // border: 2px solid $primary-color;
+    margin: 20px 0px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    .total-credit-sale,
+    .total-amount-paid ,
+    .remaining-balance{
+        display: flex;
+        padding: 10px 0px;
+        // justify-content: space-around;
+    }
+    .credit-hr-line{
+        border-top: 1px solid $primary-color;
+        width: 100%;
+    }
+    .remaining-balance{
+        .specify-width{
+            width: 95%;
+        }
+    }
+    .specify-width{
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        p{
+            font-size: 16px;
+            font-weight: 800;
+        }
+        span{
+            font-weight: 600;
+        }
+    }
+}
+
+.view {
+    border: 2px solid $modifications;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-right: 5px;
+    height: 30px;
+    &:hover {
+        background-color: $modifications;
+        color: $secondary-color;
+    }
+}
+
+.btn-make-payment {
+    float: right;
+    margin: 0px 10px;
+    .make-payment {
+        border-radius: 10px;
+        height: 40px;
+        width: 100px;
+        border: 2px solid $success-color;
+
+        &:hover {
+            background-color: $success-color;
+            color: $secondary-color;
+        }
+    }
+}
+
+.credit-table {
+    display: flex;
+}
+
+.bg-credit {
+    background-color: rgb(238, 239, 243);
     min-height: 90vh !important;
 }

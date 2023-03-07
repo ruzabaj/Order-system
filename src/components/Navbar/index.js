@@ -73,7 +73,7 @@ const Navbar = ({arrow}) => {
                     <Link to="/credit">
                         <div className='navbar-icons'>
                             <BiCreditCardFront className='nav-icon' />
-                            <label>Credit center</label>
+                            <label>Credit Center</label>
                         </div>
                     </Link>
                     <Link to="/inventory">

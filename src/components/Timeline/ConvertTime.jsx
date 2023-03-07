@@ -22,7 +22,7 @@ const ConvertTime = ({ time }) => {
     return (
 
         (time ?
-            <div>{timeString12hr}</div>
+            <p>{timeString12hr}</p>
             :
             ""
         )

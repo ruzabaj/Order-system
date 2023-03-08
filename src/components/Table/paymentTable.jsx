@@ -7,8 +7,8 @@ const PaymentTable = ({ header, data }) => {
             <table className="table-credit">
                 <thead>
                     <tr className='position-sticky'>
-                        {header.map((headers) => (
-                            <th className='no-wrap'>{headers}</th>
+                        {header.map((headers, index) => (
+                            <th className='no-wrap'  key={index}>{headers}</th>
                         ))}
                     </tr>
                 </thead>

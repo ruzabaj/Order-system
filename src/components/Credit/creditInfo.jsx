@@ -21,7 +21,7 @@ const CreditInfo = ({creditDetails, handleView,handleShow, isClicked, isShown })
           <hr className='credit-hr-line'></hr>
           <div className='remaining-balance'>
             <div className='specify-width'>
-              <p >Remaining Balance:: </p>
+              <p >Remaining Balance: </p>
               <span>{RemainingAmount}</span>
             </div>
           </div>

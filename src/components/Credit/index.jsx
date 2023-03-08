@@ -41,20 +41,22 @@ const Credit = () => {
   }, [token, selectedOutlet])
 
   useEffect(() => {
-    axios.post(`${url}/customerCreditDetails`, {
-      outlet: `${selectedOutlet}`,
-      token: token,
-      CustomerName: `${selectedCustomer}`
-    })
-      .then((response) => {
-        console.log("ok", response.data)
-        setCreditDetails(response.data.CreditDetails)
-        setCreditWiseBillList(response.data.CreditWiseBillList)
-        setCreditWisePaymentList(response.data.CreditWisePaymentList)
+    if(selectedOutlet && selectedCustomer){
+      axios.post(`${url}/customerCreditDetails`, {
+        outlet: `${selectedOutlet}`,
+        token: token,
+        CustomerName: `${selectedCustomer}`
       })
-      .catch((error) => {
-        console.log(error)
-      })
+        .then((response) => {
+          console.log("ok", response.data)
+          setCreditDetails(response.data.CreditDetails)
+          setCreditWiseBillList(response.data.CreditWiseBillList)
+          setCreditWisePaymentList(response.data.CreditWisePaymentList)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
   }, [selectedOutlet, selectedCustomer])
 
   const handleView = () => {
@@ -89,7 +91,7 @@ const Credit = () => {
         </div>
         <CreditTables isShown={isShown} isClicked={isClicked} creditWiseBillList={creditWiseBillList} creditWisePaymentList={creditWisePaymentList}/>
       </div>
-      <PaymentModal show={show} handleClose={handleClose}/>
+      <PaymentModal show={show} handleClose={handleClose} token={token} selectedOutlet={selectedOutlet} selectedCustomer={selectedCustomer}/>
     </section>
   )
 }

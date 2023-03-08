@@ -1,6 +1,13 @@
-.logo{
-  height: 30px;
-  width: 30px;
+
+.img-logo{
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .logo{
+    width: 100px;
+    height: 100px;
+  }
 }
 
 .bg-login {

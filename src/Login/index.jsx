@@ -46,7 +46,10 @@ const Login = () => {
             <div className='bg-form-img'>
             </div>
             <form>
-                <h5>Login Here</h5>
+            <div className='img-logo'>
+                <img src='./logo.jpg' alt='logo' className="logo" />
+            </div>
+                {/* <h5>Login Here</h5> */}
 
                 <label>Username</label>
                 <input type="text" placeholder="Email or Phone" id="username" onChange={handleUsername} className="username" />
@@ -56,9 +59,7 @@ const Login = () => {
 
                 <button className='btn-login' onClick={handleLogin}>Log In</button>
                 {errorValue ? <p className='error'>{error.error}</p> : ""}
-            <div>
-                <img src='./logo.jpg' alt='logo' className="logo" />
-            </div>
+           
             </form>
         </div>
     )

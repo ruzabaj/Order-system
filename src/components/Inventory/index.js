@@ -7,6 +7,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import CollapsableButton from "./collapsableButton";
 import Navbar from "../Navbar";
 import SelectSearchInput from "./../SelectSearch/index";
+import Footer from "../Footer";
+
 // import { useDispatch, useSelector } from "react-redux";
 // import { callApi } from "../actions";
 // import SelectSearchInput from './../SelectSearch/index';
@@ -246,6 +248,7 @@ const Front = () => {
           </div>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };

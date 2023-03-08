@@ -46,7 +46,7 @@ const Login = () => {
             <div className='bg-form-img'>
             </div>
             <form>
-                <h3>Login Here</h3>
+                <h5>Login Here</h5>
 
                 <label>Username</label>
                 <input type="text" placeholder="Email or Phone" id="username" onChange={handleUsername} className="username" />
@@ -55,7 +55,10 @@ const Login = () => {
                 <input type="password" placeholder="Password" id="password" onChange={handlePassword} className="password" />
 
                 <button className='btn-login' onClick={handleLogin}>Log In</button>
-                {errorValue?<p className='error'>{error.error}</p>: ""}
+                {errorValue ? <p className='error'>{error.error}</p> : ""}
+            <div>
+                <img src='./logo.jpg' alt='logo' className="logo" />
+            </div>
             </form>
         </div>
     )

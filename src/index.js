@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MainRoutes from './routes';
 import App from './App';
 import 'tw-elements';
-import Footer  from './components/Footer';
+// import Footer  from './components/Footer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -16,7 +16,7 @@ root.render(
         <Route path='/' element={<App />} />
       </Routes>
       <MainRoutes />
-      <Footer/>
+      {/* <Footer/> */}
     </Router>
 );
 

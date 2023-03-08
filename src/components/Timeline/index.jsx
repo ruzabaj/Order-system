@@ -7,6 +7,7 @@ import TotalSale from './TotalSale';
 import TimeStats from './TimeStats';
 import TimeSales from './TimeSales';
 import TimelineTable from './TimelineTableSummary';
+import Footer from "../Footer";
 import "../../scss/timeline.scss";
 
 const Timeline = () => {
@@ -87,6 +88,7 @@ const Timeline = () => {
                 </div>
             }
             </div>
+            <Footer/>
         </div>
     )
 }

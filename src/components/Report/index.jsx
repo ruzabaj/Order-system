@@ -9,6 +9,7 @@ import Detail from './Detail';
 import Error from './Error';
 import Navbar from '../Navbar';
 import { useNavigate } from 'react-router-dom';
+import Footer from '../Footer';
 
 const Report = () => {
     const [outletName, setOutletName] = useState("")
@@ -169,6 +170,7 @@ const Report = () => {
                     <Pagination pageLength={pageLength} handleNumber={handleNumber} />
                 </div>
             </div>
+            <Footer/>
         </div>
     )
 }

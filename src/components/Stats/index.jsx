@@ -8,6 +8,7 @@ import "../../scss/stats.scss";
 import LineChart from '../Charts/Stats/LineChart';
 import SelectSearchInput from './../SelectSearch/index';
 import HandleRange from './HandleRange';
+import Footer from "../Footer";
 
 const Stats = () => {
     let url = process.env.REACT_APP_BASE_URL;
@@ -157,6 +158,7 @@ const Stats = () => {
                     }
                 </div>
             </div>
+            <Footer/>
         </div>
     )
 }

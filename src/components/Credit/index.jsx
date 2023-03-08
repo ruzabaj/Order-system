@@ -7,6 +7,7 @@ import SelectSearch from 'react-select-search';
 import CreditTables from './creditTable';
 import CreditInfo from './creditInfo';
 import PaymentModal from './../Modal/paymentModal';
+import Footer from "../Footer";
 
 const Credit = () => {
   let url = process.env.REACT_APP_BASE_URL;
@@ -92,6 +93,7 @@ const Credit = () => {
         <CreditTables isShown={isShown} isClicked={isClicked} creditWiseBillList={creditWiseBillList} creditWisePaymentList={creditWisePaymentList}/>
       </div>
       <PaymentModal show={show} handleClose={handleClose} token={token} selectedOutlet={selectedOutlet} selectedCustomer={selectedCustomer}/>
+      <Footer/>
     </section>
   )
 }

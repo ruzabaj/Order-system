@@ -16,6 +16,7 @@ import Error from '../Error';
 // import FilterLg from './../Filter/FilterLg';
 import DatePicker from "react-datepicker";
 import SelectSearchInput from "../SelectSearch";
+import Footer from "../Footer";
 
 const Bill = () => {
     let url = process.env.REACT_APP_BASE_URL;
@@ -274,6 +275,7 @@ const Bill = () => {
                     }
                 </div>
             </div>
+            <Footer/>
         </div>
     )
 }

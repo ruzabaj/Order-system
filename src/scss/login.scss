@@ -1,3 +1,8 @@
+.logo{
+  height: 30px;
+  width: 30px;
+}
+
 .bg-login {
   height: 100vh;
   width: 100vw;
@@ -41,8 +46,8 @@
   //   border: none;
   // }
 
-  form h3 {
-    font-size: 40px;
+  form h5 {
+    // font-size: 40px;
     font-weight: 700;
     line-height: 42px;
     text-align: center;

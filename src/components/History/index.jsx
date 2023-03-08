@@ -10,6 +10,7 @@ import "../../scss/History/history.scss";
 import "../../scss/History/datepicker.scss";
 import SelectSearch from 'react-select-search';
 import SelectSearchInput from './../SelectSearch/index';
+import Footer from "../Footer";
 
 const History = () => {
   let url = process.env.REACT_APP_BASE_URL;
@@ -141,6 +142,7 @@ const History = () => {
           }
         </div>
       </div>
+      <Footer/>
     </div>
   )
 }

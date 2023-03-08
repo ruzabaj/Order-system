@@ -7,6 +7,7 @@ import LineChart from './../Charts/Stats/LineChart';
 import "../../scss/performance.scss";
 import "../../scss/button.scss";
 import SelectSearchInput from '../SelectSearch';
+import Footer from "../Footer";
 
 const Performance = () => {
     let url = process.env.REACT_APP_BASE_URL;
@@ -106,6 +107,7 @@ const Performance = () => {
                 }
 
             </div>
+            <Footer/>
         </div>
     )
 }

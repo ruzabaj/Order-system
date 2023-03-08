@@ -9,14 +9,15 @@ import axios from 'axios';
 import BillShowTable from "./Table/BillShowTable";
 import ReactSidebar from '../ReactSidebar';
 import Error from '../Error';
+import DatePicker from "react-datepicker";
+import SelectSearchInput from "../SelectSearch";
+import Footer from "../Footer";
 // import BillTable from './BillTable';
 // import BeverageTable from './BeverageTable';
 // import Foodtable from './Foodtable';
 // import GroupTable from './Table/GroupTable';
 // import FilterLg from './../Filter/FilterLg';
-import DatePicker from "react-datepicker";
-import SelectSearchInput from "../SelectSearch";
-import Footer from "../Footer";
+
 
 const Bill = () => {
     let url = process.env.REACT_APP_BASE_URL;

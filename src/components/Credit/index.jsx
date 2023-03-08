@@ -49,7 +49,7 @@ const Credit = () => {
         CustomerName: `${selectedCustomer}`
       })
         .then((response) => {
-          // console.log("ok", response.data)
+          console.log("ok", response.data)
           setCreditDetails(response.data.CreditDetails)
           setCreditWiseBillList(response.data.CreditWiseBillList)
           setCreditWisePaymentList(response.data.CreditWisePaymentList)

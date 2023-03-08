@@ -1,7 +1,17 @@
+// import { info } from 'node-sass';
 import React from 'react'
 import DateFormat from "../History/DateFormat";
 
 const CreditTable = ({ header, data }) => {
+    function sumTotalAmount(array) {
+        let sumTotal = 0;
+        array.forEach((item) => {
+            sumTotal +=  parseFloat(item.Total);
+        });
+        return sumTotal;
+      }
+      let total = sumTotalAmount(data);
+
     return (
         <div className="table-credit-responsive">
             <table className="table-credit">
@@ -21,6 +31,12 @@ const CreditTable = ({ header, data }) => {
                             <td className='no-wrap'>{info.Total}</td>
                         </tr>
                     ))}
+                        <tr >
+                            <td className='no-wrap'>Total:</td>
+                            <td className='no-wrap'></td>
+                            <td className='no-wrap'></td>
+                            <td className='no-wrap'>{total}</td>
+                        </tr>
                 </tbody>
             </table>
         </div>

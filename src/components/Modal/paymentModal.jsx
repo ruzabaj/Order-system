@@ -29,6 +29,7 @@ const PaymentModal = ({ show, handleClose, token, selectedOutlet, selectedCustom
                 PaymentMode: paymentValue.PaymentMode,
                 CustomerName: `${selectedCustomer}`
             })
+            console.log(response)
             setRespond(response.data.success)
             if (response.data.success) {
                 handleClose()

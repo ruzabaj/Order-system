@@ -2,7 +2,7 @@ import React from 'react'
 
 const ConvertTime = ({timeOrder}) => {
     if(!timeOrder){
-        console.log("a")
+        // console.log("a")
         return 
     }
         function tConvert(time) {

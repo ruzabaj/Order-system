@@ -58,7 +58,7 @@ const History = () => {
         setTotalSum(response.data.Total)
       })
       .catch((error) => {
-        console.log("error", error.response.data)
+        // console.log("error", error.response.data)
         setShowCustomerHistory(false)
       })
     axios.post(`${url}/complimentary`, {
@@ -70,13 +70,13 @@ const History = () => {
     })
       .then((response) => {
         setShow(true)
-        console.log("complimentary", response.data)
+        // console.log("complimentary", response.data)
         setComplimentary(response.data.details)
         setTotal(response.data.Total)
       })
       .catch((error) => {
         setShow(false)
-        console.log("error", error.response.data.error)
+        // console.log("error", error.response.data.error)
       })
   }
   const handleInputChange = (event) => {

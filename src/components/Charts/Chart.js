@@ -25,7 +25,7 @@ const Charts = ({ id, outletName }) => {
           setItemList(response.data.intbl_purchaserequisition_contract)
         })
         .catch((error) => {
-          console.log(error)
+          // console.log(error)
         })
     }
   }, [id])

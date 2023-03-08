@@ -46,13 +46,13 @@ const Order = () => {
         setHash(received_hash)
     })
     const updateList = (data) => {
-        console.log(data, "inside update list");
+        // console.log(data, "inside update list");
         setList(current => [...data]);
     }
     useEffect(() => {
         socket.on(hash, (msg) => {
             let list_items = list_ref.current;
-            console.log(msg)
+            // console.log(msg)
             if (!msg) {
                 return;
             }
@@ -63,7 +63,7 @@ const Order = () => {
         let errorArray = ["quantity_error", "itemresponse_error", "itemvoid_error", "orderseen_error", "tablevoid_error"]
         errorArray.map(e => {
             socket.on(`${hash}${e}`, (error) => {
-                console.log(error)
+                // console.log(error)
             })
         })
 

@@ -36,7 +36,7 @@ const Credit = () => {
           setListCustomer(response.data)
         })
         .catch((error) => {
-          console.log(error)
+          // console.log(error)
         })
     }
   }, [token, selectedOutlet])
@@ -49,13 +49,13 @@ const Credit = () => {
         CustomerName: `${selectedCustomer}`
       })
         .then((response) => {
-          console.log("ok", response.data)
+          // console.log("ok", response.data)
           setCreditDetails(response.data.CreditDetails)
           setCreditWiseBillList(response.data.CreditWiseBillList)
           setCreditWisePaymentList(response.data.CreditWisePaymentList)
         })
         .catch((error) => {
-          console.log(error)
+          // console.log(error)
         })
     }
   }, [selectedOutlet, selectedCustomer])

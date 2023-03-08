@@ -80,7 +80,7 @@ const Bill = () => {
                 })
                 .catch((error) => {
                     setError(true)
-                    console.log(error)
+                    // console.log(error)
                 })
 
             axios.post(`${url}/summaryreport`, {
@@ -95,7 +95,7 @@ const Bill = () => {
                     setPaymentStatus(response.data.paymentStats)
                 })
                 .catch((error) => {
-                    console.log(error)
+                    // console.log(error)
                 })
         }
     }, [selectedOutlet])
@@ -109,6 +109,7 @@ const Bill = () => {
                 "token": token
             })
                 .then((response) => {
+                    setIsOrder(true)
                     setError(false)
                     setTotalInfo(response.data)
                     setOrder(response.data.orderDetails)
@@ -120,7 +121,7 @@ const Bill = () => {
                     setShow(true)
                 })
                 .catch((error) => {
-                    console.log(error)
+                    // console.log(error)
                     setError(true)
                 })
 
@@ -135,7 +136,7 @@ const Bill = () => {
                     setPaymentStatus(response.data.paymentStats)
                 })
                 .catch((error) => {
-                    console.log(error)
+                    // console.log(error)
                 })
         }
     }
@@ -171,6 +172,7 @@ const Bill = () => {
                 "token": token
             })
                 .then((response) => {
+                    setIsOrder(true)
                     setShow(true)
                     setError(false)
                     setTotalInfo(response.data)
@@ -183,7 +185,6 @@ const Bill = () => {
                 })
                 .catch((error) => {
                     setError(true)
-                    console.log(error)
                 })
         }
         if (billno) {
@@ -195,10 +196,9 @@ const Bill = () => {
                 .then((response) => {
                     setIsOrder(false)
                     setOrder(response.data)
-                    console.log(response.data, "bill search")
                 })
                 .catch((error) => {
-                    console.log(error)
+                    // console.log(error)
                 })
         }
     }, [billno])

@@ -12,18 +12,15 @@ const BeverageTable = ({ beverage, beverageGroup }) => {
                 <div className="table-responsive">
                     <table className="table-beverage">
                         <tr>
-                            {/* <th>ItemType</th> */}
                             <th>Group</th>
                             <th>Item Name </th>
                             <th>Item Rate (Rs)</th>
                             <th>Quantity</th>
                             <th>Total(Rs)</th>
                         </tr>
-                        {console.log("bev",beverage.error)}
                         {!beverage?.error && 
                         beverage.map((item, index) => (
                             <tr key={index}>
-                                {/* <td>{item.ItemType}</td> */}
                                 <td>{item.Description}</td>
                                 <td>{item.itemName}</td>
                                 <td>{item.itemrate}</td>
@@ -34,8 +31,6 @@ const BeverageTable = ({ beverage, beverageGroup }) => {
                     </table>
                 </div>
             </div >
-            {/* <BeverageGroupTable beverageGroup={beverageGroup}/> */}
-            {/* <GroupTable Group={beverageGroup}/> */}
         </div>
     )
 }

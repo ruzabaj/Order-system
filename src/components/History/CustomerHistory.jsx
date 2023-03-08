@@ -31,13 +31,13 @@ const CustomerHistory = ({ customerHistory, discountTotal, totalSum, selectedOut
         })
             .then((response) => {
                 if (response?.data) {
-                    console.log(response?.data)
+                    // console.log(response?.data)
                     setBillInfoList(response.data.details)
                     setBillInfo(response.data)
                 }
             })
             .catch((error) => {
-                console.log(error)
+                // console.log(error)
             })
     }
     return (

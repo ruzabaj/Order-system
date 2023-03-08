@@ -1,4 +1,47 @@
 @import "../config";
+
+.credit-info {
+    margin: 20px 20px;
+    background-color: $bg-light;
+    // border: 2px solid $primary-color;
+    // width: calc(100% - 50px);
+    // box-shadow: rgba(100, 100, 111, 0.1) 0px 7px 29px 0px;
+
+    .total-credit-sale,
+    .total-amount-paid,
+    .remaining-balance {
+        display: flex;
+        padding: 10px 0px;
+        // justify-content: space-around;
+    }
+
+    .credit-hr-line {
+        border-top: 1px solid $primary-color;
+        width: 100%;
+    }
+
+    .remaining-balance {
+        .specify-width {
+            width: 96%;
+        }
+    }
+
+    .specify-width {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+
+        p {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        span {
+            font-weight: 600;
+        }
+    }
+}
+
 .handle-select-search-input {
     padding: 10px 0px;
     .handle-width {
@@ -10,7 +53,7 @@
     // border: 2px solid $modifications;
     border-radius: 5px;
     padding: 5px 10px;
-    margin-right: 5px;
+    margin-right: 10px;
     height: 30px;
     background-color: $modifications;
     color: $secondary-color;
@@ -124,46 +167,6 @@
     border: 0;
     background-color: $success-color !important;
     color:$secondary-color
-}
-.credit-info {
-    // border: 2px solid $primary-color;
-    margin: 20px 0px;
-    background-color: $bg-light;
-    // box-shadow: rgba(100, 100, 111, 0.1) 0px 7px 29px 0px;
-
-    .total-credit-sale,
-    .total-amount-paid,
-    .remaining-balance {
-        display: flex;
-        padding: 10px 0px;
-        // justify-content: space-around;
-    }
-
-    .credit-hr-line {
-        border-top: 1px solid $primary-color;
-        width: 100%;
-    }
-
-    .remaining-balance {
-        .specify-width {
-            width: 96%;
-        }
-    }
-
-    .specify-width {
-        width: 100%;
-        display: flex;
-        justify-content: space-around;
-
-        p {
-            font-size: 16px;
-            font-weight: 600;
-        }
-
-        span {
-            font-weight: 600;
-        }
-    }
 }
 
 

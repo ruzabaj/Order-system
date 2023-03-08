@@ -26,7 +26,7 @@ const PaymentTable = ({ header, data }) => {
                             <td className='no-wrap'><DateFormat date={info.Date}/></td>
                             <td className='no-wrap'>{info.Time}</td>
                             <td className='no-wrap'>{info.Amount}</td>
-                            <td className='no-wrap'>{info.PaymentMode}</td>
+                            <td className='no-wrap-bold'>{info.PaymentMode}</td>
                         </tr>
                     ))}
                 <tr>

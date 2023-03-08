@@ -35,7 +35,7 @@ const CreditTable = ({ header, data }) => {
                             <td className='no-wrap'>Total:</td>
                             <td className='no-wrap'></td>
                             <td className='no-wrap'></td>
-                            <td className='no-wrap'>{total.toFixed(3)}</td>
+                            <td className='no-wrap-bold'>{total.toFixed(3)}</td>
                         </tr>
                 </tbody>
             </table>

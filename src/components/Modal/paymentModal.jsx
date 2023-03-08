@@ -2,28 +2,34 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-const PaymentModal = () => {
-    const [show, setShow] = useState(false);
+const PaymentModal = ({show, handleClose}) => {
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
     return (
         <div> 
-            <Button variant="primary" onClick={handleShow}>
-            Launch modal
-        </Button>
-
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Modal heading</Modal.Title>
+                    <Modal.Title></Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+                <Modal.Body>
+                    <div className='amount-detail'>
+                        <label>Amount</label>
+                        <div>
+                            <input type="text" className="form-control" id="amount" placeholder="Amount" />
+                        </div>
+                    </div>
+                    <div className='amount-detail'>
+                        <label>Payment Mode</label>
+                        <div>
+                            <input type="text" className="form-control" id="amount" placeholder="Amount" />
+                        </div>
+                    </div>
+                </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={handleClose}>
-                        Save Changes
+                    <Button onClick={handleClose}>
+                        Save
                     </Button>
                 </Modal.Footer>
             </Modal></div>

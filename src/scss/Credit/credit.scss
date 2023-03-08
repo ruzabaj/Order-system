@@ -6,16 +6,30 @@
         justify-content: center;
     }
 }
+.view {
+    border: 2px solid $modifications;
+    border-radius: 5px;
+    background-color: $bg-light;
+    padding: 5px 10px;
+    margin-right: 5px;
+    height: 30px;
+
+    &:hover {
+        background-color: $modifications;
+        color: $secondary-color;
+    }
+}
 
 .btn-make-payment {
     margin: 5px 10px;
     display: flex;
     justify-content: flex-end;
-
+    
     .make-payment {
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
         border-radius: 10px;
         height: 40px;
-        width: 100px;
+        width: 150px;
         border: 2px solid $success-color;
 
         &:hover {
@@ -122,7 +136,7 @@
 
         p {
             font-size: 16px;
-            font-weight: 800;
+            font-weight: 600;
         }
 
         span {
@@ -131,19 +145,6 @@
     }
 }
 
-.view {
-    border: 2px solid $modifications;
-    border-radius: 5px;
-    background-color: $bg-light;
-    padding: 5px 10px;
-    margin-right: 5px;
-    height: 30px;
-
-    &:hover {
-        background-color: $modifications;
-        color: $secondary-color;
-    }
-}
 
 .bg-credit {
     background-color: rgb(238, 239, 243);

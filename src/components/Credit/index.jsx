@@ -63,7 +63,10 @@ const Credit = () => {
   const handleShow = () => {
     setIsShown(!isShown)
   }
+  const [show, setShow] = useState(false);
 
+  const handleClose = () => setShow(false);
+  const handleShowModal = () => setShow(true);
   return (
     <section>
       <Navbar />
@@ -81,12 +84,12 @@ const Credit = () => {
       </div>
       <div className='bg-credit'>
         <CreditInfo creditDetails={creditDetails} handleView={handleView} isShown={isShown} handleShow={handleShow} isClicked={isClicked}/>
-        <div className='btn-make-payment'>
+        <div className='btn-make-payment' onClick={handleShowModal}>
           <button className='make-payment'>Make Payment</button>
         </div>
         <CreditTables isShown={isShown} isClicked={isClicked} creditWiseBillList={creditWiseBillList} creditWisePaymentList={creditWisePaymentList}/>
       </div>
-      <PaymentModal/>
+      <PaymentModal show={show} handleClose={handleClose}/>
     </section>
   )
 }

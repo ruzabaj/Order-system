@@ -70,7 +70,9 @@
     .date-picker-outlet {
         display: none !important;
     }
-    .select-search{
-        margin-left: -12%;
+    .date-picker-outlet-sm{
+        .select-search{
+            margin-left: -12%;
+        }
     }
 }

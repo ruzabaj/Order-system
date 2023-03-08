@@ -12,6 +12,7 @@ import { IoPeopleOutline } from "react-icons/io5";
 import { TbReportSearch, TbZoomMoney, TbTimeline, TbToolsKitchen, TbCalendarTime } from "react-icons/tb";
 import { ImStatsDots } from "react-icons/im";
 import { MdOutlineInventory } from "react-icons/md";
+import { BiCreditCardFront } from "react-icons/bi";
 
 const NavbarHome = ({arrow}) => {
     let navigate = useNavigate();
@@ -32,7 +33,7 @@ const NavbarHome = ({arrow}) => {
                             <label>Home</label>
                         </div>
                     </Link>
-                    <Link to="/report">
+                    {/* <Link to="/report">
                         <div className='navbar-icons'>
                             <TbReportSearch className='nav-icon' />
                             <label>Report</label>
@@ -43,7 +44,7 @@ const NavbarHome = ({arrow}) => {
                             <TbToolsKitchen className='nav-icon' />
                             <label>Kitchen</label>
                         </div>
-                    </Link>
+                    </Link> */}
                     <Link to="/history">
                         <div className='navbar-icons'>
                             <AiOutlineHistory className='nav-icon' />
@@ -68,6 +69,12 @@ const NavbarHome = ({arrow}) => {
                         <div className='navbar-icons'>
                             <TbCalendarTime className='nav-icon' />
                             <label>Performance</label>
+                        </div>
+                    </Link>
+                    <Link to="/credit">
+                        <div className='navbar-icons'>
+                            <BiCreditCardFront className='nav-icon' />
+                            <label>Credit Center</label>
                         </div>
                     </Link>
                     <Link to="/inventory">

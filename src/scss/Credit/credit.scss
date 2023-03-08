@@ -1,63 +1,17 @@
 @import "../config";
-.handle-select-search-input{
-    display: flex;
+.handle-select-search-input {
     margin: 10px 0px;
-    .handle-width{
+    .handle-width {
         display: flex;
         justify-content: center;
-        width: calc(100% - 150px);
-    }
-}
-
-.credit-info{
-    // border: 2px solid $primary-color;
-    margin: 20px 0px;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    .total-credit-sale,
-    .total-amount-paid ,
-    .remaining-balance{
-        display: flex;
-        padding: 10px 0px;
-        // justify-content: space-around;
-    }
-    .credit-hr-line{
-        border-top: 1px solid $primary-color;
-        width: 100%;
-    }
-    .remaining-balance{
-        .specify-width{
-            width: 96%;
-        }
-    }
-    .specify-width{
-        width: 100%;
-        display: flex;
-        justify-content: space-around;
-        p{
-            font-size: 16px;
-            font-weight: 800;
-        }
-        span{
-            font-weight: 600;
-        }
-    }
-}
-
-.view {
-    border: 2px solid $modifications;
-    border-radius: 5px;
-    padding: 5px 10px;
-    margin-right: 5px;
-    height: 30px;
-    &:hover {
-        background-color: $modifications;
-        color: $secondary-color;
     }
 }
 
 .btn-make-payment {
-    float: right;
-    margin: 0px 10px;
+    margin: 5px 10px;
+    display: flex;
+    justify-content: flex-end;
+
     .make-payment {
         border-radius: 10px;
         height: 40px;
@@ -73,6 +27,122 @@
 
 .credit-table {
     display: flex;
+
+    .total-credit-sale-table,
+    .total-amount-paid-table {
+        flex: 2;
+        margin: 0px 10px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+   
+    .credit-table {
+        flex-direction: column;
+    }
+}
+@media screen and (max-width: 580px) {
+    .handle-width {
+        flex-direction: column ;
+        align-items: center;
+        justify-content: center ;
+    }
+}
+
+.table-credit-responsive {
+    width: 100%;
+    height: 300px;
+    overflow-x: auto;
+
+    .table-credit {
+        font-family: 'Source Sans Pro';
+        margin: 15px 0px;
+        width: 100%;
+        text-align: center;
+
+        td,
+        th {
+            // border: 1px solid black;
+            padding: 4px;
+        }
+
+        th {
+            height: 40px;
+        }
+
+        thead {
+            .position-sticky {
+                position: sticky;
+                top: 0;
+                background-color: $bg-light;
+                color: $primary-color;
+            }
+        }
+
+        tbody {
+            background-color: $bg-light;
+        }
+    }
+}
+
+.no-wrap {
+    white-space: nowrap;
+}
+
+
+
+.credit-info {
+    // border: 2px solid $primary-color;
+    margin: 20px 0px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
+    .total-credit-sale,
+    .total-amount-paid,
+    .remaining-balance {
+        display: flex;
+        padding: 10px 0px;
+        // justify-content: space-around;
+    }
+
+    .credit-hr-line {
+        border-top: 1px solid $primary-color;
+        width: 100%;
+    }
+
+    .remaining-balance {
+        .specify-width {
+            width: 96%;
+        }
+    }
+
+    .specify-width {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+
+        p {
+            font-size: 16px;
+            font-weight: 800;
+        }
+
+        span {
+            font-weight: 600;
+        }
+    }
+}
+
+.view {
+    border: 2px solid $modifications;
+    border-radius: 5px;
+    background-color: $bg-light;
+    padding: 5px 10px;
+    margin-right: 5px;
+    height: 30px;
+
+    &:hover {
+        background-color: $modifications;
+        color: $secondary-color;
+    }
 }
 
 .bg-credit {

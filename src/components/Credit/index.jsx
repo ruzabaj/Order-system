@@ -3,17 +3,23 @@ import Navbar from './../Navbar/index';
 import SelectSearchInput from "../SelectSearch";
 import "./../../scss/Credit/credit.scss";
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import SelectSearch from 'react-select-search';
+import CreditTables from './creditTable';
+import CreditInfo from './creditInfo';
+import PaymentModal from './../Modal/paymentModal';
 
 const Credit = () => {
-  // let navigate = useNavigate();
   let url = process.env.REACT_APP_BASE_URL;
 
   const [token, setToken] = useState("")
   const [selectedOutlet, setSelectedOutlet] = useState("")
   const [selectedCustomer, setSelectedCustomer] = useState("")
+  const [creditDetails, setCreditDetails] = useState({})
   const [listCustomer, setListCustomer] = useState([]);
+  const [creditWiseBillList, setCreditWiseBillList] = useState([]);
+  const [creditWisePaymentList, setCreditWisePaymentList] = useState([]);
+  const [isClicked, setIsClicked] = useState(false)
+  const [isShown, setIsShown] = useState(false)
 
   useEffect(() => {
     setToken(localStorage.getItem("token"))
@@ -42,11 +48,21 @@ const Credit = () => {
     })
       .then((response) => {
         console.log("ok", response.data)
+        setCreditDetails(response.data.CreditDetails)
+        setCreditWiseBillList(response.data.CreditWiseBillList)
+        setCreditWisePaymentList(response.data.CreditWisePaymentList)
       })
       .catch((error) => {
         console.log(error)
       })
   }, [selectedOutlet, selectedCustomer])
+
+  const handleView = () => {
+    setIsClicked(!isClicked)
+  }
+  const handleShow = () => {
+    setIsShown(!isShown)
+  }
 
   return (
     <section>
@@ -64,43 +80,13 @@ const Credit = () => {
         </div>
       </div>
       <div className='bg-credit'>
-        <div className='credit-info'>
-          <div className='total-credit-sale'>
-            <div className='specify-width'>
-              <p >Total Credit Sale: </p>
-              <span>1000</span>
-            </div>
-            <button className='view'>View</button>
-          </div>
-          <div className='total-amount-paid'>
-            <div className='specify-width'>
-              <p >Total Amount Paid: </p>
-              <span>1000</span>
-            </div>
-            <button className='view'>View</button>
-          </div>
-          <hr className='credit-hr-line'></hr>
-          <div className='remaining-balance'>
-            <div className='specify-width'>
-              <p >Remaining Balance:: </p>
-              <span>1000</span>
-            </div>
-          </div>
-        </div>
+        <CreditInfo creditDetails={creditDetails} handleView={handleView} isShown={isShown} handleShow={handleShow} isClicked={isClicked}/>
         <div className='btn-make-payment'>
           <button className='make-payment'>Make Payment</button>
         </div>
-        <div className='credit-table'>
-          <div className='total-credit-sale-table'>
-            <table>
-
-            </table>
-          </div>
-          <div className='total-amount-paid-table'>
-
-          </div>
-        </div>
+        <CreditTables isShown={isShown} isClicked={isClicked} creditWiseBillList={creditWiseBillList} creditWisePaymentList={creditWisePaymentList}/>
       </div>
+      <PaymentModal/>
     </section>
   )
 }

@@ -65,7 +65,9 @@
         font-weight: 600;
     }
 }
-
+.bg-stats {
+    min-height: 60vh !important;
+}
 .line-chart-stats {
     display: flex;
     justify-content: center;

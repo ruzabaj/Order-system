@@ -7,7 +7,7 @@
     }
 }
 .view {
-    border: 2px solid $modifications;
+    // border: 2px solid $modifications;
     border-radius: 5px;
     background-color: $bg-light;
     padding: 5px 10px;
@@ -31,7 +31,7 @@
         height: 40px;
         width: 150px;
         border: 2px solid $success-color;
-
+        background-color: $bg-timesales;
         &:hover {
             background-color: $success-color;
             color: $secondary-color;
@@ -65,7 +65,7 @@
 
 .table-credit-responsive {
     width: 100%;
-    height: 350px;
+    height: 300px;
     overflow-x: auto;
     
     .table-credit {
@@ -125,7 +125,7 @@
 .credit-info {
     // border: 2px solid $primary-color;
     margin: 20px 0px;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    box-shadow: rgba(100, 100, 111, 0.1) 0px 7px 29px 0px;
 
     .total-credit-sale,
     .total-amount-paid,

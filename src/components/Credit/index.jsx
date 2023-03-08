@@ -86,8 +86,8 @@ const Credit = () => {
       </div>
       <div className='bg-credit'>
         <CreditInfo creditDetails={creditDetails} handleView={handleView} isShown={isShown} handleShow={handleShow} isClicked={isClicked}/>
-        <div className='btn-make-payment' onClick={handleShowModal}>
-          <button className='make-payment'>Make Payment</button>
+        <div className='btn-make-payment' >
+          <button className='make-payment' onClick={handleShowModal}> Make Payment</button>
         </div>
         <CreditTables isShown={isShown} isClicked={isClicked} creditWiseBillList={creditWiseBillList} creditWisePaymentList={creditWisePaymentList}/>
       </div>

@@ -14,9 +14,11 @@
         background-color: $btn-seen !important;
     }
 }
-.timeline {
+.bg-timeline {
     background-color: rgb(238,239,243);
-    min-height: 100vh;
+    min-height: 80vh !important;
+}
+.timeline {
     display: flex;
     .left-timeline{
         // width: 250px !important;

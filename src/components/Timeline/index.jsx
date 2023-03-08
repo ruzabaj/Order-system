@@ -67,6 +67,7 @@ const Timeline = () => {
             <div className='filter-timeline'>
                 <Filter startDate={startDate} setStartDate={setStartDate} selectedOutlet={selectedOutlet} setSelectedOutlet={setSelectedOutlet} endDate={endDate} setEndDate={setEndDate} view={viewTimeline} btn={"Timeline"} />
             </div>
+            <div className='bg-timeline'>
             {showTimeline &&
                 <div className='timeline'>
                     <div className='left-timeline'>
@@ -85,6 +86,7 @@ const Timeline = () => {
                     </div>
                 </div>
             }
+            </div>
         </div>
     )
 }

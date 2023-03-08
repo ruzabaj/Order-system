@@ -147,14 +147,15 @@ const Stats = () => {
                         }
                     </div>
                 </div>
-
-                {Total && Total.length > 0 && labels && labels.length > 0 &&
-                    <div className='stats-chart'>
-                        <div className='line-chart-stats'>
-                            <LineChart labels={labels} Total={Total} labelTitle={rangeType} Title={"Stats"} />
+                <div className='bg-stats'>
+                    {Total && Total.length > 0 && labels && labels.length > 0 &&
+                        <div className='stats-chart'>
+                            <div className='line-chart-stats'>
+                                <LineChart labels={labels} Total={Total} labelTitle={rangeType} Title={"Stats"} />
+                            </div>
                         </div>
-                    </div>
-                }
+                    }
+                </div>
             </div>
         </div>
     )

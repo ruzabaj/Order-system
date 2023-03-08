@@ -3,7 +3,7 @@
 .credit-info {
     margin: 20px 20px;
     background-color: $bg-light;
-    // border: 2px solid $primary-color;
+    border: 1px solid $btn-seen;
     // width: calc(100% - 50px);
     // box-shadow: rgba(100, 100, 111, 0.1) 0px 7px 29px 0px;
 
@@ -131,6 +131,7 @@
 
         thead {
             .position-sticky {
+                border-bottom: 1px solid $btn-seen;
                 position: sticky;
                 top: 0;
                 background-color: $bg-light;

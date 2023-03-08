@@ -21,6 +21,7 @@ const Credit = () => {
   const [creditWisePaymentList, setCreditWisePaymentList] = useState([]);
   const [isClicked, setIsClicked] = useState(false)
   const [isShown, setIsShown] = useState(false)
+  const [isDisabled, setIsDisabled] = useState(true)
 
   useEffect(() => {
     setToken(localStorage.getItem("token"))
@@ -38,6 +39,7 @@ const Credit = () => {
         .catch((error) => {
           // console.log(error)
         })
+        setIsDisabled(false)
     }
   }, [token, selectedOutlet])
 
@@ -83,6 +85,7 @@ const Credit = () => {
               placeholder={"Select Customer Name"}
               onChange={(event) => setSelectedCustomer(event)}
               options={listCustomer}
+              disabled={isDisabled}
             />
           </div>
         </div>

@@ -42,7 +42,7 @@ const Credit = () => {
   }, [token, selectedOutlet])
 
   useEffect(() => {
-    if(selectedOutlet && selectedCustomer){
+    if (selectedOutlet && selectedCustomer) {
       axios.post(`${url}/customerCreditDetails`, {
         outlet: `${selectedOutlet}`,
         token: token,
@@ -73,27 +73,27 @@ const Credit = () => {
   return (
     <section>
       <Navbar />
-      <div className='handle-select-search-input'>
-        <div className='handle-width'>
-          <SelectSearchInput token={token} setToken={setToken} setSelectedOutlet={setSelectedOutlet} selectedOutlet={selectedOutlet} />
-          <SelectSearch
-            defaultValue={selectedCustomer}
-            search
-            placeholder={"Select Customer Name"}
-            onChange={(event) => setSelectedCustomer(event)}
-            options={listCustomer}
-          />
-        </div>
-      </div>
       <div className='bg-credit'>
-        <CreditInfo creditDetails={creditDetails} handleView={handleView} isShown={isShown} handleShow={handleShow} isClicked={isClicked}/>
+        <div className='handle-select-search-input'>
+          <div className='handle-width'>
+            <SelectSearchInput token={token} setToken={setToken} setSelectedOutlet={setSelectedOutlet} selectedOutlet={selectedOutlet} />
+            <SelectSearch
+              defaultValue={selectedCustomer}
+              search
+              placeholder={"Select Customer Name"}
+              onChange={(event) => setSelectedCustomer(event)}
+              options={listCustomer}
+            />
+          </div>
+        </div>
+        <CreditInfo creditDetails={creditDetails} handleView={handleView} isShown={isShown} handleShow={handleShow} isClicked={isClicked} />
         <div className='btn-make-payment' >
           <button className='make-payment' onClick={handleShowModal}> Make Payment</button>
         </div>
-        <CreditTables isShown={isShown} isClicked={isClicked} creditWiseBillList={creditWiseBillList} creditWisePaymentList={creditWisePaymentList}/>
+        <CreditTables isShown={isShown} isClicked={isClicked} creditWiseBillList={creditWiseBillList} creditWisePaymentList={creditWisePaymentList} />
       </div>
-      <PaymentModal show={show} handleClose={handleClose} token={token} selectedOutlet={selectedOutlet} selectedCustomer={selectedCustomer}/>
-      <Footer/>
+      <PaymentModal show={show} handleClose={handleClose} token={token} selectedOutlet={selectedOutlet} selectedCustomer={selectedCustomer} />
+      <Footer />
     </section>
   )
 }

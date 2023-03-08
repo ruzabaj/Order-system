@@ -1,6 +1,6 @@
 @import "../config";
 .handle-select-search-input {
-    margin: 10px 0px;
+    padding: 10px 0px;
     .handle-width {
         display: flex;
         justify-content: center;
@@ -9,14 +9,15 @@
 .view {
     // border: 2px solid $modifications;
     border-radius: 5px;
-    background-color: $bg-light;
     padding: 5px 10px;
     margin-right: 5px;
     height: 30px;
-
+    background-color: $modifications;
+    color: $secondary-color;
+    
     &:hover {
-        background-color: $modifications;
-        color: $secondary-color;
+        background-color: $secondary-color;
+        color: $modifications;
     }
 }
 
@@ -125,7 +126,8 @@
 .credit-info {
     // border: 2px solid $primary-color;
     margin: 20px 0px;
-    box-shadow: rgba(100, 100, 111, 0.1) 0px 7px 29px 0px;
+    background-color: $bg-light;
+    // box-shadow: rgba(100, 100, 111, 0.1) 0px 7px 29px 0px;
 
     .total-credit-sale,
     .total-amount-paid,
@@ -165,5 +167,5 @@
 
 .bg-credit {
     background-color: rgb(238, 239, 243);
-    min-height: 75vh !important;
+    min-height: 80vh !important;
 }

@@ -57,14 +57,14 @@ const NavbarHome = ({arrow}) => {
                             <label>Stats</label>
                         </div>
                     </Link>
-                </div>
-                <div className='bottom'>
                     <Link to="/timeline">
                         <div className='navbar-icons'>
                             <TbTimeline className='nav-icon' />
                             <label>Timeline</label>
                         </div>
                     </Link>
+                </div>
+                <div className='bottom'>
                     <Link to="/performance">
                         <div className='navbar-icons'>
                             <TbCalendarTime className='nav-icon' />

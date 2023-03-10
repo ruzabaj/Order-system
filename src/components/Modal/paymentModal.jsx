@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import axios from 'axios';
 import ResponseModal from './responseModal';
 
-const PaymentModal = ({ show, handleClose, token, selectedOutlet, selectedCustomer, uniqueID, orderID}) => {
+const PaymentModal = ({ setCreditWisePaymentList, setCreditWiseBillList,setCreditDetails, show, handleClose, token, selectedOutlet, selectedCustomer, uniqueID, orderID}) => {
     let baseUrl = process.env.REACT_APP_BASE_URL
 
     const [respond, setRespond] = useState("");
@@ -34,8 +34,22 @@ const PaymentModal = ({ show, handleClose, token, selectedOutlet, selectedCustom
                 guestID:`${uniqueID}`,
                 Outlet_OrderID:`${orderID}`
             })
-            console.log(response)
             setRespond(response.data.success)
+            //to show the updated data without refreshing after making payment
+            axios.post(`${baseUrl}/customerCreditDetails`, {
+                token: token,
+                outlet: `${selectedOutlet}`,
+                CustomerName: `${selectedCustomer}`,
+                guestID: `${uniqueID}`
+              })
+                .then((response) => {
+                  setCreditDetails(response.data.CreditDetails)
+                  setCreditWiseBillList(response.data.CreditWiseBillList)
+                  setCreditWisePaymentList(response.data.CreditWisePaymentList)
+                })
+                .catch((error) => {
+                  console.log(error)
+                })
             if (response.data.success) {
                 handleClose()
                 handleShowed()

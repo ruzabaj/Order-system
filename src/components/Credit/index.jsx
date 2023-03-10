@@ -8,8 +8,8 @@ import CreditInfo from './creditInfo';
 import PaymentModal from './../Modal/paymentModal';
 import Footer from "../Footer";
 import SameCustomerList from './SameCustomerList';
-import "./../../scss/Credit/credit.scss";
 import LeftCredit from './LeftCredit';
+import "./../../scss/Credit/credit.scss";
 
 const Credit = () => {
   let url = process.env.REACT_APP_BASE_URL;
@@ -33,7 +33,7 @@ const Credit = () => {
   const [similarCustomer, setSimilarCustomer] = useState([]);
   const [creditLeft, setCreditLeft] = useState([]);
 
-  console.log("similarCustomer", similarCustomer)
+  // console.log("similarCustomer", similarCustomer)
   useEffect(() => {
     setToken(localStorage.getItem("token"))
   }, [])
@@ -114,7 +114,7 @@ const Credit = () => {
     }
   }, [similarCustomer])
 
-  console.log(similarCustomer.length, "check length")
+  // console.log(similarCustomer.length, "check length")
   const handleView = () => {
     setIsClicked(!isClicked)
   }
@@ -184,7 +184,7 @@ const Credit = () => {
     }
   }, [rangeType, starting, ending])
 
-  console.log("rangeType", rangeType)
+  // console.log("rangeType", rangeType)
   return (
     <section>
       <Navbar />
@@ -210,7 +210,7 @@ const Credit = () => {
           <div>
             <CreditInfo creditDetails={creditDetails} handleView={handleView} isShown={isShown} handleShow={handleShow} isClicked={isClicked} />
             <div className='btn-make-payment' >
-              <button className='make-payment' onClick={handleShowModal}> Make Payment</button>
+              <button className='make-payment' onClick={handleShowModal}>Make Payment</button>
             </div>
             <CreditTables isShown={isShown} isClicked={isClicked} creditWiseBillList={creditWiseBillList} creditWisePaymentList={creditWisePaymentList} />
           </div>
@@ -221,7 +221,11 @@ const Credit = () => {
         {isCreditLeft &&
           <LeftCredit handleRangeType={handleRangeType} creditLeft={creditLeft} showDatepicker={showDatepicker} startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate} />
         }
-        <PaymentModal show={show} handleClose={handleClose} token={token} selectedOutlet={selectedOutlet} selectedCustomer={selectedCustomer} uniqueID={uniqueID} orderID={orderID} />
+        <PaymentModal show={show} handleClose={handleClose} token={token} selectedOutlet={selectedOutlet} selectedCustomer={selectedCustomer} uniqueID={uniqueID} orderID={orderID} 
+        setCreditDetails={setCreditDetails}
+        setCreditWiseBillList={setCreditWiseBillList}
+        setCreditWisePaymentList={setCreditWisePaymentList}
+        />
       </div>
       <Footer />
     </section>

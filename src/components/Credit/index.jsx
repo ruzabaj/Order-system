@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import Navbar from './../Navbar/index';
 import SelectSearchInput from "../SelectSearch";
-import "./../../scss/Credit/credit.scss";
 import axios from 'axios';
 import SelectSearch from 'react-select-search';
 import CreditTables from './creditTable';
 import CreditInfo from './creditInfo';
 import PaymentModal from './../Modal/paymentModal';
 import Footer from "../Footer";
+import SameCustomerList from './SameCustomerList';
+import "./../../scss/Credit/credit.scss";
 
 const Credit = () => {
   let url = process.env.REACT_APP_BASE_URL;
 
   const [token, setToken] = useState("")
+  const [uniqueID, setUniqueID] = useState("")
   const [selectedOutlet, setSelectedOutlet] = useState("")
   const [selectedCustomer, setSelectedCustomer] = useState("")
   const [creditDetails, setCreditDetails] = useState({})
@@ -39,16 +41,30 @@ const Credit = () => {
         .catch((error) => {
           // console.log(error)
         })
-        setIsDisabled(false)
+      setIsDisabled(false)
     }
   }, [token, selectedOutlet])
 
   useEffect(() => {
     if (selectedOutlet && selectedCustomer) {
-      axios.post(`${url}/customerCreditDetails`, {
-        outlet: `${selectedOutlet}`,
+      axios.post(`${url}/customerCreditData`, {
         token: token,
+        outlet: `${selectedOutlet}`,
         CustomerName: `${selectedCustomer}`
+      })
+      .then((response)=>{
+        console.log(response)
+        setUniqueID()
+      })
+      .catch((error)=>{
+        console.log(error)
+      })
+
+      axios.post(`${url}/customerCreditDetails`, {
+        token: token,
+        outlet: `${selectedOutlet}`,
+        CustomerName: `${selectedCustomer}`,
+        guestID:""
       })
         .then((response) => {
           console.log("ok", response.data)
@@ -57,7 +73,7 @@ const Credit = () => {
           setCreditWisePaymentList(response.data.CreditWisePaymentList)
         })
         .catch((error) => {
-          // console.log(error)
+          console.log(error)
         })
     }
   }, [selectedOutlet, selectedCustomer])
@@ -72,6 +88,13 @@ const Credit = () => {
 
   const handleClose = () => setShow(false);
   const handleShowModal = () => setShow(true);
+
+  const customerDetail = ["ID", "Name", "Email", "Address", "Phone"]
+
+  const handleDetails=()=>{
+    console.log("clicked eye icon")
+  }
+
   return (
     <section>
       <Navbar />
@@ -88,6 +111,9 @@ const Credit = () => {
               disabled={isDisabled}
             />
           </div>
+        </div>
+        <div className='same-customer-list'>
+          <SameCustomerList header={customerDetail} handleDetails={handleDetails}/>
         </div>
         <CreditInfo creditDetails={creditDetails} handleView={handleView} isShown={isShown} handleShow={handleShow} isClicked={isClicked} />
         <div className='btn-make-payment' >

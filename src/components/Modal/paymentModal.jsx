@@ -6,28 +6,32 @@ import ResponseModal from './responseModal';
 
 const PaymentModal = ({ show, handleClose, token, selectedOutlet, selectedCustomer }) => {
     let baseUrl = process.env.REACT_APP_BASE_URL
-    // const [respond, setRespond] = useState({
-    //     sucsess: "",
-    //     error:""
-    // });
+
     const [respond, setRespond] = useState("");
     const [error, setError] = useState("");
     const [openModal, setOpenModal] = useState(false);
     const handleCancel = () => setOpenModal(false);
     const handleShowed = () => setOpenModal(true);
-    const [paymentValue, setPaymentValue] = useState({
-        Amount: "",
-        PaymentMode: "",
-    })
+    const [paymentAmount, setPaymentAmount] = useState("")
+    const [paymentMode, setPaymentMode] = useState("")
+
+    const handleChange = (event) => {
+        setPaymentAmount(event.target.value)
+    }
+
+    const handleSelectChange = (event) => {
+        setPaymentMode(event.target.value)
+    }
 
     const handleSave = async () => {
         try {
             let response = await axios.post(`${baseUrl}/customerCreditInsert`, {
                 token: token,
                 outlet: `${selectedOutlet}`,
-                Amount: paymentValue.Amount,
-                PaymentMode: paymentValue.PaymentMode,
-                CustomerName: `${selectedCustomer}`
+                Amount: paymentAmount,
+                PaymentMode: paymentMode,
+                CustomerName: `${selectedCustomer}`,
+                guestID:""
             })
             console.log(response)
             setRespond(response.data.success)
@@ -45,13 +49,25 @@ const PaymentModal = ({ show, handleClose, token, selectedOutlet, selectedCustom
         }
     }
 
-    const handleChange = (event) => {
-        const { id, value } = event.target;
-        setPaymentValue({
-            ...paymentValue,
-            [id]: value,
-        });
-    }
+    const options = [
+        {
+            label: "Cash",
+            value: "Cash",
+        },
+        {
+            label: "Credit Card",
+            value: "Credit Card",
+        },
+
+        {
+            label: "Mobile Payment",
+            value: "Mobile Payment",
+        },
+        {
+            label: "Bank Cheque",
+            value: "Bank Cheque",
+        }]
+
     return (
         <div>
             <Modal show={show} onHide={handleClose} centered >
@@ -62,13 +78,18 @@ const PaymentModal = ({ show, handleClose, token, selectedOutlet, selectedCustom
                     <div className='amount-detail'>
                         <label>Amount</label>
                         <div>
-                            <input type="text" value={paymentValue.Amount} className="form-control" id="Amount" placeholder="1000" onChange={handleChange} />
+                            <input type="text" value={paymentAmount} className="form-control" id="Amount" placeholder="1000" onChange={handleChange} />
                         </div>
                     </div>
-                    <div className='amount-detail'>
+                    <div className="amount-detail">
                         <label>Payment Mode</label>
                         <div>
-                            <input type="text" value={paymentValue.PaymentMode} className="form-control" id="PaymentMode" placeholder=" Cash" onChange={handleChange} />
+                            <select className="select-style" onChange={handleSelectChange}>
+                                <option value={""}>{"Select payment mode"}</option>
+                                {options.map((option) => (
+                                    <option value={option.value}>{option.label}</option>
+                                ))}
+                            </select>
                         </div>
                     </div>
                     <p className='error-color'>{error}</p>
@@ -82,7 +103,7 @@ const PaymentModal = ({ show, handleClose, token, selectedOutlet, selectedCustom
                     </Button>
                 </Modal.Footer>
             </Modal>
-            <ResponseModal openModal={openModal} respond={respond}  handleCancel={handleCancel} />
+            <ResponseModal openModal={openModal} respond={respond} handleCancel={handleCancel} />
         </div>
     )
 }

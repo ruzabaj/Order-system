@@ -32,7 +32,7 @@ const Navbar = ({arrow}) => {
                             <label>Home</label>
                         </div>
                     </Link>
-                    {/* <Link to="/report">
+                    <Link to="/report">
                         <div className='navbar-icons'>
                             <TbReportSearch className='nav-icon' />
                             <label>Report</label>
@@ -43,7 +43,7 @@ const Navbar = ({arrow}) => {
                             <TbToolsKitchen className='nav-icon' />
                             <label>Kitchen</label>
                         </div>
-                    </Link> */}
+                    </Link>
                     <Link to="/history">
                         <div className='navbar-icons'>
                             <AiOutlineHistory className='nav-icon' />
@@ -56,14 +56,14 @@ const Navbar = ({arrow}) => {
                             <label>Stats</label>
                         </div>
                     </Link>
+                </div>
+                <div className='bottom'>
                     <Link to="/timeline">
                         <div className='navbar-icons'>
                             <TbTimeline className='nav-icon' />
                             <label>Timeline</label>
                         </div>
                     </Link>
-                </div>
-                <div className='bottom'>
                     <Link to="/performance">
                         <div className='navbar-icons'>
                             <TbCalendarTime className='nav-icon' />

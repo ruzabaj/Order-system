@@ -9,6 +9,7 @@ import PaymentModal from './../Modal/paymentModal';
 import Footer from "../Footer";
 import SameCustomerList from './SameCustomerList';
 import "./../../scss/Credit/credit.scss";
+import LeftCredit from './LeftCredit';
 
 const Credit = () => {
   let url = process.env.REACT_APP_BASE_URL;
@@ -24,9 +25,13 @@ const Credit = () => {
   const [isShown, setIsShown] = useState(false)
   const [isDisabled, setIsDisabled] = useState(true)
   const [isEyeClicked, setisEyeClicked] = useState(false)
+  const [isCreditLeft, setisCreditLeft] = useState(false)
+  const [showDatepicker, setShowDatepicker] = useState(false)
   const [uniqueID, setUniqueGuestID] = useState("")
   const [orderID, setOrderID] = useState("")
+  const [rangeType, setRangeType] = useState("")
   const [similarCustomer, setSimilarCustomer] = useState([]);
+  const [creditLeft, setCreditLeft] = useState([]);
 
   console.log("similarCustomer", similarCustomer)
   useEffect(() => {
@@ -43,10 +48,11 @@ const Credit = () => {
           setListCustomer(response.data)
         })
         .catch((error) => {
-          // console.log(error)
+          console.log(error)
         })
       setIsDisabled(false)
     }
+
   }, [token, selectedOutlet])
 
   useEffect(() => {
@@ -57,6 +63,7 @@ const Credit = () => {
         customerName: `${selectedCustomer}`
       })
         .then((response) => {
+          console.log("here", response.data)
           setSimilarCustomer(response.data)
         })
         .catch((error) => {
@@ -83,6 +90,31 @@ const Credit = () => {
     }
   }, [selectedOutlet, selectedCustomer, uniqueID])
 
+  //Case: When there is only one customer with that particular name
+  useEffect(() => {
+    if (similarCustomer.length === 1) {
+      setisEyeClicked(true)
+      var oneID = similarCustomer[0].guestID
+      console.log(oneID, "one id")
+      axios.post(`${url}/customerCreditDetails`, {
+        token: token,
+        outlet: `${selectedOutlet}`,
+        CustomerName: `${selectedCustomer}`,
+        guestID: `${oneID}`
+      })
+        .then((response) => {
+          console.log("ok", response.data)
+          setCreditDetails(response.data.CreditDetails)
+          setCreditWiseBillList(response.data.CreditWiseBillList)
+          setCreditWisePaymentList(response.data.CreditWisePaymentList)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
+  }, [similarCustomer])
+
+  console.log(similarCustomer.length, "check length")
   const handleView = () => {
     setIsClicked(!isClicked)
   }
@@ -97,13 +129,62 @@ const Credit = () => {
   const customerDetail = ["ID", "Name", "Email", "Address", "Phone"]
 
   const handleDetails = (id, orderId) => {
-    console.log("clicked eye icon", id)
+    // console.log("clicked eye icon", id)
     setisEyeClicked(true)
     setUniqueGuestID(id)
     setOrderID(orderId)
   }
 
-  // console.log("orderId", orderID)
+  const handleShowLeftCredit = () => {
+    setisCreditLeft(!isCreditLeft);
+
+  }
+
+  const handleRangeType = (event) => {
+    setRangeType(event.target.value)
+  }
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+  let starting = startDate.toISOString().slice(0, 10);
+  let ending = endDate.toISOString().slice(0, 10);
+
+  useEffect(() => {
+    if (rangeType === "All") {
+      axios.post(`${url}/customerCreditleft`, {
+        token: `${token}`,
+        outlet: `${selectedOutlet}`,
+        type: `${rangeType}`,
+      })
+        .then((response) => {
+          console.log("customerCreditleft", response.data)
+          setCreditLeft(response.data)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
+    if (rangeType === "Ranged") {
+      setShowDatepicker(true)
+    }
+    if (rangeType && starting && ending) {
+      axios.post(`${url}/customerCreditleft`, {
+        token: `${token}`,
+        outlet: `${selectedOutlet}`,
+        type: `${rangeType}`,
+        dateStart: `${starting}`,
+        dateEnd: `${ending}`
+      })
+        .then((response) => {
+          console.log("customerCreditleft", response.data)
+          setCreditLeft(response.data)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
+  }, [rangeType, starting, ending])
+
+  console.log("rangeType", rangeType)
   return (
     <section>
       <Navbar />
@@ -124,7 +205,7 @@ const Credit = () => {
         <div className='same-customer-list'>
           <SameCustomerList header={customerDetail} handleDetails={handleDetails} similarCustomer={similarCustomer} />
         </div>
-        
+
         {isEyeClicked &&
           <div>
             <CreditInfo creditDetails={creditDetails} handleView={handleView} isShown={isShown} handleShow={handleShow} isClicked={isClicked} />
@@ -133,6 +214,12 @@ const Credit = () => {
             </div>
             <CreditTables isShown={isShown} isClicked={isClicked} creditWiseBillList={creditWiseBillList} creditWisePaymentList={creditWisePaymentList} />
           </div>
+        }
+        <div className='btn-left-credit'>
+          <button className='left-credit' onClick={handleShowLeftCredit}>View Credit Remaining</button>
+        </div>
+        {isCreditLeft &&
+          <LeftCredit handleRangeType={handleRangeType} creditLeft={creditLeft} showDatepicker={showDatepicker} startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate} />
         }
         <PaymentModal show={show} handleClose={handleClose} token={token} selectedOutlet={selectedOutlet} selectedCustomer={selectedCustomer} uniqueID={uniqueID} orderID={orderID} />
       </div>

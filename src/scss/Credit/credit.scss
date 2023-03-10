@@ -9,8 +9,11 @@
     border-radius: 5px;
 }
 
-.position-sticky:focus{
-    background-color: $bg-light;
+.position-sticky:focus, .position-sticky:visited, .position-sticky:focus-within{
+    background-color: $btn-seen;
+    color: $secondary-color;
+    // background-color: $modifications;
+    // background-color: $bg-light;
 }
 
 .credit-info {
@@ -96,6 +99,7 @@
     }
 }
 
+
 .credit-table {
     display: flex;
 
@@ -119,6 +123,7 @@
         justify-content: center ;
     }
 }
+
 .table-customer-list-responsive {
     width: 100%;
     height: auto;
@@ -193,6 +198,64 @@
         }
     }
 }
+.btn-left-credit {
+    margin: 5px 10px;
+    display: flex;
+    justify-content: flex-end;
+    
+    .left-credit {
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        border-radius: 10px;
+        height: 40px;
+        width: auto;
+        padding: 0px 10px;
+        border: 2px solid $btn-search;
+        background-color: $btn-search-light;
+        // color: $secondary-color;
+        &:hover {
+            background-color: $btn-search;
+            color: $secondary-color;
+        }
+    }
+}
+.table-credit-left-responsive {
+    width: 100%;
+    height: auto;
+    overflow-x: auto;
+    
+    .table-credit-left {
+        font-family: 'Source Sans Pro';
+        margin: 15px 0px;
+        width: 100%;
+        text-align: center;
+        border: 1px solid #292929;
+        border-radius: 15px;
+        
+        td,
+        th {
+            border: 1px solid #292929;
+            padding: 4px;
+        }
+        
+        th {
+            height: 40px;
+        }
+
+        thead {
+            .position-sticky {
+                border-bottom: 1px solid $btn-seen;
+                position: sticky;
+                top: 0;
+                background-color:$btn-search;
+                color: $primary-color;
+            }
+        }
+
+        tbody {
+            background-color: $btn-search-light;
+        }
+    }
+}
 
 .no-wrap {
     white-space: nowrap;
@@ -223,8 +286,10 @@
     color:$secondary-color
 }
 
-
+.left-credit{
+    margin: 20px;
+}
 .bg-credit {
     background-color: rgb(238, 239, 243);
-    min-height: 80vh !important;
+    min-height: 85vh !important;
 }

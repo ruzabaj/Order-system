@@ -3,14 +3,17 @@ import React from 'react'
 import DateFormat from "../History/DateFormat";
 
 const CreditTable = ({ header, data }) => {
-    function sumTotalAmount(array) {
-        let sumTotal = 0;
-        array.forEach((item) => {
-            sumTotal +=  parseFloat(item.Total);
-        });
-        return sumTotal;
+    console.log("inside credit table", data)
+    if(!(data?.error)){
+        function sumTotalAmount(array) {
+            let sumTotal = 0;
+            array.forEach((item) => {
+                sumTotal +=  parseFloat(item.Total);
+            });
+            return sumTotal;
+          }
+          var total = sumTotalAmount(data);
       }
-      let total = sumTotalAmount(data);
 
     return (
         <div className="table-credit-responsive">
@@ -23,7 +26,8 @@ const CreditTable = ({ header, data }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map((info, index) => (
+                    {!(data?.error) && 
+                    data.map((info, index) => (
                         <tr key={index}>
                             <td className='no-wrap'>{info.bill_no}</td>
                             <td className='no-wrap'><DateFormat date={info.Date}/></td>
@@ -35,7 +39,8 @@ const CreditTable = ({ header, data }) => {
                             <td className='no-wrap'>Total:</td>
                             <td className='no-wrap'></td>
                             <td className='no-wrap'></td>
-                            <td className='no-wrap-bold'>{total.toFixed(3)}</td>
+                            <td className='no-wrap-bold'>{!(data?.error) && total.toFixed(3)}</td>
+                            {/* <td className='no-wrap-bold'>{total}</td> */}
                         </tr>
                 </tbody>
             </table>

@@ -14,7 +14,6 @@ const Credit = () => {
   let url = process.env.REACT_APP_BASE_URL;
 
   const [token, setToken] = useState("")
-  const [uniqueID, setUniqueID] = useState("")
   const [selectedOutlet, setSelectedOutlet] = useState("")
   const [selectedCustomer, setSelectedCustomer] = useState("")
   const [creditDetails, setCreditDetails] = useState({})
@@ -24,7 +23,12 @@ const Credit = () => {
   const [isClicked, setIsClicked] = useState(false)
   const [isShown, setIsShown] = useState(false)
   const [isDisabled, setIsDisabled] = useState(true)
+  const [isEyeClicked, setisEyeClicked] = useState(false)
+  const [uniqueID, setUniqueGuestID] = useState("")
+  const [orderID, setOrderID] = useState("")
+  const [similarCustomer, setSimilarCustomer] = useState([]);
 
+  console.log("similarCustomer", similarCustomer)
   useEffect(() => {
     setToken(localStorage.getItem("token"))
   }, [])
@@ -50,21 +54,22 @@ const Credit = () => {
       axios.post(`${url}/customerCreditData`, {
         token: token,
         outlet: `${selectedOutlet}`,
-        CustomerName: `${selectedCustomer}`
+        customerName: `${selectedCustomer}`
       })
-      .then((response)=>{
-        console.log(response)
-        setUniqueID()
-      })
-      .catch((error)=>{
-        console.log(error)
-      })
+        .then((response) => {
+          setSimilarCustomer(response.data)
+        })
+        .catch((error) => {
+          console.log("error", error.response.data.error)
+        })
+    }
 
+    if (uniqueID) {
       axios.post(`${url}/customerCreditDetails`, {
         token: token,
         outlet: `${selectedOutlet}`,
         CustomerName: `${selectedCustomer}`,
-        guestID:""
+        guestID: `${uniqueID}`
       })
         .then((response) => {
           console.log("ok", response.data)
@@ -76,7 +81,7 @@ const Credit = () => {
           console.log(error)
         })
     }
-  }, [selectedOutlet, selectedCustomer])
+  }, [selectedOutlet, selectedCustomer, uniqueID])
 
   const handleView = () => {
     setIsClicked(!isClicked)
@@ -91,10 +96,14 @@ const Credit = () => {
 
   const customerDetail = ["ID", "Name", "Email", "Address", "Phone"]
 
-  const handleDetails=()=>{
-    console.log("clicked eye icon")
+  const handleDetails = (id, orderId) => {
+    console.log("clicked eye icon", id)
+    setisEyeClicked(true)
+    setUniqueGuestID(id)
+    setOrderID(orderId)
   }
 
+  // console.log("orderId", orderID)
   return (
     <section>
       <Navbar />
@@ -113,15 +122,20 @@ const Credit = () => {
           </div>
         </div>
         <div className='same-customer-list'>
-          <SameCustomerList header={customerDetail} handleDetails={handleDetails}/>
+          <SameCustomerList header={customerDetail} handleDetails={handleDetails} similarCustomer={similarCustomer} />
         </div>
-        <CreditInfo creditDetails={creditDetails} handleView={handleView} isShown={isShown} handleShow={handleShow} isClicked={isClicked} />
-        <div className='btn-make-payment' >
-          <button className='make-payment' onClick={handleShowModal}> Make Payment</button>
-        </div>
-        <CreditTables isShown={isShown} isClicked={isClicked} creditWiseBillList={creditWiseBillList} creditWisePaymentList={creditWisePaymentList} />
+        
+        {isEyeClicked &&
+          <div>
+            <CreditInfo creditDetails={creditDetails} handleView={handleView} isShown={isShown} handleShow={handleShow} isClicked={isClicked} />
+            <div className='btn-make-payment' >
+              <button className='make-payment' onClick={handleShowModal}> Make Payment</button>
+            </div>
+            <CreditTables isShown={isShown} isClicked={isClicked} creditWiseBillList={creditWiseBillList} creditWisePaymentList={creditWisePaymentList} />
+          </div>
+        }
+        <PaymentModal show={show} handleClose={handleClose} token={token} selectedOutlet={selectedOutlet} selectedCustomer={selectedCustomer} uniqueID={uniqueID} orderID={orderID} />
       </div>
-      <PaymentModal show={show} handleClose={handleClose} token={token} selectedOutlet={selectedOutlet} selectedCustomer={selectedCustomer} />
       <Footer />
     </section>
   )

@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import axios from 'axios';
 import ResponseModal from './responseModal';
 
-const PaymentModal = ({ show, handleClose, token, selectedOutlet, selectedCustomer }) => {
+const PaymentModal = ({ show, handleClose, token, selectedOutlet, selectedCustomer, uniqueID, orderID}) => {
     let baseUrl = process.env.REACT_APP_BASE_URL
 
     const [respond, setRespond] = useState("");
@@ -31,7 +31,8 @@ const PaymentModal = ({ show, handleClose, token, selectedOutlet, selectedCustom
                 Amount: paymentAmount,
                 PaymentMode: paymentMode,
                 CustomerName: `${selectedCustomer}`,
-                guestID:""
+                guestID:`${uniqueID}`,
+                Outlet_OrderID:`${orderID}`
             })
             console.log(response)
             setRespond(response.data.success)

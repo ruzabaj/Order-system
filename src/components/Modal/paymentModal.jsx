@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import axios from 'axios';
 import ResponseModal from './responseModal';
 
-const PaymentModal = ({ setCreditWisePaymentList, setCreditWiseBillList,setCreditDetails, show, handleClose, token, selectedOutlet, selectedCustomer, uniqueID}) => {
+const PaymentModal = ({ setCreditLeft, setCreditWisePaymentList, setCreditWiseBillList,setCreditDetails, show, handleClose, token, selectedOutlet, selectedCustomer, uniqueID}) => {
     let baseUrl = process.env.REACT_APP_BASE_URL
 
     const [respond, setRespond] = useState("");
@@ -51,10 +51,23 @@ const PaymentModal = ({ setCreditWisePaymentList, setCreditWiseBillList,setCredi
                 .catch((error) => {
                   console.log(error)
                 })
+
+                axios.post(`${baseUrl}/customerCreditleft`, {
+                    token: `${token}`,
+                    outlet: `${selectedOutlet}`,
+                    type: `All`,
+                  })
+                    .then((response) => {
+                      setCreditLeft(response.data)
+                    })
+                    .catch((error) => {
+                      console.log(error)
+                    })
             if (response.data.success) {
                 handleClose()
                 handleShowed()
             }
+
         }
         catch (error) {
             setError(error.response.data.error)

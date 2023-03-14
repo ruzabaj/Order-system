@@ -230,6 +230,7 @@ const Credit = () => {
           selectedCustomer={selectedCustomer}
           uniqueID={uniqueID}
           //  orderID={orderID} 
+          setCreditLeft={setCreditLeft}
           setCreditDetails={setCreditDetails}
           setCreditWiseBillList={setCreditWiseBillList}
           setCreditWisePaymentList={setCreditWisePaymentList}

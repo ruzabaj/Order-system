@@ -222,7 +222,7 @@ const Bill = () => {
                                     <SelectSearchInput token={token} setToken={setToken} setSelectedOutlet={setSelectedOutlet} selectedOutlet={selectedOutlet} />
                                 </div>
                                 <div >
-                                    <input type="number" placeholder='Search by bill no.' className='bill-number' onChange={handleBillNumber} />
+                                    <input type="text" placeholder='Search by bill no.' className='bill-number' onChange={handleBillNumber} />
                                 </div>
                             </div>
                             <div>

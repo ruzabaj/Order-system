@@ -16,7 +16,7 @@ const SameCustomerList = ({ header, handleDetails, similarCustomer }) => {
                 </thead>
                 <tbody>
                     {similarCustomer.map((info, index) => (
-                        <tr className='position-sticky' id='q1button'  tabIndex="1" key={index} onClick={()=>handleDetails(info.guestID, info.Outlet_OrderID)}>
+                        <tr className='position-sticky' id='q1button'  tabIndex="1" key={index} onClick={()=>handleDetails(info.guestID)}>
                             <td>{info.guestID}</td>
                             <td>{info.GuestName}</td>
                             <td>{info.guestEmail}</td>

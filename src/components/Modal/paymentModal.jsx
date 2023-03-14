@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import axios from 'axios';
 import ResponseModal from './responseModal';
 
-const PaymentModal = ({ setCreditWisePaymentList, setCreditWiseBillList,setCreditDetails, show, handleClose, token, selectedOutlet, selectedCustomer, uniqueID, orderID}) => {
+const PaymentModal = ({ setCreditWisePaymentList, setCreditWiseBillList,setCreditDetails, show, handleClose, token, selectedOutlet, selectedCustomer, uniqueID}) => {
     let baseUrl = process.env.REACT_APP_BASE_URL
 
     const [respond, setRespond] = useState("");
@@ -24,6 +24,7 @@ const PaymentModal = ({ setCreditWisePaymentList, setCreditWiseBillList,setCredi
     }
 
     const handleSave = async () => {
+        console.log("guest id to insert credit",uniqueID)
         try {
             let response = await axios.post(`${baseUrl}/customerCreditInsert`, {
                 token: token,
@@ -32,7 +33,7 @@ const PaymentModal = ({ setCreditWisePaymentList, setCreditWiseBillList,setCredi
                 PaymentMode: paymentMode,
                 CustomerName: `${selectedCustomer}`,
                 guestID:`${uniqueID}`,
-                Outlet_OrderID:`${orderID}`
+                // Outlet_OrderID:`${orderID}`
             })
             setRespond(response.data.success)
             //to show the updated data without refreshing after making payment

@@ -28,7 +28,7 @@ const Credit = () => {
   const [isCreditLeft, setisCreditLeft] = useState(false)
   const [showDatepicker, setShowDatepicker] = useState(false)
   const [uniqueID, setUniqueGuestID] = useState("")
-  const [orderID, setOrderID] = useState("")
+  // const [orderID, setOrderID] = useState("")
   const [rangeType, setRangeType] = useState("")
   const [similarCustomer, setSimilarCustomer] = useState([]);
   const [creditLeft, setCreditLeft] = useState([]);
@@ -63,7 +63,7 @@ const Credit = () => {
         customerName: `${selectedCustomer}`
       })
         .then((response) => {
-          console.log("here", response.data)
+          // console.log("here 123", response.data)
           setSimilarCustomer(response.data)
         })
         .catch((error) => {
@@ -79,7 +79,7 @@ const Credit = () => {
         guestID: `${uniqueID}`
       })
         .then((response) => {
-          console.log("ok", response.data)
+          // console.log("ok", response.data)
           setCreditDetails(response.data.CreditDetails)
           setCreditWiseBillList(response.data.CreditWiseBillList)
           setCreditWisePaymentList(response.data.CreditWisePaymentList)
@@ -95,7 +95,9 @@ const Credit = () => {
     if (similarCustomer.length === 1) {
       setisEyeClicked(true)
       var oneID = similarCustomer[0].guestID
-      console.log(oneID, "one id")
+      // console.log(oneID, "one id")
+      setUniqueGuestID(oneID);
+
       axios.post(`${url}/customerCreditDetails`, {
         token: token,
         outlet: `${selectedOutlet}`,
@@ -103,10 +105,11 @@ const Credit = () => {
         guestID: `${oneID}`
       })
         .then((response) => {
-          console.log("ok", response.data)
+          // console.log("ok", response.data)
           setCreditDetails(response.data.CreditDetails)
           setCreditWiseBillList(response.data.CreditWiseBillList)
           setCreditWisePaymentList(response.data.CreditWisePaymentList)
+
         })
         .catch((error) => {
           console.log(error)
@@ -114,7 +117,6 @@ const Credit = () => {
     }
   }, [similarCustomer])
 
-  // console.log(similarCustomer.length, "check length")
   const handleView = () => {
     setIsClicked(!isClicked)
   }
@@ -128,11 +130,11 @@ const Credit = () => {
 
   const customerDetail = ["ID", "Name", "Email", "Address", "Phone"]
 
-  const handleDetails = (id, orderId) => {
+  const handleDetails = (id) => {
     // console.log("clicked eye icon", id)
     setisEyeClicked(true)
     setUniqueGuestID(id)
-    setOrderID(orderId)
+    // setOrderID(orderId)
   }
 
   const handleShowLeftCredit = () => {
@@ -156,7 +158,7 @@ const Credit = () => {
         type: `${rangeType}`,
       })
         .then((response) => {
-          console.log("customerCreditleft", response.data)
+          // console.log("customerCreditleft", response.data)
           setCreditLeft(response.data)
         })
         .catch((error) => {
@@ -175,7 +177,7 @@ const Credit = () => {
         dateEnd: `${ending}`
       })
         .then((response) => {
-          console.log("customerCreditleft", response.data)
+          // console.log("customerCreditleft", response.data)
           setCreditLeft(response.data)
         })
         .catch((error) => {
@@ -221,10 +223,16 @@ const Credit = () => {
         {isCreditLeft &&
           <LeftCredit handleRangeType={handleRangeType} creditLeft={creditLeft} showDatepicker={showDatepicker} startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate} />
         }
-        <PaymentModal show={show} handleClose={handleClose} token={token} selectedOutlet={selectedOutlet} selectedCustomer={selectedCustomer} uniqueID={uniqueID} orderID={orderID} 
-        setCreditDetails={setCreditDetails}
-        setCreditWiseBillList={setCreditWiseBillList}
-        setCreditWisePaymentList={setCreditWisePaymentList}
+        <PaymentModal show={show}
+          handleClose={handleClose}
+          token={token}
+          selectedOutlet={selectedOutlet}
+          selectedCustomer={selectedCustomer}
+          uniqueID={uniqueID}
+          //  orderID={orderID} 
+          setCreditDetails={setCreditDetails}
+          setCreditWiseBillList={setCreditWiseBillList}
+          setCreditWisePaymentList={setCreditWisePaymentList}
         />
       </div>
       <Footer />
